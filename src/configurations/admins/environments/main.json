@@ -1,0 +1,8 @@
+{
+  "key": "production",
+  "branch": "main",
+  "label": "Production",
+  "debug": false,
+  "strict": true,
+  "required": []
+}
