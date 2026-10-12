@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 
 import { ActionLink } from '@/components/elements/actions/ActionLink'
@@ -16,6 +16,8 @@ import { PageSkeleton } from '@/components/elements/feedback/PageSkeleton'
 import { Skeleton } from '@/components/elements/feedback/Skeleton'
 import { Spinner } from '@/components/elements/feedback/Spinner'
 import { FormRenderer } from '@/components/elements/forms/FormRenderer'
+import { Globe } from '@/components/elements/media/Globe'
+import { ProfileCard } from '@/components/structures/data/ProfileCard'
 import { Breadcrumb } from '@/components/structures/navigation/Breadcrumb'
 import { Pagination } from '@/components/structures/navigation/Pagination'
 import { Tabs } from '@/components/structures/navigation/Tabs'
@@ -33,14 +35,21 @@ import { IconGrid } from '@/components/showcase/IconGrid'
 import { ShowcaseBlock } from '@/components/showcase/ShowcaseBlock'
 import { ThemePalette } from '@/components/showcase/ThemePalette'
 import { TypographyScale } from '@/components/showcase/TypographyScale'
-import { FAQ, PLACEHOLDER_IMAGE, STATS } from '@/declarations/content'
+import { FAQ, HERO_COUNTRIES, PLACEHOLDER_IMAGE, STATS, TEAM } from '@/declarations/content'
+import { GLOBE_PLACES } from '@/declarations/globe'
 import { SIZES, TONES } from '@/declarations/ui/tokens'
 import { BUTTON_VARIANTS } from '@/declarations/ui/variants'
 import type { ButtonVariant } from '@/declarations/ui/variants'
 import { FormatService } from '@/services/FormatService'
 import { NavigationService } from '@/services/NavigationService'
 import { NotificationService } from '@/services/NotificationService'
+import type { GlobePlace } from '@/types/globe'
 import { buildPaginationMeta } from '@/utils/array'
+
+// Places carrying a label
+const LABELLED_PLACES = Object.entries(GLOBE_PLACES as Record<string, GlobePlace>)
+  .filter(([, place]) => place.isLabelled)
+  .map(([id]) => id)
 
 // Table demo rows
 const TABLE_ROWS = STATS.map((stat) => ({
@@ -60,6 +69,7 @@ export const ShowcaseCatalog = () => {
   const feedback = useTranslations('feedback')
   const stats = useTranslations('sections.stats')
   const faq = useTranslations('sections.faq')
+  const team = useTranslations('sections.team')
   const format = FormatService.for(useLocale())
 
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -67,6 +77,18 @@ export const ShowcaseCatalog = () => {
   const [page, setPage] = useState(1)
   const [query, setQuery] = useState('')
   const [filterId, setFilterId] = useState(TONES[0] as string)
+
+  // Stable labels, the globe remounts on change
+  const globeLabels = useMemo(
+    () =>
+      Object.fromEntries(
+        LABELLED_PLACES.map((id) => [
+          id,
+          { name: team(`places.${id}.name`), counterpart: team(`places.${id}.counterpart`) },
+        ])
+      ),
+    [team]
+  )
 
   return (
     <div className="flex flex-col gap-6">
@@ -285,6 +307,24 @@ export const ShowcaseCatalog = () => {
         path="src/components/elements/forms/FormRenderer.tsx"
         description={t('descriptions.forms')}>
         <FormRenderer id="newsletter" className="w-full" />
+      </ShowcaseBlock>
+
+      <ShowcaseBlock title={t('blocks.globe')} path="src/declarations/globe.ts">
+        <Globe label={team('globe')} labels={globeLabels} className="mx-auto max-w-xl" />
+      </ShowcaseBlock>
+
+      <ShowcaseBlock
+        title={t('blocks.profileCard')}
+        path="src/components/structures/data/ProfileCard.tsx">
+        <ProfileCard
+          name={team(`items.${TEAM[0]?.translationKey}.name`)}
+          role={team(`items.${TEAM[0]?.translationKey}.role`)}
+          place={team(`items.${TEAM[0]?.translationKey}.place`)}
+          flag={HERO_COUNTRIES[0]?.flag ?? ''}
+          portrait={TEAM[0]?.portrait ?? PLACEHOLDER_IMAGE}
+          portraitAlt={team(`items.${TEAM[0]?.translationKey}.portraitAlt`)}
+          symbol={TEAM[0]?.logo.symbol ?? ''}
+        />
       </ShowcaseBlock>
     </div>
   )
