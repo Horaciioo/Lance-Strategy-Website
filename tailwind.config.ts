@@ -20,6 +20,10 @@ const transitionDuration = Object.fromEntries(
   Object.keys(theme.durations).map((name) => [name, `var(--duration-${name})`])
 )
 
+const transitionTimingFunction = Object.fromEntries(
+  Object.keys(theme.easings).map((name) => [name, `var(--ease-${name})`])
+)
+
 // Layout rails
 const layout = Object.fromEntries(
   Object.keys(theme.layout).map((name) => [name, `var(--layout-${name})`])
@@ -34,12 +38,18 @@ const config: Config = {
       borderRadius,
       boxShadow,
       transitionDuration,
+      transitionTimingFunction,
       maxWidth: layout,
       height: layout,
       minHeight: layout,
       fontFamily: {
-        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
-        display: ['var(--font-display)', 'var(--font-sans)', 'sans-serif'],
+        sans: ['var(--font-sans)', 'var(--font-sans-chinese)', 'system-ui', 'sans-serif'],
+        display: [
+          'var(--font-sans)',
+          'var(--font-display-chinese)',
+          'var(--font-sans-chinese)',
+          'sans-serif',
+        ],
         mono: ['var(--font-mono)', 'ui-monospace', 'monospace'],
       },
       keyframes: {
@@ -76,6 +86,28 @@ const config: Config = {
           from: { transform: 'translateX(0)' },
           to: { transform: 'translateX(-50%)' },
         },
+        // Message lands, slightly springy
+        'bubble-in': {
+          from: { opacity: '0', transform: 'translateY(0.75rem) scale(0.94)' },
+          to: { opacity: '1', transform: 'translateY(0) scale(1)' },
+        },
+        // Shrinks and sinks behind the horizon
+        'card-out': {
+          from: { opacity: '1', transform: 'translateY(0) scale(1)' },
+          to: { opacity: '0', transform: 'translateY(1.5rem) scale(0.6)' },
+        },
+        // Bounce in, then two fast turns
+        'card-pop': {
+          '0%': { opacity: '0', transform: 'scale(0) rotateY(0deg)' },
+          '18%': { opacity: '1', transform: 'scale(1.14) rotateY(0deg)' },
+          '30%': { transform: 'scale(0.92) rotateY(0deg)' },
+          '40%': { transform: 'scale(1.04) rotateY(0deg)' },
+          '48%': {
+            transform: 'scale(1) rotateY(0deg)',
+            animationTimingFunction: 'cubic-bezier(0.3, 0.6, 0.2, 1)',
+          },
+          '100%': { opacity: '1', transform: 'scale(1) rotateY(720deg)' },
+        },
       },
       animation: {
         'fade-in': 'fade-in var(--duration-base) ease-out both',
@@ -86,6 +118,9 @@ const config: Config = {
         shine: `shine ${timings.shineDurationMs}ms ease-in-out infinite`,
         drift: `drift ${timings.driftDurationMs}ms ease-in-out infinite`,
         marquee: `marquee ${timings.marqueeDurationMs}ms linear infinite`,
+        'bubble-in': `bubble-in ${timings.bubbleInMs}ms cubic-bezier(0.2, 0.8, 0.2, 1) both`,
+        'card-out': `card-out ${timings.introLeaveMs}ms ease-in both`,
+        'card-pop': `card-pop ${timings.cardPopMs}ms ease-out both`,
       },
     },
   },

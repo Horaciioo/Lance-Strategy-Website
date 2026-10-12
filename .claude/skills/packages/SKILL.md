@@ -18,6 +18,8 @@ description: Dépendances réellement installées dans le template et bibliothè
 | `zod`                         | Schémas, pour un besoin qui dépasse `ValidationService` | —                                   |
 | `@vercel/analytics`           | Envoi d'événements                                      | `AnalyticsService`                  |
 | `@next/third-parties`         | Chargement optimisé de Google Analytics (GA4)           | `GoogleAnalytics` dans `layout.tsx` |
+| `three`                       | Avion 3D et champ d'étoiles, chargés à la demande       | `FlightService`, `StarfieldService` |
+| `motion`                      | Ressorts, indicateur du menu, livre du catalogue        | `MOTION_SPRINGS`                    |
 | `prettier` + plugin Tailwind  | Format, ordre des classes                               | `yarn format`                       |
 | `eslint`, `typescript-eslint` | Règles, dont `no-explicit-any` en erreur                | `yarn lint`                         |
 
