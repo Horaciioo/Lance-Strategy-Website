@@ -1,6 +1,6 @@
 {
-  "legalName": "Template Company",
-  "tradeName": "Template Website",
+  "legalName": "Lance Stratégie",
+  "tradeName": "Lance Stratégie",
   "email": "contact@example.com",
   "phone": "+33000000000",
   "address": {
@@ -10,11 +10,36 @@
     "country": "FR"
   },
   "openingHours": [
-    { "day": 1, "opensAt": "09:00", "closesAt": "18:00" },
-    { "day": 2, "opensAt": "09:00", "closesAt": "18:00" },
-    { "day": 3, "opensAt": "09:00", "closesAt": "18:00" },
-    { "day": 4, "opensAt": "09:00", "closesAt": "18:00" },
-    { "day": 5, "opensAt": "09:00", "closesAt": "18:00" }
+    {
+      "day": 0,
+      "opensAt": "10:00",
+      "closesAt": "16:00"
+    },
+    {
+      "day": 1,
+      "opensAt": "08:00",
+      "closesAt": "18:00"
+    },
+    {
+      "day": 2,
+      "opensAt": "08:00",
+      "closesAt": "18:00"
+    },
+    {
+      "day": 3,
+      "opensAt": "08:00",
+      "closesAt": "18:00"
+    },
+    {
+      "day": 4,
+      "opensAt": "08:00",
+      "closesAt": "18:00"
+    },
+    {
+      "day": 5,
+      "opensAt": "08:00",
+      "closesAt": "18:00"
+    }
   ],
   "registration": {
     "number": "000 000 000 00000",
@@ -27,7 +52,8 @@
     "url": "https://vercel.com"
   },
   "publisher": {
-    "name": "Template Company",
+    "name": "Lance Stratégie",
     "email": "legal@example.com"
-  }
+  },
+  "whatsapp": "+33000000000"
 }

@@ -1,5 +1,5 @@
 import type { ActionName } from '@/declarations/naming'
-import type { ROUTES } from '@/declarations/routes'
+import type { ROUTES, SECTION_ANCHORS, SECTION_LINKS } from '@/declarations/routes'
 import type { IconName } from '@/declarations/ui/icons'
 import type { RegistryKey } from '@/types/common'
 
@@ -9,6 +9,25 @@ import type { RegistryKey } from '@/types/common'
  */
 
 export type RouteId = RegistryKey<typeof ROUTES>
+
+/**
+ * Section link identifier
+ * @typedef {RegistryKey<typeof SECTION_LINKS>} SectionLinkId
+ */
+
+export type SectionLinkId = RegistryKey<typeof SECTION_LINKS>
+
+/**
+ * Section link declaration
+ * @typedef SectionLinkDeclaration
+ * @property {string} anchor - Home anchor
+ * @property {IconName} icon - Navigation icon
+ */
+
+export interface SectionLinkDeclaration {
+  anchor: keyof typeof SECTION_ANCHORS
+  icon: IconName
+}
 
 /**
  * Route declaration
@@ -32,7 +51,7 @@ export interface RouteDeclaration {
 /**
  * Navigation entry
  * @typedef NavigationEntry
- * @property {RouteId} id - Route ID
+ * @property {RouteId | SectionLinkId} id - Entry ID
  * @property {string} href - Pathname
  * @property {string} label - Display label
  * @property {IconName} [icon] - Navigation icon
@@ -40,7 +59,7 @@ export interface RouteDeclaration {
  */
 
 export interface NavigationEntry {
-  id: RouteId
+  id: RouteId | SectionLinkId
   href: string
   label: string
   icon?: IconName

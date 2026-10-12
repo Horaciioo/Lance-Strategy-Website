@@ -335,9 +335,9 @@ export const ConfigurationService = {
    */
 
   socialLinks: (): { id: keyof typeof social; href: string }[] =>
-    Object.entries(social)
-      .filter(([, href]) => isDefined(href))
-      .map(([id, href]) => ({ id: id as keyof typeof social, href: href as string })),
+    Object.entries(social as Record<keyof typeof social, string | null>)
+      .filter((entry): entry is [string, string] => isDefined(entry[1]))
+      .map(([id, href]) => ({ id: id as keyof typeof social, href })),
 
   /**
    * Copyright years

@@ -17,13 +17,19 @@
     "getDirections": "Get directions",
     "accept": "Accept",
     "decline": "Decline",
-    "manageCookies": "Cookie preferences"
+    "manageCookies": "Cookie preferences",
+    "bookAppointment": "Book an appointment"
   },
   "routes": {
     "home": {
       "label": "Home",
-      "metaTitle": "Home",
-      "metaDescription": "A ready to use website base, built to be reused from one project to the next."
+      "metaTitle": "Lance Stratégie",
+      "metaDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore."
+    },
+    "booking": {
+      "label": "Appointment",
+      "metaTitle": "Book an appointment",
+      "metaDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vitae elit libero, a pharetra augue."
     },
     "showcase": {
       "label": "Components",
@@ -55,8 +61,8 @@
     "primary": "Main navigation",
     "language": "Change language",
     "breadcrumb": "Breadcrumb",
-    "tagline": "A generic website base, ready to become your next project.",
-    "copyright": "© {years} {name}. All rights reserved.",
+    "tagline": "Tailored sourcing and import, <accent>from the factory to your door.</accent>",
+    "copyright": "© {years} {name} - All rights reserved",
     "theme": {
       "light": "Light theme",
       "dark": "Dark theme",
@@ -65,44 +71,159 @@
     "footer": {
       "site": "The site",
       "legal": "Legal information",
-      "contact": "Contact"
+      "contact": "Contact",
+      "group": "The group",
+      "settings": "Settings"
+    },
+    "sections": {
+      "offers": "Services",
+      "features": "Why us",
+      "catalog": "Catalogue"
     }
   },
   "sections": {
     "hero": {
-      "overline": "Project base",
-      "title": "The generic foundation of your next websites",
-      "description": "Components, services, theming and translations are already wired. All that is left is the content.",
-      "imageAlt": "Preview of the design system"
+      "subtitle": "One team in Paris, one team in Shanghai, and your products followed from the factory to your door.",
+      "intro": "Based in <strong>Paris</strong> and <strong>Shanghai</strong>, we find, develop and deliver your products.",
+      "description": "From the first sketch to delivery at your door, one team handles everything. For seasoned professionals and first-time founders alike.",
+      "pills": {
+        "team": "A team in Paris and Shanghai",
+        "countries": "Present in {count} countries"
+      },
+      "countries": {
+        "france": "France",
+        "china": "China"
+      },
+      "logoAlt": "Lance Stratégie"
+    },
+    "story": {
+      "titleLead": "<accent>Your</accent> project,",
+      "titleTail": "our next <accent>chapter</accent>"
+    },
+    "offers": {
+      "title": "Our <accent>Services</accent>",
+      "items": {
+        "sourcing": {
+          "title": "Product Sourcing",
+          "alt": "Product samples laid out on a table"
+        },
+        "design": {
+          "title": "Design & Prototyping",
+          "alt": "Sketches and a prototype of a new product"
+        },
+        "production": {
+          "title": "Production Follow-up",
+          "alt": "Assembly line in a partner factory"
+        },
+        "quality": {
+          "title": "Quality Control",
+          "alt": "Batch inspection before shipping"
+        },
+        "shipping": {
+          "title": "Shipping & Freight",
+          "alt": "Containers ready to leave a dock"
+        },
+        "customs": {
+          "title": "Customs Clearance",
+          "alt": "Customs documents on a desk"
+        }
+      }
+    },
+    "dialogue": {
+      "title": "One need, one strategy, <accent>one shipment</accent>",
+      "description": "This is how a project runs with us, from the first message to production.",
+      "client": {
+        "name": "You",
+        "role": "Client"
+      },
+      "typing": "{speaker, select, client {You are typing} other {{name} is typing}}",
+      "steps": {
+        "need": {
+          "label": "The need"
+        },
+        "strategy": {
+          "label": "The strategy"
+        },
+        "import": {
+          "label": "The import"
+        }
+      },
+      "lines": {
+        "need": "Hi! I'm launching an insulated bottle brand. I need 3,000 custom pieces for spring.",
+        "strategy": "Happy to help. I'll draft the specs, the budget and the schedule. Once you approve, we start the factory search.",
+        "import": "On the China side, I shortlist factories and check the samples. Then I follow production until the container leaves.",
+        "done": "Perfect, approved. Let's go!"
+      },
+      "window": {
+        "title": "Your project",
+        "subtitle": "With Fabien in Paris and Guillaume in Shanghai"
+      },
+      "step": "Step {index} · {label}",
+      "attachments": {
+        "brief": "Product specifications.pdf",
+        "samples": "12 sample photos"
+      },
+      "prompt": "Your project starts with a message too."
     },
     "features": {
-      "overline": "Already in place",
-      "title": "Systems, never copies",
-      "description": "Every brick is declared once and then reused across the whole project.",
+      "title": "Why choose <accent>{name}</accent>?",
+      "description": "Whether you have imported for years or are launching your first business, you move forward with a team that knows the ground on both sides.",
+      "note": "Thirty minutes to frame your project.",
       "items": {
-        "quality": {
-          "title": "Unified design system",
-          "description": "Colours, shadows and radii come from a single theme file that Tailwind reads."
+        "team": {
+          "title": "A team you can always reach",
+          "description": "An office in Paris, an office in Shanghai. With the time difference, your file moves forward while you sleep."
         },
-        "speed": {
-          "title": "Immediate start",
-          "description": "Routes, metadata, sitemap and robots are generated from the route registry."
+        "develop": {
+          "title": "From idea to finished product",
+          "description": "Design, prototypes, production: we develop your product with you, not just its transport."
         },
-        "support": {
-          "title": "Multilingual by default",
-          "description": "Two languages shipped, and not a single sentence written inside a component."
+        "control": {
+          "title": "Every step approved by you",
+          "description": "Samples, production, pre-shipment inspection: you get photos and reports, and nothing leaves without your go-ahead."
+        }
+      }
+    },
+    "team": {
+      "title": "Our reach is <accent>international</accent>",
+      "reach": {
+        "offices": "Paris by day, Shanghai by night.",
+        "route": "Someone on site who speaks your language.",
+        "control": "Nothing ships without your go-ahead."
+      },
+      "globe": "Engraved globe linking Paris and Shanghai by sea, road and air",
+      "places": {
+        "paris": {
+          "name": "Paris",
+          "counterpart": "巴黎"
         },
-        "security": {
-          "title": "Shared validation",
-          "description": "The same rules validate the form on the visitor side and on the server."
+        "shanghai": {
+          "name": "Shanghai",
+          "counterpart": "上海"
+        }
+      },
+      "items": {
+        "france": {
+          "place": "Paris, France",
+          "name": "Fabien Jaeger",
+          "role": "CEO",
+          "portraitAlt": "Portrait of Fabien Jaeger",
+          "tags": {
+            "brief": "Project framing",
+            "quote": "Quotes and orders",
+            "delivery": "Delivery follow-up"
+          }
         },
-        "flexibility": {
-          "title": "Reusable sections",
-          "description": "Nine generic sections compose freely into a full page."
-        },
-        "transparency": {
-          "title": "Written conventions",
-          "description": "Naming, structure and registries are documented in the structure folder."
+        "china": {
+          "place": "Shanghai, China",
+          "name": "Guillaume Schneider",
+          "role": "COO",
+          "portraitAlt": "Portrait of Guillaume Schneider",
+          "tags": {
+            "factories": "Factory selection",
+            "production": "Production follow-up",
+            "inspection": "Pre-shipment checks"
+          }
         }
       }
     },
@@ -110,10 +231,18 @@
       "title": "The base in numbers",
       "description": "The values below only demonstrate the formatting layer.",
       "items": {
-        "clients": { "label": "Components shipped" },
-        "projects": { "label": "Declaration files" },
-        "satisfaction": { "label": "Text coverage" },
-        "experience": { "label": "Core services" }
+        "clients": {
+          "label": "Components shipped"
+        },
+        "projects": {
+          "label": "Declaration files"
+        },
+        "satisfaction": {
+          "label": "Text coverage"
+        },
+        "experience": {
+          "label": "Core services"
+        }
       }
     },
     "gallery": {
@@ -171,7 +300,16 @@
         "description": "See you on {date} at {slot}. You will receive a confirmation by email."
       },
       "failure": "The booking failed, the slot may have just been taken. Please try again.",
-      "disabled": "Online booking is not enabled yet, please contact us directly."
+      "disabled": "Online booking is not enabled yet, please contact us directly.",
+      "zoneLabel": "Your time zone",
+      "chosen": "Chosen slot",
+      "recap": "{date}, {slot}",
+      "calendly": {
+        "title": "Appointment calendar",
+        "load": "Show the calendar",
+        "notice": "The calendar is provided by Calendly, which may set cookies. It only loads after you click.",
+        "open": "Open in Calendly"
+      }
     },
     "comparisons": {
       "title": "Before / after",
@@ -216,28 +354,28 @@
       }
     },
     "faq": {
-      "overline": "Questions",
-      "title": "The usual questions",
+      "title": "Lorem ipsum dolor sit amet",
+      "description": "Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.",
       "items": {
-        "delay": {
-          "question": "What has to be changed to start a project?",
-          "answer": "The files of the configurations folder, the translations and the pictures of the public folder. The rest of the code is meant to stay as it is."
+        "first": {
+          "question": "Lorem ipsum dolor sit amet?",
+          "answer": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas faucibus mollis interdum, nullam quis risus eget urna mollis ornare vel eu leo."
         },
-        "price": {
-          "question": "How do I add a page?",
-          "answer": "One entry in the route registry, a matching folder under app and a block of translations. Navigation, sitemap and metadata follow on their own."
+        "second": {
+          "question": "Consectetur adipiscing elit?",
+          "answer": "Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula."
         },
-        "process": {
-          "question": "How do I add a form?",
-          "answer": "One declaration in the form registry and a block of translations. Rendering, validation and submission go through the existing bricks."
+        "third": {
+          "question": "Sed do eiusmod tempor?",
+          "answer": "Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui, praesent commodo cursus magna vel scelerisque nisl consectetur et."
         },
-        "support": {
-          "question": "How do I change the visual identity?",
-          "answer": "The palette, radii and shadows live in the theme file. Tailwind reads that same file, so no colour is ever written inside a component."
+        "fourth": {
+          "question": "Ut enim ad minim veniam?",
+          "answer": "Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Nulla vitae elit libero, a pharetra augue."
         },
-        "cancel": {
-          "question": "How do I add a language?",
-          "answer": "Add the language code to the localisation file and create the matching message file. Routing and the switcher adapt automatically."
+        "fifth": {
+          "question": "Duis aute irure dolor?",
+          "answer": "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum, sed posuere consectetur est at lobortis."
         }
       }
     },
@@ -255,12 +393,86 @@
         "address": "Address"
       },
       "promises": {
-        "response": { "label": "We reply within 1 business day" },
-        "delivery": { "label": "Delivery within 5 days" }
+        "response": {
+          "label": "We reply within 1 business day"
+        },
+        "delivery": {
+          "label": "Delivery within 5 days"
+        }
       },
       "map": {
         "title": "Location map"
       }
+    },
+    "quote": {
+      "title": "Shall we run a free assessment for you?",
+      "description": "Let's review your import project in thirty minutes, no strings attached. By message or video call, your choice.",
+      "channels": {
+        "whatsapp": {
+          "label": "Quote on WhatsApp",
+          "message": "Hello, I would like a free quote for an import project."
+        },
+        "email": {
+          "label": "Quote by email",
+          "subject": "Free quote request"
+        }
+      },
+      "cta": "Book an appointment",
+      "kicker": "30 minutes, on us"
+    },
+    "schedule": {
+      "title": "Opening hours",
+      "description": "Opening hours are shown in Paris time.",
+      "now": "It is {time} ({offset})",
+      "open": "Open now",
+      "closed": "Closed at the moment",
+      "range": "{opensAt} to {closesAt}",
+      "nextDay": "{closesAt} the next day",
+      "zone": "Paris time"
+    },
+    "catalog": {
+      "title": "Leaf through the <accent>catalogue</accent>",
+      "description": "Workwear, heated clothing, gloves and safety footwear. Turn the pages here or download the PDF to share it with your team.",
+      "download": "Download the PDF",
+      "cta": "Discuss it in a call",
+      "hint": "Click a page or use the arrow keys to turn it.",
+      "book": "catalogue",
+      "previous": "Previous page",
+      "next": "Next page",
+      "pageOf": "Page {page} of {total}",
+      "pageAlt": "Catalogue page {page}",
+      "chapters": {
+        "cover": "Cover",
+        "about": "About us",
+        "workwear": "Workwear",
+        "heated": "Heated clothing",
+        "gloves": "Gloves",
+        "footwear": "Footwear",
+        "contact": "On request"
+      }
+    },
+    "group": {
+      "title": "<accent>Lance Group</accent>",
+      "description": "Lance Stratégie is part of Lance Group, a set of companies that work together and hand over to one another as your needs evolve.",
+      "hub": "The group",
+      "soon": "More companies are joining the group soon.",
+      "affiliates": {
+        "itemsprotect": {
+          "tag": "Item protection",
+          "title": "ItemsProtect",
+          "description": "Protect your items and creations, from design to sale.",
+          "cta": "Discover ItemsProtect"
+        },
+        "strategy": {
+          "tag": "Import and sourcing",
+          "title": "Lance Stratégie",
+          "description": "Sourcing, import and support for your projects abroad.",
+          "cta": "You are here"
+        }
+      }
+    },
+    "flight": {
+      "banner": "Free import review"
     }
   },
   "forms": {
@@ -269,11 +481,11 @@
       "fields": {
         "fullName": {
           "label": "Full name",
-          "placeholder": "Camille Rivière"
+          "placeholder": "John Doe"
         },
         "email": {
           "label": "Email address",
-          "placeholder": "camille@example.com"
+          "placeholder": "john.doe@example.com"
         },
         "phone": {
           "label": "Phone",
@@ -306,7 +518,7 @@
       "fields": {
         "email": {
           "label": "Email address",
-          "placeholder": "camille@example.com"
+          "placeholder": "john.doe@example.com"
         }
       }
     },
@@ -314,11 +526,11 @@
       "fields": {
         "fullName": {
           "label": "Full name",
-          "placeholder": "Camille Rivière"
+          "placeholder": "John Doe"
         },
         "email": {
           "label": "Email address",
-          "placeholder": "camille@example.com"
+          "placeholder": "john.doe@example.com"
         },
         "phone": {
           "label": "Phone",
@@ -354,6 +566,11 @@
     "network": "The connection to the server failed.",
     "timeout": "The server took too long to answer.",
     "unknown": "An unexpected error occurred.",
+    "turbulence": {
+      "kicker": "Turbulence ahead",
+      "title": "A small air pocket, nothing serious.",
+      "text": "The page stopped mid-flight. Try again, or head back to the home page."
+    },
     "retryHint": "Render the page again, the incident may be temporary."
   },
   "feedback": {
@@ -414,7 +631,9 @@
       "navigation": "Navigation",
       "collections": "Collections",
       "placeholders": "Waiting states",
-      "forms": "Forms"
+      "forms": "Forms",
+      "globe": "Engraved globe",
+      "profileCard": "Profile card"
     }
   },
   "legal": {
@@ -430,7 +649,7 @@
         },
         "property": {
           "title": "Intellectual property",
-          "body": "All content published on this website, texts, pictures and code, remains the property of {legalName} unless stated otherwise. Any reproduction without written consent is forbidden."
+          "body": "All content published on this website, texts, pictures and code, remains the property of {legalName} unless stated otherwise. Any reproduction without written consent is forbidden. Earth imagery: NASA Visible Earth (Blue Marble and Black Marble), public domain. Catalogue photographs: Unsplash."
         },
         "liability": {
           "title": "Liability",
@@ -458,7 +677,7 @@
         },
         "cookies": {
           "title": "Cookies",
-          "body": "The website keeps the theme preference in the local storage of the browser. If you pick a language other than your browser's, a cookie remembers it until the browser closes. When audience measurement is enabled, analytics cookies are only set after you give consent through the banner shown at the bottom of the page. You can change your mind at any time from the \"Cookie preferences\" link in the footer."
+          "body": "The website keeps the theme preference in the local storage of the browser. If you pick a language other than your browser's, a cookie remembers it until the browser closes. When audience measurement is enabled, analytics cookies are only set after you give consent through the banner shown at the bottom of the page. You can change your mind at any time from the \"Cookie preferences\" link in the footer. If you display the appointment calendar, you voluntarily load a third-party service (Calendly), which may set its own cookies."
         },
         "contact": {
           "title": "Contact",

@@ -1,4 +1,4 @@
-import type { RouteDeclaration } from '@/types/navigation'
+import type { RouteDeclaration, SectionLinkDeclaration } from '@/types/navigation'
 
 /**
  * Site routes
@@ -7,6 +7,7 @@ import type { RouteDeclaration } from '@/types/navigation'
 
 export const ROUTES = {
   home: { path: '/', icon: 'home' },
+  booking: { path: '/booking', icon: 'calendar', ctaAction: 'bookAppointment' },
   showcase: { path: '/showcase', icon: 'sparkles', ctaAction: 'showcase' },
   contact: { path: '/contact', icon: 'mail', ctaAction: 'contact' },
   thankYou: { path: '/thank-you', icon: 'success', indexable: false },
@@ -21,6 +22,9 @@ export const ROUTES = {
 
 export const SECTION_ANCHORS = {
   hero: 'hero',
+  story: 'story',
+  offers: 'offers',
+  team: 'team',
   features: 'features',
   stats: 'stats',
   gallery: 'gallery',
@@ -29,5 +33,19 @@ export const SECTION_ANCHORS = {
   comparisons: 'comparisons',
   testimonials: 'testimonials',
   faq: 'faq',
+  dialogue: 'dialogue',
   callToAction: 'call-to-action',
+  catalog: 'catalog',
+  group: 'group',
 } as const
+
+/**
+ * Home section links
+ * @type {Object}
+ */
+
+export const SECTION_LINKS = {
+  catalog: { anchor: 'catalog', icon: 'tag' },
+  offers: { anchor: 'offers', icon: 'globe' },
+  features: { anchor: 'features', icon: 'shieldCheck' },
+} as const satisfies Record<string, SectionLinkDeclaration>

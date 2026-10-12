@@ -1,4 +1,4 @@
-import { ROUTES, SECTION_ANCHORS } from '@/declarations/routes'
+import { ROUTES, SECTION_ANCHORS, SECTION_LINKS } from '@/declarations/routes'
 import type { ActionName } from '@/declarations/naming'
 import { NamingService } from '@/services/NamingService'
 import { Service } from '@/structures/Service'
@@ -8,6 +8,7 @@ import type {
   PostalAddress,
   RouteDeclaration,
   RouteId,
+  SectionLinkId,
 } from '@/types/navigation'
 
 // Translation function
@@ -18,6 +19,8 @@ const declarationOf = (id: RouteId): RouteDeclaration => ROUTES[id]
 
 const isActivePath = (pathname: string, path: string): boolean =>
   path === '/' ? pathname === '/' : pathname === path || pathname.startsWith(`${path}/`)
+
+const isSectionLink = (id: string): id is SectionLinkId => id in SECTION_LINKS
 
 // Single-line query text
 const addressQueryOf = (address: PostalAddress): string =>
@@ -74,7 +77,7 @@ class NavigationServiceClass extends Service {
 
   /**
    * Navigation entries
-   * @param {RouteId[]} ids - Route IDs
+   * @param {Array<RouteId | SectionLinkId>} ids - Route or section IDs
    * @param {Object} context - Context
    * @param {string} context.pathname - Pathname
    * @param {Translate} context.translate - Translate
@@ -82,16 +85,26 @@ class NavigationServiceClass extends Service {
    */
 
   buildEntries = (
-    ids: readonly RouteId[],
+    ids: readonly (RouteId | SectionLinkId)[],
     context: { pathname: string; translate: Translate }
   ): NavigationEntry[] =>
-    ids.map((id) => ({
-      id,
-      href: declarationOf(id).path,
-      label: context.translate(`${this.keyOf(id)}.label`),
-      icon: declarationOf(id).icon,
-      isActive: isActivePath(context.pathname, declarationOf(id).path),
-    }))
+    ids.map((id) =>
+      isSectionLink(id)
+        ? {
+            id,
+            href: `${declarationOf('home').path}${this.anchorOf(SECTION_LINKS[id].anchor)}`,
+            label: context.translate(`navigation.sections.${id}`),
+            icon: SECTION_LINKS[id].icon,
+            isActive: false,
+          }
+        : {
+            id,
+            href: declarationOf(id).path,
+            label: context.translate(`${this.keyOf(id)}.label`),
+            icon: declarationOf(id).icon,
+            isActive: isActivePath(context.pathname, declarationOf(id).path),
+          }
+    )
 
   /**
    * Header entries
@@ -102,7 +115,7 @@ class NavigationServiceClass extends Service {
    */
 
   headerEntries = (context: { pathname: string; translate: Translate }): NavigationEntry[] =>
-    this.buildEntries(this.config.navigation.header as RouteId[], context)
+    this.buildEntries(this.config.navigation.header as (RouteId | SectionLinkId)[], context)
 
   /**
    * Footer columns

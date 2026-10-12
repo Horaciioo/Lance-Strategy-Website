@@ -308,7 +308,10 @@ pseudo-élément `after`), `MOTION` (voir §35).
 `ACCORDION_STYLES`, `TABS_STYLES`, `TABLE_STYLES`, `NAVIGATION_STYLES`, `FOOTER_STYLES`,
 `CARD_STYLES`, `STAT_STYLES`, `TOAST_STYLES`, `LAYOUT`, `ACTION_ICON_SIZES`,
 `ICON_BUTTON_ICON_SIZES`, `AVATAR_PIXELS`, `LANGUAGE_SWITCHER_STYLES`, `CONSENT_STYLES` (§33),
-`BOOKING_STYLES` (§37), `COMPARISON_STYLES` (§19), `TEXTURE_BACKDROP_STYLES` (§36).
+`BOOKING_STYLES` (§37), `COMPARISON_STYLES` (§19), `TEXTURE_BACKDROP_STYLES` (§36), `GLOBE_STYLES` (§40),
+`HERO_STYLES`, `TEAM_STYLES`, `FAQ_STYLES` (§19).
+**Style `display`** — `TEXT_STYLES.display`, lettrage cartographique du titre d'accroche : capitales
+larges via la classe `.type-expanded` (axe `wdth` d'Archivo, `globals.css`).
 **Aide** — `buttonClass({ variant, size, fullWidth })`, partagée par `Button` et `ActionLink`.
 
 **Ajouter une variante de bouton** : une entrée dans `BUTTON_VARIANTS`. Elle apparaît dans l'atlas,
@@ -370,17 +373,41 @@ n'en réimplémentent rien.
 
 ## 19. Sections de page
 
-|                |                                                                                                                                                                                                                         |
-| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Composants** | `HeroSection`, `FeatureSection`, `StatsSection`, `GallerySection`, `ComparisonSection`, `PricingSection`, `BookingSection`, `TestimonialSection`, `FaqSection`, `CallToActionSection`, `ContactSection`, `LegalSection` |
-| **Catalogue**  | `src/declarations/content.ts`, sauf `pricing` (voir plus bas)                                                                                                                                                           |
-| **Enveloppe**  | `src/components/structures/layout/Section.tsx`                                                                                                                                                                          |
+|                |                                                                                                                                                                                                                                                        |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Composants** | `HeroSection`, `OfferSection`, `FeatureSection`, `TeamSection`, `StatsSection`, `GallerySection`, `ComparisonSection`, `PricingSection`, `BookingSection`, `TestimonialSection`, `FaqSection`, `CallToActionSection`, `ContactSection`, `LegalSection` |
+| **Catalogue**  | `src/declarations/content.ts`, sauf `pricing` (voir plus bas)                                                                                                                                                                                          |
+| **Enveloppe**  | `src/components/structures/layout/Section.tsx`                                                                                                                                                                                                         |
 
 **Variables** — chaque section accepte `items` et retombe sur le catalogue du template.
 **Types** — `FeatureItem`, `StatItem`, `MediaItem`, `ImageAsset`, `ComparisonItem`, `PricingItem`,
 `TestimonialItem`, `FaqItem`, `TimelineItem`.
 **Clés i18n** — `sections.<section>.overline|title|description`, puis `sections.<section>.items.<id>.*`.
-**Ancres** — `SECTION_ANCHORS` dans `declarations/routes.ts`.
+**Ancres** — `SECTION_ANCHORS` dans `declarations/routes.ts`. `SECTION_LINKS` déclare les ancres de
+l'accueil qui peuvent figurer dans `navigation.json → header` à côté des routes (libellé
+`navigation.sections.<id>`, lien `/#<ancre>`), résolues par `NavigationService.buildEntries`.
+
+**Page d'accueil du projet** — `HeroSection` porte le titre d'accroche et le livre 3D (§41, `HeroBook`).
+Le titre tient en deux lignes décalées (`sections.hero.titleLead`, `titleTail`, balise `<accent>`), la
+description se cale à droite de la seconde ; `intro` accepte `<strong>`.
+`DialogueSection` : titre à gauche, fenêtre de conversation de nuit à droite (`DialogueStage`). Les
+étapes (`DIALOGUE_STEPS`) ne sont plus un menu : elles s'insèrent dans le fil comme séparateurs
+(`sections.dialogue.step`), une ligne peut porter une pièce jointe (`DialogueLine.attachment`, clé
+`attachments.<id>`). La boucle frappe / lecture ne démarre qu'une fois la fenêtre à l'écran ; le pied de
+fenêtre renvoie vers la prise de rendez-vous.
+`OfferSection` : titre centré, puis bandeau défilant pleine largeur (`MOTION.marqueeBleed`) de cartes
+image à cadre sombre et étiquette (`OFFERS`, type `MediaItem`, clés `items.<id>.title|alt`), une carte
+sur deux décalée vers le bas ; garder un nombre pair d'offres pour que la boucle reste continue.
+`FeatureSection` (« pourquoi nous choisir ») : panneau sombre découpé (§41), onglet en haut pour le titre
+(`<accent>{name}</accent>`), trois raisons à icône (`FEATURES`, type `FeatureItem`), action et `note`
+dans l'encoche en bas à gauche.
+`TeamSection` (« notre champ d'action est à l'international ») : le globe (§40) sort du livre, minuscule
+puis pleine taille (`animate-emerge`), puis les fondateurs (`TEAM`, type `TeamMember`, portrait réel,
+`countryId`, `tags`) apparaissent en `ProfileCard` découpées autour de la sphère : rebond, deux tours
+rapides sur elles-mêmes (`animate-card-pop`, dos aux couleurs de la marque), puis leurs étiquettes
+(`items.<id>.tags.<tag>`) montent une à une. Tout attend la première apparition à l'écran (`Entrance`,
+§42) ; le globe n'est monté qu'à ce moment pour que sa propre chorégraphie joue avec l'entrée. `FaqSection`
+place titre et action à gauche, l'accordéon à droite.
 
 **Catalogue de prix** — `PRICING` vit dans `src/configurations/pricing.json` (donnée de projet), pas
 dans `declarations/content.ts` : `ConfigurationService.pricing` l'expose, typé `PricingItem[]`.
@@ -804,7 +831,9 @@ animation par la règle générale de fin de fichier.
 **Bandeau défilant** — `.marquee`/`.marquee-track` (logos clients, avis en boucle) : masque en
 dégradé sur les bords, mis en pause au survol/focus, retombe sur `overflow-x: auto` sous
 `prefers-reduced-motion: reduce`. Anime via `animate-marquee` (Tailwind, voir §15/`tailwind.config.ts`,
-durée `timings.json → marqueeDurationMs`).
+durée `timings.json → marqueeDurationMs`). `.marquee-bleed` (`MOTION.marqueeBleed`) retire le masque :
+coupe franche au bord de l'écran. Espacer les éléments par une marge, pas un `gap`, sinon la
+boucle à -50 % saute d'un demi-écart.
 
 **Ajouter une classe de révélation** : un `@keyframes`, l'entrée `@supports`/`prefers-reduced-motion`
 dans `globals.css`, puis son entrée dans `MOTION`. Aucun autre fichier ne change.
@@ -928,3 +957,139 @@ en tête du handler, puis `isTrapped` / `withoutTrap` si elle reçoit un formula
 **Règle** — aucun composant n'appelle `window.matchMedia` ni ne lit `window.innerWidth` : il passe par
 ce service. Le style responsive reste en classes Tailwind, ce service ne sert qu'à un comportement.
 **Ajouter un point de rupture** : une entrée dans `viewport.json → breakpoints`. Aucun autre fichier.
+
+---
+
+## 40. Globe gravé
+
+|                 |                                                                                                                                  |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| **Déclaration** | `src/declarations/globe.ts` (`GLOBE_PLACES`, `GLOBE_LANDMARKS`, `GLOBE_ROUTES`, `GLOBE_INKS`, `GLOBE_GEOMETRY`, `GLOBE_TIMINGS`) |
+| **Services**    | `src/services/GlobeService.ts` (cycle de vie), `src/services/GlobeRenderService.ts` (dessin)                                     |
+| **Fonctions**   | `src/utils/geo.ts` (projection, grands cercles, hachures), `src/utils/contour.ts` (côtes), `src/utils/motion.ts`                 |
+| **Types**       | `src/types/globe.ts`                                                                                                             |
+| **Composant**   | `src/components/elements/media/Globe.tsx`, styles `GLOBE_STYLES`                                                                 |
+| **Donnée**      | `public/images/globe-land.png`, masque des terres 1 bit 720 × 360 (5 Ko)                                                         |
+| **Couleurs**    | `theme.json → globe-highlight`, `globe-shadow`, plus les jetons listés dans `GLOBE_INKS`                                         |
+
+**Carte** — calculée une fois par masque et mise en cache (`GlobeService.chartFor`) : trait de côte
+vectoriel (marching squares sur le masque), lignes d'eau au large comme sur les cartes gravées (champ de
+distance à la côte, niveaux `rippleLevels`), équateur et tropiques pointillés, halo d'atmosphère, points
+des grandes villes (`GLOBE_LANDMARKS`). Une étiquette qui sortirait du canvas passe de l'autre côté.
+**Taille** — le canvas se mesure sur `clientWidth`/`clientHeight`, jamais `getBoundingClientRect` : un
+parent transformé (entrée `emerge` à 4 %) donnerait une image minuscule agrandie, floue.
+**Rendu** — Canvas 2D, sans dépendance. Les terres sont gravées en hachures le long des parallèles,
+lues dans le masque ; l'épaisseur du trait suit l'éclairage (`GLOBE_GEOMETRY.light`), comme une taille-douce.
+Un anneau gradué incliné de 23,44° passe derrière puis devant la sphère. Les routes sont typées
+(`air` en arc soulevé, `rail` avec traverses, `sea` en tirets) et dégagent la gravure sous elles.
+**Chorégraphie** — l'encre se répand depuis la première place déclarée, la vue tourne de
+`introView` à `restView`, puis les routes se tracent et un repère circule sur chacune. Glisser fait
+tourner le globe, qui revient au repos au relâchement.
+**Sobriété** — rendu en pause hors écran (`IntersectionObserver`, usage de performance, pas de
+révélation) et onglet caché ; `prefers-reduced-motion` affiche directement l'état final, sans boucle.
+Couleurs relues à chaque changement de thème.
+**Clés i18n** — `sections.hero.globe` (description accessible), `sections.hero.places.<id>.name|counterpart`
+pour chaque place `isLabelled`.
+
+**Ajouter une place ou une route** : une entrée dans `GLOBE_PLACES` ou `GLOBE_ROUTES` ; une place
+étiquetée demande aussi son bloc `sections.hero.places.<id>` dans chaque fichier de messages.
+
+---
+
+## 41. Livre 3D et panneaux découpés
+
+|                 |                                                                                                                                 |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| **Composants**  | `Book` (`elements/media`), `Typewriter` (`elements/typography`), `HeroBook` (`sections`), `ProfileCard` (`structures/data`)     |
+| **Styles**      | `.book-*` dans `globals.css`, `BOOK_STYLES`, `BOOK_PAGE_STYLES`, `TYPEWRITER_STYLES`, `PROFILE_CARD_STYLES`, `REASONS_STYLES`   |
+| **Déclaration** | `src/declarations/ui/shapes.ts` (`REASONS_PANEL_VARIABLES`, `PROFILE_CARD_VARIABLES`), `BOOK_APPELLATIONS` dans `content.ts`    |
+| **Fonctions**   | `src/utils/shape.ts` (`roundedPolygon`, `shapeVariables`), `src/utils/typewriter.ts` (`typewriterStep`)                         |
+| **Thème**       | couleurs `paper`, `paper-edge`, `paper-ink`, `paper-ink-muted`, `cover`, `cover-edge` ; `timings.json` : `book*`, `typewriter*` |
+| **Clés i18n**   | `sections.hero.book.chapter                                                                                                     | headRight | joiner | story | route | summary | appellations.<id>` |
+
+**Livre** — CSS 3D pur, chaque mesure en `cqw` du conteneur : le livre se met à l'échelle comme une image.
+Deux plats de couverture avec épaisseur, un dos, six feuillets empilés par demi-livre (les plus bas
+débordent en tranche), page du dessus ombrée vers la gouttière, signet. La moitié droite est charnièrée
+sur le haut de la pile : `animate-book-open` la fait passer de fermée (face extérieure de la couverture
+visible, `.book-cover-face`) à ouverte au chargement. Le pointeur incline légèrement le livre (désactivé
+sous `prefers-reduced-motion` et sans pointeur fin). Tout le livre est `aria-hidden`, la phrase complète
+est lue via `book.summary`.
+**Typewriter** — `typewriterStep` (pur) donne l'état suivant et l'attente ; le composant enchaîne les
+`setTimeout`, compte en graphèmes (le chinois s'écrit caractère par caractère) et affiche le premier mot
+fixe sous `prefers-reduced-motion`.
+**Découpe générique** — un `ShapeDeclaration` porte le contour, l'arrondi par défaut (un sommet peut
+fixer le sien en troisième valeur), une boîte nominale en rem (sert seulement à orienter les arêtes
+obliques longues) et les mesures d'encoche. `shapeVariables` en tire `--shape-clip` et `--notch-<nom>`,
+que les styles lisent (`[clip-path:var(--shape-clip)]`). `FeatureSection` (onglet en haut, encoche en bas
+à gauche) et `ProfileCard` (onglet de ville en haut à gauche, encoche du drapeau en bas à droite)
+l'utilisent. Sur une face qui tourne en 3D, l'ombre (`drop-shadow`) va sur un enfant : un `filter` sur la
+face elle-même casse `backface-visibility`.
+**En-tête** — transparent au défilement : logo, pastille de navigation et actions portent chacun leur
+verre (`bg-surface-strong/75` + flou), la navigation bascule en tiroir sous `lg`.
+
+**Modifier la découpe** : les constantes de `shapes.ts`, rien d'autre.
+
+## 42. Entrée à l'écran
+
+|                |                                                                                       |
+| -------------- | ------------------------------------------------------------------------------------- |
+| **Composants** | `Entrance`, `EntranceSlot` dans `src/components/structures/layout/Entrance.tsx`       |
+| **Service**    | `ViewportService.useHasEntered` (seuil `viewport.json → entranceThreshold`)           |
+| **Styles**     | `ENTRANCE_STYLES.paused`, animations `emerge`, `card-pop`, `rise` (`tailwind.config`) |
+
+**Mécanisme** — `Entrance` pose `data-entered` une seule fois ; les éléments animés portent
+`ENTRANCE_STYLES.paused`, leur animation reste figée sur sa première image tant que la section n'a pas
+été vue. `EntranceSlot` ne monte son contenu qu'à l'entrée (utile pour un canvas qui a sa propre
+chorégraphie). Réservé à un moment signature demandé par le brief, pas à chaque section (voir `ai-tells`).
+
+## 43. Scène d'accueil : espace, planète, vol et bilan
+
+|                  |                                                                                                                               |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| **Composants**   | `IntroScene` (scène épinglée), `Starfield` et `SketchyFrame` dans `src/components/elements/media/`, `BilanBox`                |
+| **Services**     | `IntroSceneService` (chorégraphie au défilement, lissée), `StarfieldService` (`three`, champ d'étoiles 3D)                    |
+| **Déclarations** | `INTRO_BEATS`, `GLOBE_HORIZON` (`declarations/globe.ts`), `STARFIELD`, `STAR_TINTS` (`declarations/sky.ts`), `starShaders.ts` |
+| **Utilitaires**  | `horizonFramingOf`, `takeOffOf`, `beatOf` (`utils/horizon.ts`), `sketchyFrameOf` (`utils/sketch.ts`)                          |
+| **Jetons**       | `sky-top`, `sky-bottom`, `sky-ink`, `globe-air` (`theme.json`, clair et sombre)                                               |
+
+**Une seule planète** — de l'atterrissage au bilan gratuit, c'est le même `Globe`. `--intro` va de 0 à 1
+sur `.intro-track` (760svh) ; `IntroSceneService` suit le défilement avec un lissage (`INTRO_BEATS.follow`)
+et pose toutes les variables d'un coup : la colline monte en planète entière (`riseEnd`), le titre
+« monde » passe, puis l'avion 3D décolle de la planète (`takeOffOf`) pendant qu'elle s'enfonce en
+horizon (`sinkEnd`). Au retour, l'avion tracte la banderole (`FLIGHT_BANNER`, tissu papier, ourlets
+cousus, queue d'aronde) ; la queue de la banderole trace le bord haut de la boîte du bilan
+(`--trace-top`), puis les trois autres bords (`--trace-rest`) et le contenu (`--fill`). La boîte est un
+contour à main levée (`SketchyFrame`, chemins semés, `pathLength=1`). La section suivante
+(`LAYOUT.sheet`, marge de -100svh) monte ensuite par-dessus la scène (`--sheet`).
+**Fond** — espace profond : `StarfieldService` dessine des étoiles en profondeur et une bande galactique,
+la caméra avance avec le défilement et suit le pointeur avec un ressort. Boucle arrêtée hors écran.
+Sans WebGL : avion SVG (`SketchService`) et planète CPU (`PlanetFallbackService`). Sous
+`prefers-reduced-motion` : scène fixe sur la colline, boîte du bilan affichée en dessous.
+
+## 44. Catalogue à feuilleter
+
+|                  |                                                                                                                    |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------ |
+| **Composants**   | `CatalogSection` (serveur), `CatalogBook` et `CatalogLeaf` (client, `motion`)                                      |
+| **Déclarations** | `CATALOG_BOOK` (`declarations/content.ts` : pages, PDF, chapitres), `MOTION_SPRINGS` (`declarations/ui/motion.ts`) |
+| **Fichiers**     | `public/catalog/pages/page-XX.webp` (900 px), `public/catalog/catalogue-2026-2027.pdf` (allégé)                    |
+
+Livre en 3D CSS : chaque feuille tourne sur la reliure avec un ressort (`MOTION_SPRINGS.page`), ombre
+qui culmine à 90°, le livre se recentre quand il est fermé (`MOTION_SPRINGS.shift`) et s'incline au
+pointeur. Clic sur une moitié, flèches, clavier (← →) ou chapitre pour tourner. Compteur annoncé
+(`aria-live`). Bouton de téléchargement du PDF (`ActionLink download`).
+
+## Rendez-vous, horaires, catalogue et groupe
+
+- `AppointmentSection` : première section de la feuille (`LAYOUT.sheet`) sous la scène, `ScheduleCard` (horaires à l'heure de Paris seulement) puis `BookingSection`. Devis WhatsApp / e-mail dans `BilanBox` (`QUOTE_CHANNELS`, `utils/contact.ts`).
+- `BookingSection` affiche `CalendlyEmbed` (iframe chargée au clic, `frame-src https://calendly.com`) quand `booking.json › calendlyUrl` est renseigné, sinon l'agenda interne. Créneaux internes affichés dans le fuseau du visiteur.
+- `TimezoneService` : fuseau du visiteur, horaires convertis (`openingsIn`), horloge, ouvert/fermé. Horaires sources dans `identity.json › openingHours`, fuseau métier dans `localization.json › timeZone`.
+- `CatalogSection` (catalogue à feuilleter, voir §44) et `GroupSection` (`GROUP_CATALOG`, lien `site.json › group.url`, emplacement « à venir »).
+- Globe : planète rendue sur GPU (`PlanetService`, WebGL2, shaders de `declarations/planetShaders.ts`, mipmaps sans couture de longitude) avec cartes NASA domaine public : Blue Marble topo + bathymétrie (`day.webp`), relief GEBCO réduit en une carte de hauteur grise (`relief.webp`, mer sous 0,275, sert au masque océan et au relief éclairé), Black Marble 2016 (lumières des villes), nuages dérivants à parallaxe et ombres portées, reflet du soleil et Fresnel sur l'océan, lumière rasante orangée au terminateur, brume et atmosphère diffusante. Soleil fixe en espace vue (`GLOBE_PLANET.sunView`, en haut à gauche) pour que la face visible soit toujours éclairée avec un croissant de nuit. Calque 2D par-dessus (`GlobeRenderService`) pour routes colorées, repères et libellés ; véhicules détaillés vus de dessus (`VehicleRenderService` : avion avec feux et traînée, porte-conteneurs avec sillage, camion avec phares), couleurs dans `GLOBE_VEHICLE_PAINT`. Textures dans `public/images/planet/`, réglages dans `GLOBE_PLANET`. Rendu limité à 30 i/s une fois posé (`idleFrameMs`). Sans WebGL, `PlanetFallbackService` projette la carte du jour sur un disque éclairé en 2D.
+- Logo : `site.json › logo.wordmark` remplace le titre du hero.
+
+## Vol d'avion et bannière
+
+- `services/flight/` : `FlightService` (central : renderer, deux trajectoires `FLIGHT_PATH_OUT` et `FLIGHT_PATH_BACK` en espace caméra, roulis), `SkyLightService` (soleil aligné sur la planète, rebond terrestre, dôme de ciel préfiltré pour les reflets, clignotement des feux `PLANE_LIGHTS`), `PlaneService` (assemblage : fuselage au cône de queue relevé, carénage, feux), `AirframeService` (ailes, winglets, empennages en profils NACA lissés, `AIRFRAME`), `EngineService` (nacelles, soufflante, cône d'éjection, mât, `ENGINE`), `LiveryService` (livrée au nom du site, hublots éclairés en carte émissive), `BannerService` (tissu ondulant, texture du texte, cordes), `TrailService` (traînées de condensation à cœur doux), `SketchService` (repli 2D sans WebGL : avion SVG, banderole HTML).
+- Réglages dans `declarations/flight.ts` (`FLIGHT`, `FLIGHT_BANNER`, `FLIGHT.bannerAspect` éloigne la banderole sur écran étroit). Le vol fait partie de la scène d'accueil (§43).
+- Photos du catalogue du groupe : Unsplash (`public/images/catalog/`), cartes de la Terre : NASA, crédits dans les mentions légales.

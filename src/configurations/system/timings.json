@@ -5,5 +5,15 @@
   "shineDurationMs": 5200,
   "driftDurationMs": 9000,
   "marqueeDurationMs": 64000,
-  "carouselIntervalMs": 6000
+  "carouselIntervalMs": 6000,
+  "cardPopMs": 1500,
+  "cardStaggerMs": 260,
+  "introDwellMs": 5200,
+  "introLeaveMs": 450,
+  "dialogueTypingMs": 1300,
+  "dialogueReadMs": 2600,
+  "dialogueRestMs": 3800,
+  "bubbleInMs": 420,
+  "slotStaggerMs": 40,
+  "navigationDelayMs": 450
 }

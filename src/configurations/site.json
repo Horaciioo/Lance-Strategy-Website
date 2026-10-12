@@ -1,11 +1,20 @@
 {
-  "name": "Template Website",
-  "shortName": "Template",
+  "name": "Lance Stratégie",
+  "shortName": "Lance",
   "domain": "example.com",
   "launchYear": 2026,
-  "themeColor": "#4f46e5",
+  "themeColor": "#1d3c9c",
   "logo": {
-    "symbol": "TW",
-    "image": null
+    "symbol": "LS",
+    "image": null,
+    "wordmark": {
+      "src": "/images/logo-lance-strategie.svg",
+      "width": 640,
+      "height": 120
+    }
+  },
+  "group": {
+    "name": "Lance Group",
+    "url": "https://itemsprotect.com"
   }
 }

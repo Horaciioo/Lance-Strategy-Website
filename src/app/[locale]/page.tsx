@@ -2,17 +2,14 @@ import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 
-import { BookingSection } from '@/components/sections/BookingSection'
-import { CallToActionSection } from '@/components/sections/CallToActionSection'
-import { ComparisonSection } from '@/components/sections/ComparisonSection'
-import { FaqSection } from '@/components/sections/FaqSection'
+import { BilanBox } from '@/components/sections/BilanBox'
+import { AppointmentSection } from '@/components/sections/AppointmentSection'
+import { CatalogSection } from '@/components/sections/CatalogSection'
+import { DialogueSection } from '@/components/sections/DialogueSection'
 import { FeatureSection } from '@/components/sections/FeatureSection'
-import { GallerySection } from '@/components/sections/GallerySection'
-import { HeroSection } from '@/components/sections/HeroSection'
-import { PricingSection } from '@/components/sections/PricingSection'
-import { StatsSection } from '@/components/sections/StatsSection'
-import { TestimonialSection } from '@/components/sections/TestimonialSection'
-import { ConfigurationService } from '@/services/ConfigurationService'
+import { GroupSection } from '@/components/sections/GroupSection'
+import { IntroSection } from '@/components/sections/IntroSection'
+import { INTRO_STYLES, LAYOUT } from '@/declarations/ui/variants'
 import { Page } from '@/structures/Page'
 
 export interface HomePageProps {
@@ -27,16 +24,17 @@ class HomePage extends Page {
   render(): ReactNode {
     return (
       <>
-        <HeroSection secondaryRoute="showcase" />
-        <StatsSection />
-        <FeatureSection />
-        <GallerySection />
-        <ComparisonSection />
-        <PricingSection />
-        {ConfigurationService.isEnabled('appointmentBooking') && <BookingSection />}
-        <TestimonialSection />
-        <FaqSection />
-        <CallToActionSection />
+        <IntroSection />
+        <div className={LAYOUT.sheet}>
+          <div data-bilan-dock className={INTRO_STYLES.dock}>
+            <BilanBox />
+          </div>
+          <AppointmentSection />
+          <CatalogSection />
+          <DialogueSection />
+          <FeatureSection />
+          <GroupSection />
+        </div>
       </>
     )
   }

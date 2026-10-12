@@ -1,3 +1,4 @@
+import type { GlobePlaceId } from '@/declarations/globe'
 import type { IconName } from '@/declarations/ui/icons'
 import type { Identifiable, Tone, TranslationKey } from '@/types/common'
 
@@ -30,6 +31,63 @@ export interface FeatureItem extends Identifiable {
   translationKey: TranslationKey
   icon: IconName
   tone?: Tone
+}
+
+/**
+ * Text-only topic
+ * @typedef TopicItem
+ * @property {TranslationKey} translationKey - Title key
+ */
+
+export interface TopicItem extends Identifiable {
+  translationKey: TranslationKey
+}
+
+/**
+ * Team member
+ * @typedef TeamMember
+ * @property {TranslationKey} translationKey - Profile key
+ * @property {string} countryId - Country item ID
+ * @property {GlobePlaceId} placeId - Globe place
+ * @property {TranslationKey[]} tags - Handled topics
+ * @property {string} portrait - Portrait source
+ * @property {Object} logo - Carried brand mark
+ */
+
+export interface TeamMember extends Identifiable {
+  translationKey: TranslationKey
+  countryId: string
+  placeId: GlobePlaceId
+  tags: TranslationKey[]
+  portrait: string
+  // Carried brand mark
+  logo: { symbol: string; image: string | null }
+}
+
+/**
+ * Country item
+ * @typedef CountryItem
+ * @property {string} flag - Emoji flag
+ */
+
+export interface CountryItem extends TopicItem {
+  flag: string
+}
+
+/**
+ * Conversation line
+ * @typedef DialogueLine
+ * @property {TranslationKey} translationKey - Message key
+ * @property {string} speaker - Client or team member ID
+ * @property {string} stepId - Process step ID
+ * @property {Object} [attachment] - Shared file
+ */
+
+export interface DialogueLine extends Identifiable {
+  translationKey: TranslationKey
+  speaker: string
+  stepId: string
+  attachment?: { translationKey: TranslationKey; icon: IconName }
 }
 
 /**
@@ -132,4 +190,41 @@ export interface TimelineItem extends Identifiable {
   translationKey: TranslationKey
   date: string
   icon?: IconName
+}
+
+/**
+ * Group affiliate
+ * @typedef GroupAffiliate
+ * @property {string | null} url - Outbound link, none for the current site
+ */
+
+export interface GroupAffiliate {
+  id: string
+  translationKey: TranslationKey
+  url: string | null
+}
+
+/**
+ * Printed catalogue
+ * @typedef CatalogBook
+ * @property {string} file - Downloadable PDF
+ * @property {string[]} pages - Page pictures, in order
+ */
+
+export interface CatalogBook {
+  file: string
+  pages: string[]
+  width: number
+  height: number
+  chapters: Array<{ id: TranslationKey; page: number }>
+}
+
+/**
+ * Quote channel
+ * @typedef QuoteChannel
+ */
+
+export interface QuoteChannel extends FeatureItem {
+  // Link built from the contact identity
+  kind: 'whatsapp' | 'email'
 }

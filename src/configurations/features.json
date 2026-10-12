@@ -3,9 +3,9 @@
   "languageSwitcher": true,
   "scrollToTop": true,
   "notifications": true,
-  "analytics": false,
+  "analytics": true,
   "contactForm": true,
   "stickyActionBar": true,
-  "locationMap": true,
-  "appointmentBooking": false
+  "locationMap": false,
+  "appointmentBooking": true
 }
