@@ -1,20 +1,30 @@
-import { Inter, Sora } from 'next/font/google'
+import { Archivo, Noto_Sans_SC, Noto_Serif_SC } from 'next/font/google'
 
 /**
- * Project fonts
+ * Latin family, width axis
  * @type {Object}
  */
 
-const sans = Inter({
-  subsets: ['latin'],
+const sans = Archivo({
+  subsets: ['latin', 'latin-ext'],
+  axes: ['wdth'],
   variable: '--font-sans',
   display: 'swap',
 })
 
-const display = Sora({
-  subsets: ['latin'],
-  variable: '--font-display',
+// CJK slices, served per unicode-range
+const sansChinese = Noto_Sans_SC({
+  weight: ['400', '500'],
+  variable: '--font-sans-chinese',
   display: 'swap',
+  preload: false,
+})
+
+const displayChinese = Noto_Serif_SC({
+  weight: ['600'],
+  variable: '--font-display-chinese',
+  display: 'swap',
+  preload: false,
 })
 
 /**
@@ -22,4 +32,4 @@ const display = Sora({
  * @type {string}
  */
 
-export const FONT_VARIABLES = `${sans.variable} ${display.variable}`
+export const FONT_VARIABLES = `${sans.variable} ${sansChinese.variable} ${displayChinese.variable}`

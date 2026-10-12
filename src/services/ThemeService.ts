@@ -6,11 +6,15 @@ import { Service } from '@/structures/Service'
 import type { ThemeMode, ThemeScheme } from '@/types/theme'
 import { isBrowser } from '@/utils/guards'
 
-const { colors, radii, shadows, durations, layout, defaultMode } = ConfigurationService.theme
+const { colors, radii, shadows, durations, easings, layout, defaultMode } =
+  ConfigurationService.theme
 const { darkScheme } = ConfigurationService.viewport.mediaQueries
 
 // Theme attribute
 const THEME_ATTRIBUTE = 'data-theme'
+
+// Forces the dark palette on a subtree
+const SCHEME_ATTRIBUTE = 'data-scheme'
 
 const declare = (group: string, entries: Record<string, string>): string =>
   Object.entries(entries)
@@ -32,14 +36,18 @@ class ThemeServiceClass extends Service {
       declare('radius', radii),
       declare('shadow', shadows),
       declare('duration', durations),
+      declare('ease', easings),
       declare('layout', layout),
     ].join(';')
     const dark = declare('color', colors.dark)
+    const light = declare('color', colors.light)
 
     return [
       `:root{${base}}`,
-      `:root[${THEME_ATTRIBUTE}="dark"]{${dark}}`,
+      `:root[${THEME_ATTRIBUTE}="dark"],[${SCHEME_ATTRIBUTE}="dark"]{${dark}}`,
       `@media(prefers-color-scheme:dark){:root:not([${THEME_ATTRIBUTE}="light"]){${dark}}}`,
+      // Sunlit subtree, after the dark rules
+      `[${SCHEME_ATTRIBUTE}="light"]{${light}}`,
     ].join('')
   }
 

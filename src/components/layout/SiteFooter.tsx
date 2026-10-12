@@ -1,18 +1,25 @@
 'use client'
 
+import type { CSSProperties, ReactNode } from 'react'
 import { useTranslations } from 'next-intl'
 
 import { Icon } from '@/components/elements/media/Icon'
 import { Logo } from '@/components/elements/media/Logo'
 import { Text } from '@/components/elements/typography/Text'
 import { Container } from '@/components/structures/layout/Container'
+import { LanguageSwitcher } from '@/components/structures/navigation/LanguageSwitcher'
+import { ThemeSwitcher } from '@/components/structures/navigation/ThemeSwitcher'
 import type { IconName } from '@/declarations/ui/icons'
+import { FOOTER_SLAB_VARIABLES } from '@/declarations/ui/shapes'
 import { FOOTER_STYLES } from '@/declarations/ui/variants'
 import { Link, usePathname } from '@/i18n/routing'
 import { ConfigurationService } from '@/services/ConfigurationService'
 import { NavigationService } from '@/services/NavigationService'
 
 const { identity } = ConfigurationService
+
+// Accent chunk
+const accent = (chunks: ReactNode) => <span className={FOOTER_STYLES.accent}>{chunks}</span>
 
 /**
  * Site footer
@@ -27,12 +34,14 @@ export const SiteFooter = () => {
   const socials = ConfigurationService.socialLinks()
 
   return (
-    <footer className={FOOTER_STYLES.frame}>
+    <footer className={FOOTER_STYLES.frame} style={FOOTER_SLAB_VARIABLES as CSSProperties}>
+      <div className={FOOTER_STYLES.tab}>
+        <Logo />
+      </div>
       <Container>
         <div className={FOOTER_STYLES.grid}>
           <div className="flex flex-col gap-3">
-            <Logo />
-            <Text appearance="description">{navigation('tagline')}</Text>
+            <Text appearance="description">{navigation.rich('tagline', { accent })}</Text>
             {socials.length > 0 && (
               <div className={FOOTER_STYLES.socials}>
                 {socials.map((social) => (
@@ -89,6 +98,10 @@ export const SiteFooter = () => {
               name: ConfigurationService.site.name,
             })}
           </Text>
+          <div className={FOOTER_STYLES.settings} aria-label={navigation('footer.settings')}>
+            {ConfigurationService.isEnabled('languageSwitcher') && <LanguageSwitcher />}
+            {ConfigurationService.isEnabled('themeSwitcher') && <ThemeSwitcher />}
+          </div>
         </div>
       </Container>
     </footer>

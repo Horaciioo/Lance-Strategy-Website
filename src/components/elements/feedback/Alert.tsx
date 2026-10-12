@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 
 import { Icon } from '@/components/elements/media/Icon'
 import type { IconName } from '@/declarations/ui/icons'
-import { TONE_BORDER, TONE_SOFT } from '@/declarations/ui/tokens'
+import { TONE_BORDER, TONE_SOFT, TONE_TEXT } from '@/declarations/ui/tokens'
 import { ALERT_STYLES } from '@/declarations/ui/variants'
 import type { Styleable, Tone } from '@/types/common'
 import { cn } from '@/utils/classnames'
@@ -43,7 +43,7 @@ export const Alert = ({
   <div
     role="alert"
     className={cn(ALERT_STYLES.frame, TONE_SOFT[tone], TONE_BORDER[tone], className)}>
-    <Icon name={icon ?? TONE_ICONS[tone]} className={ALERT_STYLES.icon} />
+    <Icon name={icon ?? TONE_ICONS[tone]} className={cn(ALERT_STYLES.icon, TONE_TEXT[tone])} />
     <div className={ALERT_STYLES.content}>
       <p className={ALERT_STYLES.title}>{title}</p>
       {description && <p className={ALERT_STYLES.description}>{description}</p>}

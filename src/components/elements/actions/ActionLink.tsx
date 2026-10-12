@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 
 import { Icon } from '@/components/elements/media/Icon'
 import type { IconName } from '@/declarations/ui/icons'
-import { ACTION_ICON_SIZES, buttonClass } from '@/declarations/ui/variants'
+import { ACTION_ICON_NUDGE, ACTION_ICON_SIZES, buttonClass } from '@/declarations/ui/variants'
 import type { ButtonVariant } from '@/declarations/ui/variants'
 import { Link } from '@/i18n/routing'
 import { NavigationService } from '@/services/NavigationService'
@@ -20,6 +20,8 @@ export interface ActionLinkProps {
   icon?: IconName
   iconPosition?: 'left' | 'right'
   fullWidth?: boolean
+  // Static file, saved by the browser
+  download?: boolean
   children: ReactNode
   className?: string
 }
@@ -38,12 +40,19 @@ export const ActionLink = ({
   icon,
   iconPosition = 'left',
   fullWidth = false,
+  download = false,
   children,
   className,
 }: ActionLinkProps) => {
   const target = route ? NavigationService.pathOf(route) : (href ?? '/')
   const classes = cn(buttonClass({ variant, size, fullWidth }), className)
-  const glyph = icon ? <Icon name={icon} size={ACTION_ICON_SIZES[size]} /> : null
+  const glyph = icon ? (
+    <Icon
+      name={icon}
+      size={ACTION_ICON_SIZES[size]}
+      className={iconPosition === 'right' ? ACTION_ICON_NUDGE : undefined}
+    />
+  ) : null
   const content = (
     <>
       {iconPosition === 'left' && glyph}
@@ -51,6 +60,14 @@ export const ActionLink = ({
       {iconPosition === 'right' && glyph}
     </>
   )
+
+  if (download) {
+    return (
+      <a href={target} download className={classes}>
+        {content}
+      </a>
+    )
+  }
 
   if (isExternalHref(target) || target.startsWith('#')) {
     return (

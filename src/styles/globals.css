@@ -39,21 +39,232 @@
     @apply text-pretty;
   }
 
+  /* Ideographs need taller lines */
+  :lang(zh) h1,
+  :lang(zh) h2 {
+    line-height: 1.25;
+  }
+
+  /* Native bar hidden, the plane takes over */
+  html {
+    scrollbar-width: none;
+  }
+
   ::-webkit-scrollbar {
-    width: 9px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background-color: rgb(var(--color-surface-strong));
-  }
-
-  ::-webkit-scrollbar-thumb {
-    border: 3px solid rgb(var(--color-surface-strong));
-    background-color: rgb(var(--color-border-strong));
+    display: none;
   }
 }
 
 @layer components {
+  /* Map lettering, read through the Archivo width axis */
+  .type-expanded {
+    font-stretch: 125%;
+  }
+
+  /* Hanging scroll reading order */
+  .text-vertical {
+    writing-mode: vertical-rl;
+  }
+
+  /* Ideographs and their slash stay upright */
+  .text-vertical:lang(zh) {
+    text-orientation: upright;
+  }
+
+  /* Landing scene, pinned while --intro runs 0 to 1 */
+  .intro-track {
+    --intro: 0;
+    position: relative;
+    height: 100svh;
+    margin-top: calc(var(--layout-header) * -1 - 0.75rem);
+    background-color: rgb(var(--color-sky-top));
+  }
+
+  /* The next section slides over the last stretch */
+  .intro-stage {
+    --sheet: 0;
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    overflow: hidden;
+    isolation: isolate;
+    transform: scale(calc(1 - var(--sheet) * 0.05));
+    transform-origin: 50% 0;
+    border-radius: calc(var(--sheet) * 2.5rem);
+  }
+
+  .intro-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  /* Deep space, a faint glow where the planet sits */
+  .intro-sky {
+    background-color: rgb(var(--color-sky-top));
+    background-image: radial-gradient(
+      120% 70% at 50% 110%,
+      rgb(var(--color-sky-bottom)) 0%,
+      rgb(var(--color-sky-top)) 70%
+    );
+  }
+
+  /* Leaves upwards as the planet rises */
+  .intro-heading {
+    --leave: clamp(0, calc(var(--intro) / 0.08), 1);
+    transform: translate3d(0, calc(var(--leave) * -24vh), 0) scale(calc(1 - var(--leave) * 0.08));
+    opacity: calc(1 - var(--leave) * 1.4);
+    filter: blur(calc(var(--leave) * 6px));
+  }
+
+  /* Cards settle back into the planet */
+  .intro-people {
+    transform: translate3d(0, calc(var(--intro) * 60vh), 0);
+    opacity: calc(1 - var(--intro) * 16);
+  }
+
+  /* World caption, between the rise and the take-off */
+  .intro-beat {
+    transform: translate3d(0, calc((0.19 - var(--intro)) * 40vh), 0);
+    opacity: min(calc((var(--intro) - 0.09) * 14), calc((0.3 - var(--intro)) * 14));
+  }
+
+  /* Lines take turns in one slot, after the title has settled */
+  .intro-reach-item {
+    --at: calc(0.15 + var(--step, 0) * 0.04);
+    --in: clamp(0, calc((var(--intro) - var(--at)) * 60), 1);
+    --out: clamp(0, calc((var(--intro) - var(--at) - 0.032) * 60), 1);
+    opacity: calc(var(--in) - var(--out));
+    filter: blur(calc((1 - var(--in) + var(--out)) * 6px));
+    transform: translate3d(0, calc((1 - var(--in) - var(--out)) * 0.6rem), 0);
+  }
+
+  /* The last one stays until the caption leaves */
+  .intro-reach-item:last-child {
+    --out: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .intro-reach-item {
+      --in: 1;
+      --out: 0;
+    }
+  }
+
+  /* Box waits for the banner, interactive once filled */
+  .intro-box {
+    --fill: 0;
+    pointer-events: none;
+  }
+
+  .intro-box[data-ready='true'] {
+    pointer-events: auto;
+  }
+
+  /* Copy carried by the sheet, filled */
+  .bilan-dock {
+    --fill: 1;
+    padding-top: 5rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* Same height as the pinned box */
+    .bilan-dock {
+      padding-top: 27svh;
+    }
+
+    /* Holds the box spot while the sheet rises, scroll linked */
+    @supports (animation-timeline: view()) {
+      .intro-sheet {
+        view-timeline: --sheet block;
+      }
+
+      .bilan-dock {
+        animation: bilan-dock linear forwards;
+        animation-timeline: --sheet;
+        animation-range: cover 0% cover 100svh;
+      }
+    }
+  }
+
+  /* Unrolls left to right, in the banner wake */
+  .intro-box-body {
+    --edge: calc(var(--fill) * 130%);
+    mask-image: linear-gradient(to right, #000 calc(var(--edge) - 30%), transparent var(--edge));
+    translate: 0 calc((1 - var(--fill)) * 1rem);
+    will-change: mask-image, translate;
+  }
+
+  /* Lines settle one after the other */
+  .intro-box-body > * {
+    --in: clamp(0, calc((var(--fill) - 0.4 - var(--step, 0) * 0.12) * 4), 1);
+    opacity: var(--in);
+    translate: 0 calc((1 - var(--in)) * 0.75rem);
+  }
+
+  .intro-box-body > :nth-child(2) {
+    --step: 1;
+  }
+
+  .intro-box-body > :nth-child(3) {
+    --step: 2;
+  }
+
+  .intro-box-body > :nth-child(4) {
+    --step: 3;
+  }
+
+  /* Slow sweep on the zone clock */
+  .booking-tick {
+    animation: booking-tick 6s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .booking-tick {
+      animation: none;
+    }
+  }
+
+  .intro-shade {
+    background-color: rgb(var(--color-overlay));
+    opacity: calc(var(--sheet) * 0.6);
+  }
+
+  /* Pinned to the focused city */
+  .intro-pin {
+    position: absolute;
+    left: 50%;
+    top: var(--anchor-y, 80svh);
+  }
+
+  /* Long track only when motion is welcome */
+  @media (prefers-reduced-motion: no-preference) {
+    .intro-track {
+      height: 880svh;
+    }
+
+    .intro-sheet {
+      margin-top: -100svh;
+    }
+  }
+
+  /* Rises over the pinned scene */
+  .intro-sheet {
+    position: relative;
+    z-index: 10;
+    border-radius: 2.5rem 2.5rem 0 0;
+    background-color: rgb(var(--color-background));
+    box-shadow: 0 -2rem 4rem -2rem rgb(var(--color-overlay) / 0.5);
+  }
+
+  /* Catalogue light table, warm light pooled under the book */
+  .catalog-panel {
+    background-color: rgb(var(--color-surface));
+    background-image:
+      radial-gradient(60% 55% at 62% 62%, rgb(var(--color-globe-air) / 0.16), transparent 70%),
+      radial-gradient(90% 60% at 50% 0%, rgb(var(--color-surface-strong)), transparent 70%);
+  }
+
   /* Project SVG, rasterised once by the browser and cached like any other bitmap */
   .texture-frame {
     position: fixed;
@@ -75,6 +286,24 @@
     background-size: 200% 100%;
   }
 
+  /* Apple style liquid glass, specular rim over a frosted tint */
+  .liquid-glass {
+    border: 1px solid rgb(var(--color-glass-edge) / 0.38);
+    background-image: linear-gradient(
+      135deg,
+      rgb(var(--color-glass) / 0.62),
+      rgb(var(--color-glass) / 0.3) 55%,
+      rgb(var(--color-glass) / 0.44)
+    );
+    box-shadow:
+      inset 0 1px 0 rgb(var(--color-glass-edge) / 0.7),
+      inset 0 -1px 0 rgb(var(--color-glass-edge) / 0.12),
+      inset 0 0 1.25rem rgb(var(--color-glass-edge) / 0.08),
+      0 0.75rem 2rem -1rem rgb(var(--color-overlay) / 0.35);
+    backdrop-filter: blur(22px) saturate(180%);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+  }
+
   /* Liquid glass, legible over any backdrop underneath */
   .surface-glass {
     border: 1px solid rgb(var(--color-border) / 0.5);
@@ -91,9 +320,15 @@
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
   }
 
+  .marquee-bleed {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
   .marquee-track {
     display: flex;
     width: max-content;
+    will-change: transform;
   }
 
   /* Held still while its content is being read */
@@ -250,6 +485,268 @@ main > section {
 }
 
 /* Standing still, the band becomes a plain scroller */
+/* Lance Group hub motion */
+@media (prefers-reduced-motion: no-preference) {
+  .group-spin {
+    animation: group-spin 28s linear infinite;
+  }
+
+  .group-spin-reverse {
+    animation: group-spin 18s linear infinite reverse;
+  }
+
+  .group-pulse {
+    animation: group-pulse 3.2s ease-out infinite;
+  }
+
+  .group-blink {
+    animation: group-blink 2s ease-in-out infinite;
+  }
+
+  .group-flow,
+  .group-flow-reverse {
+    animation: group-flow 1.6s linear infinite;
+  }
+
+  .group-flow-reverse {
+    animation-direction: reverse;
+  }
+}
+
+/* Boxes build once seen */
+@media (prefers-reduced-motion: no-preference) {
+  [data-armed]:not([data-built])
+    :is(
+      .build-panel,
+      .build-wipe,
+      .build-slide,
+      .build-draw,
+      .build-pop,
+      .build-rise,
+      .build-zoom,
+      .build-tilt,
+      .build-iris
+    ) {
+    visibility: hidden;
+  }
+
+  [data-built]
+    :is(
+      .build-panel,
+      .build-wipe,
+      .build-slide,
+      .build-draw,
+      .build-pop,
+      .build-rise,
+      .build-zoom,
+      .build-tilt,
+      .build-iris
+    ) {
+    animation-duration: 0.7s;
+    animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+    animation-fill-mode: both;
+    animation-delay: calc(var(--build-step, 0) * 0.18s);
+  }
+
+  /* Mask wipe, the clip keeps the cut shape */
+  [data-built] .build-panel {
+    animation-name: build-mask;
+    mask-image: linear-gradient(90deg, #000 45%, transparent 55%);
+    mask-size: 220% 100%;
+    animation-duration: 0.9s;
+  }
+
+  [data-built] .build-wipe {
+    animation-name: reveal-wipe;
+  }
+
+  [data-built] .build-slide {
+    animation-name: build-slide;
+  }
+
+  [data-built] .build-pop {
+    animation-name: build-pop;
+  }
+
+  [data-built] .build-rise {
+    animation-name: build-rise;
+  }
+
+  [data-built] .build-zoom {
+    animation-name: build-zoom;
+    animation-duration: 0.9s;
+  }
+
+  [data-built] .build-tilt {
+    animation-name: build-tilt;
+    animation-duration: 1s;
+    transform-origin: 50% 100%;
+  }
+
+  [data-built] .build-iris {
+    animation-name: build-iris;
+    animation-duration: 1s;
+  }
+
+  [data-built] .build-draw {
+    animation:
+      build-draw-y 0.5s cubic-bezier(0.23, 1, 0.32, 1) calc(var(--build-step) * 0.18s) both,
+      group-flow 1.6s linear infinite;
+  }
+
+  [data-built] .build-draw.group-flow-reverse {
+    animation-direction: normal, reverse;
+  }
+
+  @media (min-width: 1024px) {
+    [data-built] .build-draw {
+      animation-name: build-draw-x, group-flow;
+    }
+  }
+}
+
+@keyframes bilan-dock {
+  from {
+    translate: 0 -100svh;
+  }
+
+  to {
+    translate: 0 0;
+  }
+}
+
+@keyframes booking-tick {
+  0%,
+  80%,
+  100% {
+    rotate: 0deg;
+  }
+
+  90% {
+    rotate: 30deg;
+  }
+}
+
+@keyframes build-mask {
+  from {
+    mask-position: 100% 0;
+  }
+
+  to {
+    mask-position: 0 0;
+  }
+}
+
+@keyframes build-slide {
+  from {
+    opacity: 0;
+    translate: -2.5rem 0;
+  }
+}
+
+@keyframes build-rise {
+  from {
+    opacity: 0;
+    translate: 0 2.5rem;
+  }
+}
+
+@keyframes build-zoom {
+  from {
+    opacity: 0;
+    scale: 0.92;
+    filter: blur(8px);
+  }
+}
+
+@keyframes build-tilt {
+  from {
+    opacity: 0;
+    transform: perspective(1200px) rotateX(18deg) translateY(2rem);
+  }
+}
+
+/* Scale, not clip: the panel keeps its cut shape */
+@keyframes build-iris {
+  from {
+    opacity: 0;
+    scale: 0.4 0.9;
+  }
+}
+
+@keyframes build-pop {
+  from {
+    opacity: 0;
+    scale: 0.6;
+    rotate: -30deg;
+  }
+}
+
+@keyframes build-draw-x {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes build-draw-y {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Dashed link, vertical then horizontal */
+.group-flow,
+.group-flow-reverse {
+  background: repeating-linear-gradient(180deg, currentColor 0 6px, transparent 6px 14px);
+  background-size: 100% 28px;
+}
+
+@media (min-width: 1024px) {
+  .group-flow,
+  .group-flow-reverse {
+    background-image: repeating-linear-gradient(90deg, currentColor 0 6px, transparent 6px 14px);
+    background-size: 28px 100%;
+  }
+}
+
+@keyframes group-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes group-pulse {
+  0% {
+    scale: 0.85;
+    opacity: 0.9;
+  }
+
+  100% {
+    scale: 1.35;
+    opacity: 0;
+  }
+}
+
+@keyframes group-blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes group-flow {
+  to {
+    background-position: 28px 28px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .marquee {
     overflow-x: auto;

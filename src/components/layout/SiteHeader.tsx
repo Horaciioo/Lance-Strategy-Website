@@ -1,20 +1,17 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 
 import { ActionLink } from '@/components/elements/actions/ActionLink'
 import { IconButton } from '@/components/elements/actions/IconButton'
 import { Logo } from '@/components/elements/media/Logo'
-import { Container } from '@/components/structures/layout/Container'
-import { LanguageSwitcher } from '@/components/structures/navigation/LanguageSwitcher'
 import { NavigationList } from '@/components/structures/navigation/NavigationList'
-import { ThemeSwitcher } from '@/components/structures/navigation/ThemeSwitcher'
 import { Drawer } from '@/components/structures/overlays/Drawer'
+import { SECTION_ANCHORS } from '@/declarations/routes'
 import { LAYERS } from '@/declarations/ui/tokens'
 import { NAVIGATION_STYLES } from '@/declarations/ui/variants'
 import { Link, usePathname } from '@/i18n/routing'
-import { ConfigurationService } from '@/services/ConfigurationService'
 import { NavigationService } from '@/services/NavigationService'
 import { ScrollService } from '@/services/ScrollService'
 import { cn } from '@/utils/classnames'
@@ -29,41 +26,67 @@ export const SiteHeader = () => {
   const t = useTranslations()
   const navigation = useTranslations('navigation')
   const actions = useTranslations('actions')
-  const { isScrolled } = ScrollService.use()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  // Unknown until measured, night first
+  const [sceneEnd, setSceneEnd] = useState(Number.POSITIVE_INFINITY)
+  const { offset } = ScrollService.use()
 
+  // Night scene height, home only
+  useEffect(() => {
+    const measure = () => {
+      const scene = document.getElementById(SECTION_ANCHORS.hero)
+      setSceneEnd(scene ? scene.offsetHeight - window.innerHeight * 1.05 : 0)
+    }
+    measure()
+    window.addEventListener('resize', measure)
+
+    return () => window.removeEventListener('resize', measure)
+  }, [pathname])
+
+  const isOverScene = offset < sceneEnd
   const entries = NavigationService.headerEntries({ pathname, translate: t })
   const callToAction = NavigationService.callToActionRoute()
+  const callToActionLabel = actions(NavigationService.ctaActionOf(callToAction))
 
   return (
-    <header className={cn(NAVIGATION_STYLES.header, LAYERS.header, isScrolled && 'shadow-sm')}>
-      <Container>
+    <header
+      data-scheme={isOverScene ? 'dark' : undefined}
+      className={cn(NAVIGATION_STYLES.header, LAYERS.header)}>
+      <div className={NAVIGATION_STYLES.shell}>
         <div className={NAVIGATION_STYLES.bar}>
+          <span
+            aria-hidden="true"
+            className={cn(
+              NAVIGATION_STYLES.backdrop,
+              isOverScene && NAVIGATION_STYLES.backdropHidden
+            )}
+          />
           <Link href={NavigationService.pathOf('home')} className={NAVIGATION_STYLES.brand}>
             <Logo />
           </Link>
 
-          <nav aria-label={navigation('primary')} className={NAVIGATION_STYLES.list}>
+          <nav aria-label={navigation('primary')}>
             <NavigationList entries={entries} />
           </nav>
 
           <div className={NAVIGATION_STYLES.actions}>
-            {ConfigurationService.isEnabled('languageSwitcher') && (
-              <LanguageSwitcher className="hidden sm:flex" />
-            )}
-            {ConfigurationService.isEnabled('themeSwitcher') && <ThemeSwitcher />}
-            <ActionLink route={callToAction} size="sm" className="hidden md:inline-flex">
-              {actions(callToAction)}
+            <ActionLink
+              route={callToAction}
+              icon="arrowRight"
+              iconPosition="right"
+              variant={isOverScene ? 'onMedia' : 'primary'}
+              className={NAVIGATION_STYLES.wide}>
+              {callToActionLabel}
             </ActionLink>
             <IconButton
               icon="menu"
               label={actions('open')}
-              className="md:hidden"
+              className={NAVIGATION_STYLES.narrow}
               onClick={() => setIsMenuOpen(true)}
             />
           </div>
         </div>
-      </Container>
+      </div>
 
       <Drawer
         isOpen={isMenuOpen}
@@ -79,9 +102,8 @@ export const SiteHeader = () => {
         />
         <div className="mt-6 flex flex-col gap-3">
           <ActionLink route={callToAction} fullWidth>
-            {actions(callToAction)}
+            {callToActionLabel}
           </ActionLink>
-          {ConfigurationService.isEnabled('languageSwitcher') && <LanguageSwitcher />}
         </div>
       </Drawer>
     </header>

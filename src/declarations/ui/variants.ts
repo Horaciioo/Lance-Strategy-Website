@@ -8,12 +8,16 @@ import {
 } from '@/declarations/ui/tokens'
 import type { Size, Tone } from '@/types/common'
 
+// Press feedback, colours and shadow
+const PRESS =
+  'transition-[transform,background-color,border-color,color,box-shadow] duration-fast ease-out active:scale-[0.97]'
+
 /**
  * Button base styles
  * @type {string}
  */
 
-export const BUTTON_BASE = `inline-flex items-center justify-center gap-2 rounded-md font-medium whitespace-nowrap ${TRANSITION} ${FOCUS_RING} ${DISABLED}`
+export const BUTTON_BASE = `group/button inline-flex items-center justify-center gap-2 rounded-pill font-medium tracking-[-0.01em] whitespace-nowrap ${PRESS} ${FOCUS_RING} ${DISABLED}`
 
 /**
  * Button sizes
@@ -21,9 +25,9 @@ export const BUTTON_BASE = `inline-flex items-center justify-center gap-2 rounde
  */
 
 export const BUTTON_SIZES: Record<Size, string> = {
-  sm: 'h-8 px-3 text-xs',
-  md: 'h-10 px-4 text-sm',
-  lg: 'h-12 px-6 text-base',
+  sm: 'h-8 px-3.5 text-xs',
+  md: 'h-10 px-5 text-sm',
+  lg: 'h-12 px-6 text-[0.9375rem]',
 }
 
 /**
@@ -32,12 +36,20 @@ export const BUTTON_SIZES: Record<Size, string> = {
  */
 
 export const BUTTON_VARIANTS = {
-  primary: 'bg-primary text-primary-foreground hover:bg-primary-hover shadow-xs',
-  secondary: 'bg-surface text-foreground border border-border hover:bg-surface-strong',
-  outline: 'border border-border-strong text-foreground hover:bg-surface',
+  // Lit top edge, deepens on hover
+  primary:
+    'bg-primary text-primary-foreground shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(var(--color-overlay)/0.3)] hover:bg-primary-hover hover:shadow-[inset_0_1px_0_rgb(255_255_255/0.2),0_6px_18px_-8px_rgb(var(--color-overlay)/0.6)]',
+  secondary: 'bg-surface-strong text-foreground hover:bg-border',
+  outline:
+    'border border-border-strong bg-background/40 text-foreground hover:border-foreground hover:bg-background',
   ghost: 'text-foreground-muted hover:bg-surface-strong hover:text-foreground',
-  link: 'text-primary underline-offset-4 hover:underline px-0 h-auto',
+  link: 'text-accent underline-offset-4 hover:underline px-0 h-auto',
   danger: 'bg-danger text-background hover:brightness-90',
+  // Over the night scene
+  onMedia: 'bg-sky-ink text-cover hover:bg-white',
+  // Outline over the night scene
+  onMediaOutline:
+    'border border-sky-ink/30 text-sky-ink hover:border-sky-ink/70 hover:bg-sky-ink/10',
 } as const
 
 /**
@@ -73,7 +85,15 @@ export const ICON_BUTTON_SIZES: Record<Size, string> = {
 export const ACTION_ICON_SIZES: Record<Size, 'xs' | 'sm' | 'md'> = { sm: 'xs', md: 'sm', lg: 'md' }
 
 /**
- * Icon button size
+ * Trailing icon nudge
+ * @type {string}
+ */
+
+export const ACTION_ICON_NUDGE =
+  'transition-transform duration-fast ease-out group-hover/button:translate-x-0.5'
+
+/**
+ * Icon button icon sizes
  * @type {Record<Size, 'sm' | 'md'>}
  */
 
@@ -137,7 +157,10 @@ export const TEXT_STYLES = {
   description: 'text-sm text-foreground-muted leading-relaxed',
   meta: 'text-xs text-foreground-subtle',
   label: 'text-sm font-medium text-foreground',
-  overline: 'text-xs font-semibold uppercase tracking-[0.18em] text-primary',
+  // Hero lettering, map scale
+  display:
+    'text-[length:clamp(2.5rem,5vw,4.5rem)] font-medium leading-[1.12] tracking-[-0.03em] text-foreground',
+  overline: 'text-xs font-semibold uppercase tracking-[0.18em] text-accent',
   code: 'font-mono text-xs text-foreground-muted',
 } as const
 
@@ -273,8 +296,9 @@ export const ALERT_STYLES = {
   frame: 'flex items-start gap-3 rounded-lg border p-4',
   icon: 'mt-0.5 h-5 w-5 shrink-0',
   content: 'flex flex-col gap-1',
-  title: 'text-sm font-semibold',
-  description: 'text-sm opacity-90',
+  // Ink stays neutral, the tone lives in the icon
+  title: 'text-sm font-semibold text-foreground',
+  description: 'text-sm text-foreground-muted',
 } as const
 
 /**
@@ -385,11 +409,11 @@ export const TABS_STYLES = {
  */
 
 export const ACCORDION_STYLES = {
-  list: 'divide-y divide-border rounded-lg border border-border',
-  item: 'group',
-  trigger: `flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-sm font-medium text-foreground ${TRANSITION} ${FOCUS_RING} hover:bg-surface`,
-  indicator: `h-4 w-4 shrink-0 text-foreground-subtle ${TRANSITION_ALL} data-[open=true]:rotate-180`,
-  panel: 'px-5 pb-4 text-sm text-foreground-muted animate-fade-in',
+  list: 'border-t border-border',
+  item: 'group border-b border-border',
+  trigger: `flex w-full items-center justify-between gap-6 py-5 text-left text-base font-medium text-foreground ${TRANSITION} ${FOCUS_RING} hover:text-primary`,
+  indicator: `h-4 w-4 shrink-0 text-foreground-subtle ${TRANSITION_ALL} data-[open=true]:rotate-180 group-hover:text-primary`,
+  panel: 'pb-6 pr-10 text-sm leading-relaxed text-foreground-muted animate-fade-in',
 } as const
 
 /**
@@ -423,16 +447,27 @@ export const PAGINATION_STYLES = {
  */
 
 export const NAVIGATION_STYLES = {
-  header: `sticky top-0 w-full border-b border-border bg-background/80 backdrop-blur`,
-  bar: 'flex h-header items-center justify-between gap-4',
-  list: 'hidden items-center gap-1 md:flex',
-  link: `rounded-md px-3 py-2 text-sm font-medium text-foreground-muted ${TRANSITION} ${FOCUS_RING} hover:bg-surface hover:text-foreground`,
-  linkActive: 'bg-surface-strong text-foreground',
-  actions: 'flex items-center gap-2',
+  header: 'sticky top-0 w-full',
+  // Room around the floating bar
+  shell: 'px-3 pt-3 sm:px-5',
+  bar: 'relative mx-auto flex h-14 max-w-container items-center justify-between gap-4 pl-2 pr-1.5 sm:pl-3',
+  // Capsule that fills in once off the night scene
+  backdrop:
+    'pointer-events-none absolute inset-0 rounded-pill border border-border/70 bg-background/80 shadow-[0_10px_30px_-18px_rgb(var(--color-overlay)/0.45)] backdrop-blur-xl transition-[opacity,transform] duration-slow ease-out',
+  backdropHidden: 'scale-[0.98] opacity-0',
+  list: 'relative hidden items-center lg:flex',
+  link: `relative z-10 rounded-pill px-4 py-2 text-sm text-foreground-muted ${TRANSITION} ${FOCUS_RING} hover:text-foreground`,
+  linkActive: 'text-foreground',
+  // Follows the hovered link
+  highlight: 'absolute inset-0 -z-10 rounded-pill bg-foreground/[0.07]',
+  actions: 'relative flex items-center gap-1.5',
+  wide: 'hidden lg:inline-flex',
+  narrow: 'lg:hidden',
   mobileList: 'flex flex-col gap-1',
-  mobileLink: `rounded-md px-3 py-2.5 text-base font-medium text-foreground-muted ${TRANSITION} hover:bg-surface hover:text-foreground`,
-  brand: `flex items-center gap-2 text-base font-semibold text-foreground ${FOCUS_RING} rounded-md`,
-  brandSymbol: `flex h-8 w-8 items-center justify-center rounded-md text-sm font-bold ${TONE_SOFT.primary}`,
+  mobileLink: `rounded-lg px-3 py-2.5 text-base font-medium text-foreground-muted ${TRANSITION} hover:bg-surface hover:text-foreground`,
+  brand: `relative flex items-center gap-2.5 rounded-pill py-1 pr-2 text-[0.8125rem] font-semibold uppercase tracking-[0.14em] text-foreground ${FOCUS_RING}`,
+  // Filled tile, a nod to the chop
+  brandSymbol: `type-expanded flex h-8 w-8 items-center justify-center rounded-pill bg-foreground text-[0.625rem] font-bold tracking-normal text-background`,
 } as const
 
 /**
@@ -441,7 +476,7 @@ export const NAVIGATION_STYLES = {
  */
 
 export const LANGUAGE_SWITCHER_STYLES = {
-  frame: `relative inline-flex items-center gap-2 rounded-md border border-border bg-surface/50 pl-2.5 pr-7 ${TRANSITION} hover:border-border-strong`,
+  frame: `relative inline-flex items-center gap-2 rounded-pill pl-3 pr-7 ${TRANSITION} hover:bg-foreground/[0.07]`,
   flag: 'text-base leading-none',
   // Transparent native control, the frame around it carries the styling
   select: `cursor-pointer appearance-none bg-transparent py-2 text-sm text-foreground-muted ${FOCUS_RING} hover:text-foreground`,
@@ -454,13 +489,17 @@ export const LANGUAGE_SWITCHER_STYLES = {
  */
 
 export const FOOTER_STYLES = {
-  frame: 'border-t border-border bg-surface',
+  // One slab, raised tab top left
+  frame: 'relative mt-24 bg-surface pt-[var(--notch-top)] [clip-path:var(--shape-clip)]',
+  tab: 'absolute left-0 top-0 flex h-[var(--notch-top)] w-[var(--notch-tab)] items-center px-4 font-semibold text-foreground sm:px-6 lg:px-10',
   grid: 'grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4',
+  accent: 'text-accent',
   columnTitle: 'text-xs font-semibold uppercase tracking-wider text-foreground-subtle',
   list: 'mt-4 flex flex-col gap-2',
   link: `text-sm text-foreground-muted ${TRANSITION} hover:text-foreground`,
   bottom:
-    'flex flex-col gap-3 border-t border-border py-6 sm:flex-row sm:items-center sm:justify-between',
+    'flex flex-col gap-4 border-t border-border py-6 sm:flex-row sm:items-center sm:justify-between',
+  settings: 'flex items-center gap-2',
   socials: 'flex gap-2',
 } as const
 
@@ -518,7 +557,7 @@ export const SECTION_STYLES = {
 export const LAYOUT = {
   page: 'flex min-h-screen flex-col',
   main: 'flex-1',
-  container: 'mx-auto w-full px-4 sm:px-6 lg:px-8',
+  container: 'mx-auto w-full px-4 sm:px-6 lg:px-10',
   sectionStack: 'flex flex-col gap-8',
   stack: 'flex flex-col',
   row: 'flex items-center',
@@ -528,6 +567,8 @@ export const LAYOUT = {
   divider: 'h-px w-full bg-border',
   dividerVertical: 'w-px self-stretch bg-border',
   srOnly: 'sr-only',
+  // Slides over a pinned scene
+  sheet: 'intro-sheet',
 } as const
 
 /**
@@ -563,8 +604,8 @@ export const buttonClass = ({
  */
 
 export const SCROLL_TO_TOP_STYLES = {
-  // Clears the sticky action bar on mobile
-  button: `fixed bottom-20 right-6 shadow-md md:bottom-6 ${TRANSITION_ALL}`,
+  // Centered on the plane rail
+  button: `fixed bottom-20 right-[18px] translate-x-1/2 hover:bg-transparent md:bottom-6 md:right-[26px] ${TRANSITION_ALL}`,
   hidden: 'pointer-events-none translate-y-3 opacity-0',
 } as const
 
@@ -585,7 +626,7 @@ export const STICKY_ACTION_BAR_STYLES = {
 
 export const CONSENT_STYLES = {
   // Bottom-left, clear of ScrollToTop and the sticky action bar which both sit bottom-right
-  trigger: `fixed bottom-24 left-5 flex h-14 w-14 items-center justify-center rounded-pill border border-border bg-surface shadow-md sm:bottom-8 sm:left-8 ${TRANSITION_ALL} ${FOCUS_RING} hover:scale-105`,
+  trigger: `fixed bottom-24 left-5 flex h-14 w-14 items-center justify-center rounded-pill sm:bottom-8 sm:left-8 ${TRANSITION_ALL} ${FOCUS_RING} hover:scale-105`,
   triggerImage: 'h-full w-full object-contain drop-shadow-sm',
   body: 'flex flex-col gap-6',
   categories: 'flex flex-col divide-y divide-border border-y border-border',
@@ -616,12 +657,40 @@ export const BOOKING_STYLES = {
   dayClosed: 'cursor-not-allowed text-foreground-subtle/35 hover:bg-transparent',
   daySelected: 'bg-primary text-primary-foreground hover:bg-primary',
   dayToday: 'ring-1 ring-inset ring-primary/50',
-  // Fewer, larger cells - a schedule grid, not a dense keypad
-  slots: 'grid grid-cols-2 gap-3 sm:grid-cols-3',
-  slot: `rounded-md border border-border py-3.5 text-sm font-medium tabular-nums text-foreground ${TRANSITION_ALL} ${FOCUS_RING} hover:border-primary hover:text-primary`,
-  slotSelected: 'border-primary bg-primary text-primary-foreground hover:text-primary-foreground',
+  // Cut board, zone in the top left tab
+  board:
+    'booking-board flex h-[31rem] flex-col rounded-[1.75rem] bg-surface sm:rounded-none sm:[clip-path:var(--shape-clip)]',
+  tab: 'flex items-center gap-3 border-b border-border px-5 py-4 sm:h-[var(--notch-top)] sm:w-[var(--notch-tab)] sm:border-0 sm:px-6 sm:py-0',
+  tabIcon: 'booking-tick text-accent',
+  tabLabel: 'text-[0.625rem] font-semibold uppercase tracking-[0.18em] text-foreground-subtle',
+  tabZone: 'text-sm font-medium text-foreground',
+  content: 'flex min-h-0 flex-1 flex-col gap-5 px-5 pb-8 pt-5 sm:px-8 sm:pt-7',
   summary:
     'border-b border-border pb-4 font-display text-lg font-medium capitalize text-foreground',
+  // Fewer, larger cells - a schedule grid, not a dense keypad
+  slots:
+    'grid min-h-0 grid-cols-3 content-start gap-3 overflow-y-auto p-1 transition-opacity duration-base [scrollbar-width:thin] sm:grid-cols-4',
+  slot: `relative animate-bubble-in rounded-md border border-border py-3.5 text-center text-sm font-medium tabular-nums text-foreground ${TRANSITION_ALL} ${FOCUS_RING} hover:border-primary hover:text-primary`,
+  // Pale gradient, dark ink in both themes
+  confirmed:
+    'flex animate-bubble-in items-start gap-4 rounded-lg bg-[linear-gradient(135deg,rgb(var(--color-sky-ink))_0%,rgb(var(--color-accent)/0.22)_65%,rgb(var(--color-accent)/0.4)_100%)] p-5 text-cover shadow-sm ring-1 ring-inset ring-white/40',
+  confirmedIcon: 'mt-0.5 h-6 w-6 shrink-0 text-accent',
+  confirmedTitle: 'font-display text-lg font-medium tracking-tight',
+  confirmedText: 'text-sm leading-relaxed text-cover/75',
+  slotsLoading: 'pointer-events-none opacity-50',
+  // Soft tint, no full flood
+  slotSelected: 'border-primary bg-primary/10 text-primary',
+  // Left of the time, never shifts it
+  slotCheck: 'absolute inset-y-0 left-3 my-auto animate-bubble-in',
+  // Empty board, ghost cells
+  ghost: 'h-[3.125rem] rounded-md border border-dashed border-border',
+  hint: 'text-sm text-foreground-muted',
+  // Form unfolds under the board
+  reveal:
+    'grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity] duration-slow ease-out data-[open=true]:grid-rows-[1fr] data-[open=true]:opacity-100',
+  revealInner: 'flex min-h-0 flex-col gap-5 overflow-hidden',
+  recap: 'flex items-center gap-3 pt-1 text-sm text-foreground-muted',
+  recapValue: 'font-medium capitalize text-foreground',
 } as const
 
 /**
@@ -656,4 +725,443 @@ export const COMPARISON_STYLES = {
   arrow: `${SURFACES.glass} absolute top-1/2 z-10 -translate-y-1/2 rounded-pill text-primary hover:text-primary-hover ${TRANSITION_ALL}`,
   arrowLeft: 'left-2 sm:left-4',
   arrowRight: 'right-2 sm:right-4',
+} as const
+
+/**
+ * Engraved globe styles
+ * @type {Object}
+ */
+
+export const GLOBE_STYLES = {
+  frame: 'relative aspect-square w-full',
+  planet: 'pointer-events-none absolute inset-0 h-full w-full',
+  // Horizontal drag only, vertical scroll stays native
+  canvas:
+    'absolute inset-0 h-full w-full cursor-grab touch-pan-y select-none active:cursor-grabbing',
+} as const
+
+/**
+ * Starfield styles
+ * @type {Object}
+ */
+
+export const STARFIELD_STYLES = {
+  canvas: 'intro-layer h-full w-full',
+} as const
+
+/**
+ * Landing scene styles
+ * @type {Object}
+ */
+
+export const INTRO_STYLES = {
+  track: 'intro-track',
+  stage: 'intro-stage',
+  sky: 'intro-layer intro-sky',
+  planet: 'intro-layer',
+  globe: 'absolute inset-0 aspect-auto h-full',
+  heading:
+    'intro-heading absolute inset-x-0 top-[15svh] z-10 flex flex-col items-center gap-6 px-6 text-center',
+  title: 'flex justify-center',
+  logo: 'h-auto w-[min(82vw,34rem)]',
+  // Weight sets the accent apart
+  accent: 'font-semibold text-globe-air',
+  subtitle: 'max-w-md text-sm leading-relaxed text-sky-ink/80 sm:text-base',
+  cta: 'mt-1',
+  people: 'intro-layer intro-people z-10',
+  pin: 'intro-pin',
+  dot: 'absolute left-0 top-0 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-pill border-2 border-sky-ink bg-globe-air transition-opacity duration-300',
+  ping: 'absolute left-0 top-0 h-3 w-3 -translate-x-1/2 -translate-y-1/2 animate-ping rounded-pill bg-globe-air/70 transition-opacity duration-300',
+  column: 'absolute bottom-0 left-0 flex -translate-x-1/2 flex-col items-center',
+  stack: 'grid',
+  person: 'relative flex flex-col items-center [grid-area:1/1]',
+  hidden: 'invisible',
+  card: 'w-32 sm:w-36',
+  enter: 'animate-card-pop',
+  leave: 'animate-card-out',
+  tags: 'absolute bottom-6 left-full ml-3 hidden flex-col items-start gap-1 sm:flex',
+  tag: 'animate-rise whitespace-nowrap rounded-pill bg-sky-ink px-2.5 py-1 text-[0.6875rem] font-medium text-cover shadow-md',
+  stem: 'h-12 w-0 border-l-2 border-dashed border-sky-ink/90 transition-opacity duration-300',
+  stemHidden: 'opacity-0',
+  // World caption, beside the planet
+  beat: 'intro-beat intro-layer z-10 flex flex-col items-center justify-start px-6 pt-[16svh] text-center md:items-start md:justify-center md:px-[6vw] md:pt-0 md:text-left',
+  beatTitle:
+    'max-w-sm text-3xl font-medium leading-[1.05] tracking-[-0.03em] text-sky-ink md:max-w-[19rem] lg:text-[3rem]',
+  // Reach lines, one at a time in the same slot
+  reach: 'mt-5 grid max-w-[18rem] md:mt-7',
+  reachItem:
+    'intro-reach-item flex items-center gap-3 text-base text-sky-ink/80 [grid-area:1/1] md:text-lg',
+  reachDot: 'h-1.5 w-1.5 shrink-0 rounded-pill bg-globe-air',
+  // Free assessment box, under the banner lane
+  box: 'intro-box absolute inset-x-0 top-[27svh] z-10 mx-auto w-[min(92vw,56rem)] px-0',
+  // Copy in the rising sheet
+  dock: 'bilan-dock mx-auto w-[min(92vw,56rem)]',
+  // Dims as the page covers it
+  shade: 'intro-layer intro-shade',
+} as const
+
+/**
+ * Dialogue section styles
+ * @type {Object}
+ */
+
+export const DIALOGUE_STYLES = {
+  stage: 'relative',
+  layout: 'grid items-center gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20',
+  head: 'flex flex-col gap-5',
+  title:
+    'text-4xl font-medium leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]',
+  accent: 'text-accent',
+  description: 'max-w-sm text-sm leading-relaxed text-foreground-muted sm:text-base',
+  // Night slab, clipped on desktop
+  window:
+    'flex flex-col overflow-hidden rounded-[2rem] bg-surface lg:rounded-none lg:[clip-path:var(--shape-clip)]',
+  // Fills the top left tab on desktop
+  header:
+    'flex items-center gap-3 border-b border-border px-5 py-4 sm:px-7 lg:h-[var(--notch-top)] lg:w-[var(--notch-tab)] lg:border-0 lg:py-0',
+  faces: 'flex -space-x-2',
+  face: 'ring-2 ring-surface',
+  heading: 'flex flex-col',
+  windowTitle: 'text-sm font-semibold text-foreground',
+  windowSubtitle: 'text-xs text-foreground-muted',
+  // Fixed height, older lines slide out the top
+  thread:
+    'flex h-[30rem] flex-col justify-end gap-4 overflow-hidden px-5 pb-6 [mask-image:linear-gradient(to_bottom,transparent,black_18%)] sm:h-[32rem] sm:px-7 lg:h-[36rem] lg:pb-[calc(var(--notch-bottom)+1.5rem)]',
+  separator:
+    'animate-bubble-in self-center pt-2 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-foreground-muted',
+  // Chat log, no bubbles
+  line: 'flex animate-bubble-in items-start gap-3',
+  message: 'flex min-w-0 flex-1 flex-col gap-1',
+  author: 'flex items-baseline gap-2',
+  name: 'text-sm font-semibold text-foreground',
+  nameTeam: 'text-sm font-semibold text-accent',
+  role: 'text-xs text-foreground-subtle',
+  text: 'text-sm leading-relaxed text-foreground',
+  attachment:
+    'mt-1 flex w-fit items-center gap-2.5 rounded-xl border border-border bg-surface-strong py-2 pl-2 pr-4 text-xs font-medium text-foreground',
+  attachmentIcon:
+    'flex h-8 w-8 items-center justify-center rounded-lg bg-primary-soft text-primary',
+  typing: 'flex h-6 w-fit items-center gap-1',
+  dot: 'h-1.5 w-1.5 animate-bounce rounded-pill bg-foreground-muted',
+  // Sits in the bottom right notch on desktop
+  footer:
+    'mt-6 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between lg:absolute lg:bottom-0 lg:right-0 lg:mt-0 lg:h-[var(--notch-bottom)] lg:w-[var(--notch-cta)] lg:justify-start lg:gap-5 lg:pl-2',
+  prompt: 'max-w-xs text-sm leading-snug text-foreground-muted lg:max-w-40 lg:text-xs',
+  cta: 'rounded-pill',
+} as const
+
+/**
+ * Story book section styles
+ * @type {Object}
+ */
+
+export const STORY_STYLES = {
+  // Sheet over the pinned scene
+  section: 'py-16 sm:py-20',
+  // Title lines step left, the description rides the second one
+  head: 'flex flex-col gap-6 lg:grid lg:grid-cols-[17rem_auto_minmax(0,1fr)] lg:items-center lg:gap-y-1',
+  intro:
+    'max-w-xs text-sm leading-snug text-foreground-muted lg:col-start-1 lg:row-start-1 lg:pr-8',
+  introStrong: 'font-semibold text-foreground',
+  title: 'lg:contents',
+  titleLead: 'block lg:col-span-2 lg:col-start-2 lg:row-start-1',
+  titleTail: 'block lg:col-start-2 lg:row-start-2 lg:-ml-16',
+  accent: 'text-accent',
+  description:
+    'max-w-xs text-sm leading-relaxed text-foreground-muted lg:col-start-3 lg:row-start-2 lg:pl-10',
+  stage: 'mt-10 flex flex-col items-center gap-4 lg:mt-12',
+  actions: 'flex flex-wrap justify-center gap-2',
+  pills: 'flex w-full flex-wrap items-center justify-between gap-x-8 gap-y-4 lg:px-6',
+  pill: 'flex items-center gap-3 text-xs leading-tight text-foreground-muted',
+  faces: 'flex -space-x-2',
+  face: 'ring-2 ring-background',
+  flag: 'flex h-8 w-8 items-center justify-center rounded-pill bg-surface-strong text-base',
+} as const
+
+/**
+ * Profile card styles
+ * @type {Object}
+ */
+
+export const PROFILE_CARD_STYLES = {
+  frame: 'relative w-36 [transform-style:preserve-3d]',
+  front: 'relative [backface-visibility:hidden]',
+  // Filter apart, it would defeat the backface
+  shadow: 'drop-shadow-[0_14px_18px_rgb(var(--color-overlay)/0.16)]',
+  cut: 'flex flex-col bg-surface [clip-path:var(--shape-clip)]',
+  place:
+    'flex h-[var(--notch-tab)] w-[var(--notch-tab-width)] items-center truncate pl-2.5 text-[0.5625rem] font-semibold uppercase tracking-[0.14em] text-foreground-muted',
+  portrait:
+    'mx-1 w-auto rounded-md [&_img]:transition-transform [&_img]:duration-slow group-hover/profile:[&_img]:scale-105',
+  name: 'px-2.5 pt-2 text-xs font-semibold leading-tight text-foreground',
+  role: 'flex h-[var(--notch-corner)] items-center pl-2.5 pr-[var(--notch-corner)] text-[0.6875rem] font-medium text-primary',
+  flag: 'absolute bottom-0.5 right-0.5 flex h-[calc(var(--notch-corner)-0.25rem)] w-[calc(var(--notch-corner)-0.25rem)] items-center justify-center rounded-pill bg-surface text-sm shadow-md',
+  // Brand side, seen mid spin
+  back: 'absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]',
+  backCut: 'flex h-full items-center justify-center bg-cover [clip-path:var(--shape-clip)]',
+  symbol:
+    'type-expanded flex h-11 w-11 items-center justify-center rounded-lg border-2 border-sky-ink/70 text-sm font-semibold text-sky-ink',
+} as const
+
+/**
+ * Offers carousel styles
+ * @type {Object}
+ */
+
+export const OFFER_STYLES = {
+  // Heading kept for screen readers
+  title: 'sr-only',
+  // Room under the low cards
+  viewport: 'pb-12',
+  track: 'items-start',
+  // Margin not gap, the half turn stays exact
+  card: 'relative mr-4 w-56 shrink-0 rounded-[1.75rem] bg-overlay p-1 shadow-md sm:w-60',
+  cardLow: 'mt-12',
+  picture: 'rounded-[1.5rem]',
+  // No backdrop blur, it would re-filter under the moving band
+  label:
+    'absolute inset-x-3.5 bottom-4 rounded-2xl bg-background/90 px-3 py-3 text-center text-sm text-foreground shadow-sm',
+} as const
+
+/**
+ * Reasons panel styles
+ * @type {Object}
+ */
+
+export const REASONS_STYLES = {
+  stage: 'relative flex flex-col gap-6',
+  // Dark slab, clipped on desktop
+  panel:
+    'relative rounded-[2rem] bg-surface px-6 py-12 sm:px-10 lg:rounded-none lg:px-14 lg:pb-[calc(var(--notch-bottom)+4rem)] lg:pt-9 lg:[clip-path:var(--shape-clip)]',
+  head: 'mx-auto flex max-w-2xl flex-col items-center gap-5 text-center',
+  title: 'text-3xl font-medium tracking-tight text-foreground sm:text-4xl lg:text-[2.5rem]',
+  accent: 'text-accent',
+  description: 'text-sm leading-relaxed text-foreground-muted',
+  list: 'mt-14 grid gap-10 md:grid-cols-3 md:gap-12 lg:mt-20',
+  item: 'flex flex-col items-start gap-4',
+  icon: 'h-10 w-10 text-accent',
+  term: 'mt-2 text-lg font-semibold text-foreground',
+  definition: 'text-sm leading-relaxed text-foreground-muted',
+  // Sits in the bottom left notch on desktop
+  action:
+    'flex flex-wrap items-center gap-x-5 gap-y-3 lg:absolute lg:bottom-0 lg:left-0 lg:h-[var(--notch-bottom)] lg:w-[var(--notch-left)] lg:flex-nowrap lg:pl-10',
+  note: 'max-w-xs text-xs leading-snug text-foreground-muted',
+} as const
+
+/**
+ * FAQ styles
+ * @type {Object}
+ */
+
+export const FAQ_STYLES = {
+  panel: 'rounded-[2rem] bg-surface p-6 sm:p-10 lg:p-14',
+  grid: 'grid gap-10 lg:grid-cols-12 lg:gap-16',
+  aside: 'flex flex-col items-start gap-5 lg:sticky lg:top-28 lg:col-span-4 lg:self-start',
+  list: 'lg:col-span-8',
+} as const
+
+/**
+ * Appointment and quote section styles
+ * @type {Object}
+ */
+
+export const APPOINTMENT_STYLES = {
+  section: 'pb-8',
+  head: 'build-rise',
+  calendar: 'build-rise [--build-step:1]',
+  // Slides in beside the calendar
+  board: 'build-slide [--build-step:2]',
+} as const
+
+/**
+ * Opening hours card styles
+ * @type {Object}
+ */
+
+export const SCHEDULE_STYLES = {
+  card: 'flex flex-col gap-5 rounded-[1.75rem] border border-border bg-surface p-6 sm:p-8',
+  head: 'flex flex-wrap items-center justify-between gap-3',
+  title: 'font-display text-xl font-semibold tracking-[-0.02em] text-foreground',
+  // Business time zone
+  zone: 'type-expanded rounded-pill border border-border-strong px-3 py-1 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-foreground-muted',
+  status: 'flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-foreground-muted',
+  rows: 'flex flex-col divide-y divide-border border-y border-border',
+  row: 'flex items-center justify-between gap-4 py-3 text-sm',
+  day: 'capitalize text-foreground',
+  hours: 'tabular-nums text-foreground-muted',
+  note: 'text-xs text-foreground-muted',
+} as const
+
+/**
+ * Calendar embed styles
+ * @type {Object}
+ */
+
+export const CALENDLY_STYLES = {
+  frame: 'h-[46rem] w-full overflow-hidden rounded-[2rem] border border-border bg-surface',
+  facade: `${SURFACES.card} flex flex-col items-center gap-5 p-8 text-center sm:p-12`,
+  notice: 'max-w-md text-sm leading-relaxed text-foreground-muted',
+  actions: 'flex flex-wrap justify-center gap-3',
+} as const
+
+/**
+ * Catalogue styles
+ * @type {Object}
+ */
+
+export const CATALOG_STYLES = {
+  stage: 'relative flex flex-col gap-6',
+  // Night light table, clipped on desktop
+  panel:
+    'catalog-panel relative flex flex-col gap-12 overflow-hidden rounded-[2.5rem] px-5 py-12 text-foreground sm:px-10 sm:py-16 lg:rounded-none lg:px-14 lg:pb-[calc(var(--notch-bottom)+2rem)] lg:pt-8 lg:[clip-path:var(--shape-clip)]',
+  head: 'grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-start',
+  intro: 'flex flex-col gap-4',
+  title:
+    'max-w-xl text-4xl font-semibold leading-[1.02] tracking-[-0.035em] text-foreground sm:text-5xl lg:text-[3.5rem]',
+  accent: 'text-accent',
+  aside:
+    'max-w-md text-sm leading-relaxed text-foreground-muted sm:text-base lg:pt-[var(--notch-top)]',
+  // Sits in the bottom right notch on desktop
+  actions:
+    'flex flex-wrap gap-3 lg:absolute lg:bottom-0 lg:right-0 lg:h-[var(--notch-bottom)] lg:w-[var(--notch-cta)] lg:flex-nowrap lg:items-center lg:justify-end',
+  hint: 'text-center text-xs text-foreground-subtle',
+} as const
+
+/**
+ * Flippable catalogue styles
+ * @type {Object}
+ */
+
+export const CATALOG_BOOK_STYLES = {
+  layout: 'grid gap-8 lg:grid-cols-[13rem_minmax(0,1fr)] lg:items-center',
+  chapters: 'flex gap-1 overflow-x-auto pb-1 lg:flex-col lg:overflow-visible lg:pb-0',
+  chapter: `flex w-full items-center gap-3 whitespace-nowrap rounded-pill px-3 py-2 text-left text-sm text-foreground-muted ${TRANSITION} ${FOCUS_RING} hover:bg-foreground/[0.06] hover:text-foreground`,
+  chapterActive: 'bg-foreground/[0.08] text-foreground',
+  chapterIndex: 'type-expanded text-[0.625rem] font-semibold tabular-nums text-accent',
+  stage: 'relative flex justify-center [perspective:2200px] lg:row-span-2',
+  book: `relative w-full max-w-[56rem] rounded-sm [transform-style:preserve-3d] ${FOCUS_RING}`,
+  // Right half, hinged on the spine
+  leaf: 'absolute inset-y-0 left-1/2 w-1/2 origin-left [transform-style:preserve-3d]',
+  face: 'absolute inset-0 overflow-hidden bg-white [backface-visibility:hidden] shadow-[0_30px_60px_-30px_rgb(0_0_0/0.8)]',
+  front: 'rounded-r-md',
+  back: 'rounded-l-md [transform:rotateY(180deg)]',
+  picture: 'object-cover',
+  // Paper curving into the binding
+  spineRight:
+    'pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-black/25 to-transparent',
+  spineLeft:
+    'pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-black/25 to-transparent',
+  shade: 'pointer-events-none absolute inset-0 bg-black',
+  hitLeft: 'absolute inset-y-0 left-0 z-[100] w-1/2 cursor-w-resize',
+  hitRight: 'absolute inset-y-0 right-0 z-[100] w-1/2 cursor-e-resize',
+  controls: 'flex items-center justify-center gap-4 lg:col-start-2',
+  counter: 'min-w-32 text-center text-sm tabular-nums text-foreground-muted',
+} as const
+
+/**
+ * Group section styles
+ * @type {Object}
+ */
+
+export const GROUP_STYLES = {
+  stage: 'relative',
+  // Cut slab on desktop, soon line in the notch
+  panel:
+    'relative flex flex-col gap-12 overflow-hidden rounded-[2rem] bg-surface px-6 py-12 sm:px-10 lg:rounded-none lg:px-14 lg:pb-[calc(var(--notch-bottom)+3rem)] lg:pt-[calc(var(--notch-top)+2rem)] lg:[clip-path:var(--shape-clip)]',
+  // Top right, on the raised half
+  head: 'flex max-w-2xl flex-col items-start gap-4 lg:absolute lg:right-0 lg:top-0 lg:h-[var(--notch-top)] lg:w-1/2 lg:max-w-none lg:justify-center lg:px-14',
+  title: 'text-3xl font-medium tracking-tight text-foreground sm:text-4xl lg:text-[2.5rem]',
+  accent: 'text-accent',
+  description: 'text-sm leading-relaxed text-foreground-muted',
+  // Card, link, hub, link, card
+  network:
+    'flex flex-col items-center lg:grid lg:grid-cols-[1fr_4rem_auto_4rem_1fr] lg:items-center',
+  // Uneven corners, like the other boxes
+  card: 'flex w-full max-w-sm flex-col items-start gap-3 rounded-[1.75rem_0.5rem_1.75rem_1.75rem] border border-border bg-background p-6 lg:max-w-none',
+  cardMirror: 'rounded-[0.5rem_1.75rem_1.75rem_1.75rem]',
+  cardCurrent: 'border-accent/40',
+  cardTag: 'text-xs font-semibold uppercase tracking-[0.14em] text-accent',
+  cardTitle: 'text-xl font-semibold text-foreground',
+  cardText: 'text-sm leading-relaxed text-foreground-muted',
+  here: 'inline-flex items-center gap-2 text-sm font-medium text-foreground before:h-2 before:w-2 before:rounded-full before:bg-accent',
+  // Dashes travelling towards the hub
+  link: 'group-flow h-12 text-accent w-px self-center lg:h-px lg:w-full',
+  linkReverse: 'group-flow-reverse',
+  hub: 'relative grid h-56 w-56 shrink-0 place-items-center sm:h-64 sm:w-64',
+  ring: 'absolute inset-6 rounded-full border border-accent/50',
+  orbit: 'absolute inset-0 rounded-full border border-dashed border-border-strong',
+  orbitInner: 'absolute inset-10 rounded-full border border-border',
+  satellite:
+    'absolute left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-accent ring-4 ring-accent/15 first:-translate-y-1/2 last:translate-y-1/2',
+  satelliteSoon:
+    'absolute left-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-foreground-muted bg-surface',
+  core: 'relative flex h-28 w-28 flex-col items-center justify-center gap-1 rounded-full bg-foreground text-center sm:h-32 sm:w-32',
+  coreName: 'px-3 text-base font-semibold leading-tight text-background',
+  coreHint: 'text-[0.65rem] uppercase tracking-[0.16em] text-background/60',
+  soon: 'mt-6 flex items-center justify-center gap-3 text-sm text-foreground-muted lg:absolute lg:bottom-0 lg:left-0 lg:mt-0 lg:h-[var(--notch-bottom)] lg:w-[var(--notch-soon)] lg:justify-start lg:pl-2',
+  soonDot: 'h-2 w-2 rounded-full bg-accent',
+} as const
+
+/**
+ * Scroll plane styles
+ * @type {Object}
+ */
+
+export const SCROLL_PLANE_STYLES = {
+  // Always shown, visible track
+  rail: 'pointer-events-none fixed inset-y-24 right-2 z-[90] w-5 md:right-4',
+  track:
+    'absolute inset-y-0 left-1/2 w-0.5 -translate-x-1/2 rounded-full bg-white/40 mix-blend-difference',
+  progress: 'absolute left-1/2 top-0 w-0.5 -translate-x-1/2 rounded-full bg-accent',
+  plane:
+    'pointer-events-auto absolute left-0 h-5 w-5 cursor-grab touch-none select-none drop-shadow-[0_3px_4px_rgb(0_0_0/0.35)] transition-[rotate] duration-300 active:cursor-grabbing',
+} as const
+
+/**
+ * Flight scene styles
+ * @type {Object}
+ */
+
+export const FLIGHT_STYLES = {
+  plane: 'absolute inset-0 z-20 h-full w-full pointer-events-none',
+  // Flat fallback, moved by transform
+  glyph: 'absolute left-0 top-0 z-20 drop-shadow-[0_6px_10px_rgb(0_0_0/0.35)]',
+  trail: 'absolute inset-0 z-[15] h-full w-full pointer-events-none',
+  trailLine: 'fill-none stroke-sky-ink/35 [stroke-linecap:round] [stroke-width:3]',
+  banner:
+    'absolute left-0 top-0 z-20 flex items-center justify-center border-y-4 border-dashed border-globe-air bg-sky-ink px-8 py-3 text-center text-xl font-extrabold uppercase tracking-[0.12em] text-cover shadow-lg [clip-path:polygon(0_0,100%_0,95%_50%,100%_100%,0_100%)] sm:text-3xl',
+} as const
+
+/**
+ * Free assessment panel styles
+ * @type {Object}
+ */
+
+export const BILAN_STYLES = {
+  frame: 'w-full',
+  // Dark slab, kicker in the top tab
+  body: 'intro-box-body flex flex-col items-center gap-5 bg-cover px-6 pb-10 text-center [clip-path:var(--shape-clip)] sm:px-12 sm:pb-12',
+  kicker:
+    'flex h-[var(--notch-top)] items-center text-xs font-semibold uppercase tracking-widest text-accent',
+  title: 'max-w-xl text-3xl font-medium tracking-tight text-sky-ink sm:text-4xl lg:text-5xl',
+  description: 'max-w-lg text-sm leading-relaxed text-sky-ink/75 sm:text-base',
+  channels: 'mt-2 flex flex-wrap justify-center gap-3',
+} as const
+
+/**
+ * Error page styles
+ * @type {Object}
+ */
+
+export const ERROR_STYLES = {
+  frame: 'flex flex-col items-center gap-6 text-center',
+  figure: 'w-full max-w-xs text-primary',
+  route:
+    'fill-none stroke-current opacity-40 [stroke-dasharray:4_6] [stroke-linecap:round] [stroke-width:2]',
+  break: 'fill-none stroke-current [stroke-linecap:round] [stroke-width:2]',
+  plane: 'animate-drift motion-reduce:animate-none',
+  kicker: 'text-xs font-semibold uppercase tracking-[0.18em] text-primary',
+  title: 'text-3xl font-medium tracking-[-0.02em] text-foreground sm:text-4xl',
+  text: 'max-w-md text-base leading-relaxed text-foreground-subtle',
+  actions: 'mt-2 flex flex-wrap items-center justify-center gap-3',
 } as const

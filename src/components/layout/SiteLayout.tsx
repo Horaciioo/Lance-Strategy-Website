@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import { SiteFooter } from '@/components/layout/SiteFooter'
 import { SiteHeader } from '@/components/layout/SiteHeader'
 import { NotificationRegion } from '@/components/structures/feedback/NotificationRegion'
+import { ScrollPlane } from '@/components/structures/navigation/ScrollPlane'
 import { ScrollToTop } from '@/components/structures/navigation/ScrollToTop'
 import { StickyActionBar } from '@/components/structures/navigation/StickyActionBar'
 import { LAYOUT } from '@/declarations/ui/variants'
@@ -26,6 +27,7 @@ export const SiteLayout = ({ children }: SiteLayoutProps) => (
     <SiteHeader />
     <main className={cn(LAYOUT.main, hasStickyActionBar && 'pb-20 md:pb-0')}>{children}</main>
     <SiteFooter />
+    <ScrollPlane />
     {ConfigurationService.isEnabled('scrollToTop') && <ScrollToTop />}
     {ConfigurationService.isEnabled('notifications') && <NotificationRegion />}
     {hasStickyActionBar && <StickyActionBar />}

@@ -44,6 +44,38 @@ class ScrollServiceClass extends Service {
   use = (): ScrollState => store.use()
 
   /**
+   * Pinned track progress
+   * @param {HTMLElement} track - Tall scroll track
+   * @param {Function} onProgress - Receives 0 to 1
+   * @return {() => void} - Stop tracking
+   */
+
+  track = (track: HTMLElement, onProgress: (progress: number) => void): (() => void) => {
+    if (!isBrowser()) return () => undefined
+    let frameId = 0
+
+    // One measure per frame
+    const measure = () => {
+      frameId = 0
+      const box = track.getBoundingClientRect()
+      const travel = box.height - window.innerHeight
+      onProgress(travel > 0 ? Math.min(1, Math.max(0, -box.top / travel)) : 0)
+    }
+    const schedule = () => {
+      if (frameId === 0) frameId = requestAnimationFrame(measure)
+    }
+    const unbindScroll = bindWindowEvent('scroll', schedule)
+    const unbindResize = bindWindowEvent('resize', schedule)
+    measure()
+
+    return () => {
+      cancelAnimationFrame(frameId)
+      unbindScroll()
+      unbindResize()
+    }
+  }
+
+  /**
    * Scroll to top
    * @return {void}
    */

@@ -78,6 +78,8 @@ export const SURFACES = {
   inset: 'bg-surface-strong rounded-md',
   outline: 'border border-border rounded-lg',
   glass: 'surface-glass rounded-lg',
+  // Apple style, for chrome floating over imagery
+  liquid: 'liquid-glass',
   ghost: 'bg-transparent',
 } as const
 
@@ -250,4 +252,6 @@ export const MOTION = {
   // Endless horizontal travel, paused while the viewport is hovered
   marquee: 'marquee-track animate-marquee',
   marqueeViewport: 'marquee',
+  // Hard cut at the viewport edges
+  marqueeBleed: 'marquee marquee-bleed',
 } as const
