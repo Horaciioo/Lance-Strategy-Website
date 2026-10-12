@@ -31,3 +31,6 @@ yarn-error.log*
 *.swo
 *~
 .DS_Store
+# Markdown
+*.md
+!/README.md
