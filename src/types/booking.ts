@@ -83,3 +83,20 @@ export interface AppointmentConfirmation {
   // Landed in the calendar
   isSynchronised: boolean
 }
+
+/**
+ * Opening window seen from a time zone
+ * @typedef ZonedOpening
+ * @property {number} day - Weekday of the opening, 0 is Sunday
+ * @property {string} opensAt - Opening time, HH:MM
+ * @property {string} closesAt - Closing time, HH:MM
+ * @property {number} closesDayShift - Days between opening and closing
+ */
+
+export interface ZonedOpening {
+  day: number
+  opensAt: string
+  closesAt: string
+  // Closing falls on a later day
+  closesDayShift: number
+}

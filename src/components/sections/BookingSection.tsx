@@ -7,20 +7,22 @@ import { ActionLink } from '@/components/elements/actions/ActionLink'
 import { Button } from '@/components/elements/actions/Button'
 import { IconButton } from '@/components/elements/actions/IconButton'
 import { Alert } from '@/components/elements/feedback/Alert'
-import { Spinner } from '@/components/elements/feedback/Spinner'
 import { Field } from '@/components/elements/forms/Field'
 import { FieldControl } from '@/components/elements/forms/FieldControl'
 import { HoneypotField } from '@/components/elements/forms/HoneypotField'
-import { Text } from '@/components/elements/typography/Text'
+import { Icon } from '@/components/elements/media/Icon'
+import { BookingSlots } from '@/components/sections/BookingSlots'
+import { CalendlyEmbed } from '@/components/structures/layout/CalendlyEmbed'
 import { Section } from '@/components/structures/layout/Section'
 import { HONEYPOT_FIELD } from '@/declarations/http'
-import { BOOKING_STYLES, FIELD_STYLES } from '@/declarations/ui/variants'
+import { APPOINTMENT_STYLES, BOOKING_STYLES, FIELD_STYLES } from '@/declarations/ui/variants'
 import { AnalyticsService } from '@/services/AnalyticsService'
 import { AppointmentService } from '@/services/AppointmentService'
 import { ConfigurationService } from '@/services/ConfigurationService'
 import { FormatService } from '@/services/FormatService'
 import { FormService } from '@/services/FormService'
 import { NamingService } from '@/services/NamingService'
+import { TimezoneService } from '@/services/TimezoneService'
 import { ValidationService } from '@/services/ValidationService'
 import { FormStatuses } from '@/structures/constants'
 import type { FieldValue } from '@/types/form'
@@ -55,7 +57,6 @@ export const BookingSection = () => {
   const forms = useTranslations(NamingService.toTranslationKey('forms', FORM_ID))
   const actions = useTranslations('actions')
   const validation = useTranslations('validation')
-  const feedback = useTranslations('feedback')
   const format = FormatService.for(useLocale())
 
   const form = FormService.declarationOf(FORM_ID)
@@ -69,6 +70,13 @@ export const BookingSection = () => {
   const [confirmation, setConfirmation] = useState<{ date: string; slot: string } | null>(null)
   const [hasFailed, setHasFailed] = useState(false)
   const [state, setState] = useState(() => FormService.buildInitialState(form))
+  // Slots are stored in the business zone, shown in the visitor's
+  const [zone, setZone] = useState<string>(ConfigurationService.localization.timeZone)
+
+  useEffect(() => setZone(TimezoneService.visitorZone()), [])
+
+  const shown = (date: string, slot: string): string =>
+    TimezoneService.clockOf(zone, AppointmentService.instantOf(date, slot))
 
   // Free slots follow the picked day
   useEffect(() => {
@@ -153,10 +161,22 @@ export const BookingSection = () => {
     )
   }
 
+  if (ConfigurationService.booking.calendlyUrl) {
+    return (
+      <Section anchor="booking" title={t('title')}>
+        <CalendlyEmbed url={ConfigurationService.booking.calendlyUrl} />
+      </Section>
+    )
+  }
+
   return (
-    <Section anchor="booking" title={t('title')} description={t('description')}>
+    <Section
+      anchor="booking"
+      title={t('title')}
+      description={t('description')}
+      className={APPOINTMENT_STYLES.head}>
       <div className={BOOKING_STYLES.frame}>
-        <div className={BOOKING_STYLES.calendar}>
+        <div className={cn(APPOINTMENT_STYLES.calendar, BOOKING_STYLES.calendar)}>
           <div className={BOOKING_STYLES.panel}>
             <div className={BOOKING_STYLES.monthBar}>
               <IconButton
@@ -223,54 +243,54 @@ export const BookingSection = () => {
           </ActionLink>
         </div>
 
-        <div className="flex flex-col gap-6">
-          {!selectedDate && <Text appearance="description">{t('pickDate')}</Text>}
-
-          {selectedDate && (
-            <div className="flex flex-col gap-3">
-              <p className={BOOKING_STYLES.summary}>{format.date(selectedDate, 'weekday')}</p>
-
-              {isLoadingSlots && <Spinner label={feedback('loading')} />}
-
-              {!isLoadingSlots && slots.length === 0 && (
-                <Text appearance="description">{t('noSlot')}</Text>
-              )}
-
-              {!isLoadingSlots && slots.length > 0 && (
-                <div className={BOOKING_STYLES.slots}>
-                  {slots.map((slot) => (
-                    <button
-                      key={slot}
-                      type="button"
-                      aria-pressed={slot === selectedSlot}
-                      className={cn(
-                        BOOKING_STYLES.slot,
-                        slot === selectedSlot && BOOKING_STYLES.slotSelected
-                      )}
-                      onClick={() => setSelectedSlot(slot)}>
-                      {slot}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
+        <div className={cn(APPOINTMENT_STYLES.board, 'flex flex-col gap-6')}>
+          <BookingSlots
+            zone={zone}
+            date={selectedDate}
+            slots={slots}
+            isLoading={isLoadingSlots}
+            selected={selectedSlot}
+            clockOf={(slot) => (selectedDate ? shown(selectedDate, slot) : slot)}
+            onSelect={setSelectedSlot}
+          />
 
           {confirmation && (
-            <Alert
-              tone="success"
-              title={t('success.title')}
-              description={t('success.description', {
-                date: format.date(confirmation.date, 'weekday'),
-                slot: confirmation.slot,
-              })}
-            />
+            <div role="status" className={BOOKING_STYLES.confirmed}>
+              <Icon name="success" className={BOOKING_STYLES.confirmedIcon} />
+              <div className="flex flex-col gap-1">
+                <p className={BOOKING_STYLES.confirmedTitle}>{t('success.title')}</p>
+                <p className={BOOKING_STYLES.confirmedText}>
+                  {t('success.description', {
+                    date: format.date(confirmation.date, 'weekday'),
+                    slot: shown(confirmation.date, confirmation.slot),
+                  })}
+                </p>
+              </div>
+            </div>
           )}
 
           {hasFailed && <Alert tone="danger" title={t('failure')} />}
 
-          {selectedSlot && (
-            <form noValidate onSubmit={submit} className="relative flex flex-col gap-5">
+          <div className={BOOKING_STYLES.reveal} data-open={Boolean(selectedSlot)}>
+            <form
+              noValidate
+              inert={!selectedSlot}
+              onSubmit={submit}
+              className={BOOKING_STYLES.revealInner}>
+              <p className={BOOKING_STYLES.recap}>
+                <Icon name="calendar" size="sm" className="text-accent" />
+                {t('chosen')}
+                {selectedDate && selectedSlot && (
+                  <span
+                    key={selectedSlot}
+                    className={cn(BOOKING_STYLES.recapValue, 'animate-bubble-in')}>
+                    {t('recap', {
+                      date: format.date(selectedDate, 'weekday'),
+                      slot: shown(selectedDate, selectedSlot),
+                    })}
+                  </span>
+                )}
+              </p>
               <HoneypotField />
               <div className={FIELD_STYLES.grid}>
                 {form.fields.map((field) => {
@@ -316,7 +336,7 @@ export const BookingSection = () => {
                 {actions(form.submitAction)}
               </Button>
             </form>
-          )}
+          </div>
         </div>
       </div>
     </Section>

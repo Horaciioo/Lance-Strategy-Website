@@ -2,5 +2,6 @@
   "slotMinutes": 30,
   "durationMinutes": 60,
   "minimumNoticeHours": 12,
-  "horizonDays": 60
+  "horizonDays": 60,
+  "calendlyUrl": ""
 }
