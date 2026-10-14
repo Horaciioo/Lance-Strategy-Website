@@ -484,6 +484,20 @@ export const LANGUAGE_SWITCHER_STYLES = {
 } as const
 
 /**
+ * Language picker styles
+ * @type {Object}
+ */
+
+export const LANGUAGE_PICKER_STYLES = {
+  root: 'flex flex-col items-start gap-2',
+  trigger: `inline-flex size-10 items-center justify-center rounded-pill text-xl leading-none ${TRANSITION} hover:bg-foreground/[0.07] ${FOCUS_RING}`,
+  list: 'flex w-full flex-col gap-1',
+  option: `flex w-full items-center gap-3 rounded-md px-3 py-2 text-left text-sm text-foreground-muted ${TRANSITION} hover:bg-foreground/[0.07] hover:text-foreground ${FOCUS_RING}`,
+  optionActive: 'bg-foreground/[0.07] text-foreground',
+  flag: 'text-base leading-none',
+} as const
+
+/**
  * Footer styles
  * @type {Object}
  */

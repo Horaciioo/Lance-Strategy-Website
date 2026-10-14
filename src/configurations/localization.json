@@ -1,9 +1,10 @@
 {
-  "locales": ["fr", "en", "zh"],
+  "locales": ["fr", "en", "zh", "de"],
   "regions": {
     "fr": "FR",
     "en": "GB",
-    "zh": "CN"
+    "zh": "CN",
+    "de": "DE"
   },
   "defaultLocale": "fr",
   "localePrefix": "as-needed",

@@ -1,0 +1,689 @@
+{
+  "actions": {
+    "contact": "Kontakt aufnehmen",
+    "showcase": "Komponenten ansehen",
+    "subscribeNewsletter": "Abonnieren",
+    "submit": "Senden",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
+    "retry": "Erneut versuchen",
+    "close": "Schließen",
+    "open": "Menü öffnen",
+    "next": "Weiter",
+    "previous": "Zurück",
+    "search": "Suchen",
+    "share": "Teilen",
+    "scrollToTop": "Nach oben",
+    "getDirections": "Route anzeigen",
+    "accept": "Akzeptieren",
+    "decline": "Ablehnen",
+    "manageCookies": "Cookie-Einstellungen",
+    "bookAppointment": "Termin buchen"
+  },
+  "routes": {
+    "home": {
+      "label": "Startseite",
+      "metaTitle": "Lance Stratégie",
+      "metaDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore."
+    },
+    "booking": {
+      "label": "Termin",
+      "metaTitle": "Termin buchen",
+      "metaDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vitae elit libero, a pharetra augue."
+    },
+    "showcase": {
+      "label": "Komponenten",
+      "metaTitle": "Komponenten",
+      "metaDescription": "Der visuelle Atlas des Designsystems: Farben, Schriftskala, Icons und Komponenten."
+    },
+    "contact": {
+      "label": "Kontakt",
+      "metaTitle": "Kontakt",
+      "metaDescription": "Schreiben Sie uns, wir antworten innerhalb eines Werktags."
+    },
+    "thankYou": {
+      "label": "Danke",
+      "metaTitle": "Danke",
+      "metaDescription": "Ihre Nachricht ist unterwegs zu uns, wir melden uns in Kürze bei Ihnen."
+    },
+    "legalNotice": {
+      "label": "Impressum",
+      "metaTitle": "Impressum",
+      "metaDescription": "Herausgeber, Hoster und Nutzungsbedingungen der Website."
+    },
+    "privacyPolicy": {
+      "label": "Datenschutz",
+      "metaTitle": "Datenschutzerklärung",
+      "metaDescription": "Erhobene Daten, Zwecke, Aufbewahrungsfristen und Rechte der Besucher."
+    }
+  },
+  "navigation": {
+    "primary": "Hauptnavigation",
+    "language": "Sprache ändern",
+    "breadcrumb": "Brotkrümelnavigation",
+    "tagline": "Maßgeschneiderte Beschaffung und Import, <accent>von der Fabrik bis zu Ihrer Haustür.</accent>",
+    "copyright": "© {years} {name} - Alle Rechte vorbehalten",
+    "theme": {
+      "light": "Helles Design",
+      "dark": "Dunkles Design",
+      "system": "Systemdesign"
+    },
+    "footer": {
+      "site": "Die Website",
+      "legal": "Rechtliche Hinweise",
+      "contact": "Kontakt",
+      "group": "Die Gruppe",
+      "settings": "Einstellungen"
+    },
+    "sections": {
+      "offers": "Leistungen",
+      "features": "Warum wir",
+      "catalog": "Katalog"
+    }
+  },
+  "sections": {
+    "hero": {
+      "subtitle": "Ein Team in Paris, ein Team in Shanghai und Ihre Produkte begleitet von der Fabrik bis zu Ihrer Haustür.",
+      "intro": "Mit Sitz in <strong>Paris</strong> und <strong>Shanghai</strong> finden, entwickeln und liefern wir Ihre Produkte.",
+      "description": "Von der ersten Skizze bis zur Lieferung an Ihre Haustür kümmert sich ein Team um alles. Für erfahrene Profis ebenso wie für Erstgründer.",
+      "pills": {
+        "team": "Ein Team in Paris und Shanghai",
+        "countries": "In {count} Ländern vertreten"
+      },
+      "countries": {
+        "france": "Frankreich",
+        "china": "China"
+      },
+      "logoAlt": "Lance Stratégie"
+    },
+    "story": {
+      "titleLead": "<accent>Ihr</accent> Projekt,",
+      "titleTail": "unser nächstes <accent>Kapitel</accent>"
+    },
+    "offers": {
+      "title": "Unsere <accent>Leistungen</accent>",
+      "items": {
+        "sourcing": {
+          "title": "Produktbeschaffung",
+          "alt": "Produktmuster auf einem Tisch ausgebreitet"
+        },
+        "design": {
+          "title": "Design & Prototypenbau",
+          "alt": "Skizzen und ein Prototyp eines neuen Produkts"
+        },
+        "production": {
+          "title": "Produktionsbegleitung",
+          "alt": "Montagelinie in einer Partnerfabrik"
+        },
+        "quality": {
+          "title": "Qualitätskontrolle",
+          "alt": "Chargenprüfung vor dem Versand"
+        },
+        "shipping": {
+          "title": "Versand & Fracht",
+          "alt": "Container bereit zum Verlassen eines Hafens"
+        },
+        "customs": {
+          "title": "Zollabfertigung",
+          "alt": "Zolldokumente auf einem Schreibtisch"
+        }
+      }
+    },
+    "dialogue": {
+      "title": "Ein Bedarf, eine Strategie, <accent>eine Lieferung</accent>",
+      "description": "So läuft ein Projekt bei uns ab, von der ersten Nachricht bis zur Produktion.",
+      "client": {
+        "name": "Sie",
+        "role": "Kunde"
+      },
+      "typing": "{speaker, select, client {Sie schreiben} other {{name} schreibt}}",
+      "steps": {
+        "need": {
+          "label": "Der Bedarf"
+        },
+        "strategy": {
+          "label": "Die Strategie"
+        },
+        "import": {
+          "label": "Der Import"
+        }
+      },
+      "lines": {
+        "need": "Hallo! Ich starte eine Marke für Isolierflaschen. Ich brauche 3.000 individuelle Stücke für das Frühjahr.",
+        "strategy": "Gerne. Ich erstelle das Lastenheft, das Budget und den Zeitplan. Sobald Sie zustimmen, beginnen wir die Fabriksuche.",
+        "import": "Auf der chinesischen Seite wähle ich Fabriken vor und prüfe die Muster. Danach begleite ich die Produktion, bis der Container ausläuft.",
+        "done": "Perfekt, freigegeben. Los geht's!"
+      },
+      "window": {
+        "title": "Ihr Projekt",
+        "subtitle": "Mit Fabien in Paris und Guillaume in Shanghai"
+      },
+      "step": "Schritt {index} · {label}",
+      "attachments": {
+        "brief": "Produktspezifikationen.pdf",
+        "samples": "12 Musterfotos"
+      },
+      "prompt": "Auch Ihr Projekt beginnt mit einer Nachricht."
+    },
+    "features": {
+      "title": "Warum <accent>{name}</accent> wählen?",
+      "description": "Ob Sie seit Jahren importieren oder Ihr erstes Unternehmen gründen, Sie gehen voran mit einem Team, das den Boden auf beiden Seiten kennt.",
+      "note": "Dreißig Minuten, um Ihr Projekt zu umreißen.",
+      "items": {
+        "team": {
+          "title": "Ein Team, das Sie immer erreichen",
+          "description": "Ein Büro in Paris, ein Büro in Shanghai. Dank der Zeitverschiebung kommt Ihre Akte voran, während Sie schlafen."
+        },
+        "develop": {
+          "title": "Von der Idee zum fertigen Produkt",
+          "description": "Design, Prototypen, Produktion: Wir entwickeln Ihr Produkt gemeinsam mit Ihnen, nicht nur dessen Transport."
+        },
+        "control": {
+          "title": "Jeder Schritt von Ihnen freigegeben",
+          "description": "Muster, Produktion, Prüfung vor dem Versand: Sie erhalten Fotos und Berichte, und nichts verlässt das Lager ohne Ihr Okay."
+        }
+      }
+    },
+    "team": {
+      "title": "Unsere Reichweite ist <accent>international</accent>",
+      "reach": {
+        "offices": "Paris am Tag, Shanghai in der Nacht.",
+        "route": "Jemand vor Ort, der Ihre Sprache spricht.",
+        "control": "Nichts wird ohne Ihr Okay versandt."
+      },
+      "globe": "Gravierter Globus, der Paris und Shanghai über See, Straße und Luft verbindet",
+      "places": {
+        "paris": {
+          "name": "Paris",
+          "counterpart": "巴黎"
+        },
+        "shanghai": {
+          "name": "Shanghai",
+          "counterpart": "上海"
+        }
+      },
+      "items": {
+        "france": {
+          "place": "Paris, Frankreich",
+          "name": "Fabien Jaeger",
+          "role": "CEO",
+          "portraitAlt": "Porträt von Fabien Jaeger",
+          "tags": {
+            "brief": "Projektrahmen",
+            "quote": "Angebote und Bestellungen",
+            "delivery": "Lieferverfolgung"
+          }
+        },
+        "china": {
+          "place": "Shanghai, China",
+          "name": "Guillaume Schneider",
+          "role": "COO",
+          "portraitAlt": "Porträt von Guillaume Schneider",
+          "tags": {
+            "factories": "Fabrikauswahl",
+            "production": "Produktionsbegleitung",
+            "inspection": "Prüfungen vor dem Versand"
+          }
+        }
+      }
+    },
+    "stats": {
+      "title": "Die Basis in Zahlen",
+      "description": "Die folgenden Werte zeigen lediglich die Formatierungsebene.",
+      "items": {
+        "clients": {
+          "label": "Ausgelieferte Komponenten"
+        },
+        "projects": {
+          "label": "Deklarationsdateien"
+        },
+        "satisfaction": {
+          "label": "Textabdeckung"
+        },
+        "experience": {
+          "label": "Kerndienste"
+        }
+      }
+    },
+    "gallery": {
+      "overline": "Galerie",
+      "title": "Eine einheitliche Mediendarstellung",
+      "items": {
+        "item1": "Demonstrationsbild Nummer eins",
+        "item2": "Demonstrationsbild Nummer zwei",
+        "item3": "Demonstrationsbild Nummer drei",
+        "item4": "Demonstrationsbild Nummer vier",
+        "item5": "Demonstrationsbild Nummer fünf",
+        "item6": "Demonstrationsbild Nummer sechs"
+      }
+    },
+    "pricing": {
+      "overline": "Angebote",
+      "title": "Drei Beispielpakete",
+      "description": "Beträge werden in Cent gespeichert und vom Formatierungsdienst dargestellt.",
+      "featured": "Empfohlen",
+      "periods": {
+        "once": "einmalig",
+        "month": "pro Monat",
+        "year": "pro Jahr"
+      },
+      "included": {
+        "scope": "Konzeption und Seitenstruktur",
+        "revisions": "Zwei Feedbackrunden",
+        "delivery": "Begleiteter Livegang",
+        "support": "Drei Monate Betreuung",
+        "training": "Praxisschulung"
+      },
+      "items": {
+        "starter": {
+          "name": "Basis",
+          "description": "Eine Seite, die wichtigsten Abschnitte und der Livegang."
+        },
+        "standard": {
+          "name": "Komplett",
+          "description": "Mehrere Seiten, ein Kontaktformular und Betreuung nach der Lieferung."
+        },
+        "premium": {
+          "name": "Maßgeschneidert",
+          "description": "Eigenes Design, redaktionelle Inhalte und Teamschulung."
+        }
+      }
+    },
+    "booking": {
+      "title": "Termin buchen",
+      "description": "Der Kalender zeigt nur noch freie Zeitfenster. Nach der Bestätigung steht der Termin fest.",
+      "pickDate": "Wählen Sie zunächst ein Datum im Kalender.",
+      "noSlot": "An diesem Tag ist nichts mehr frei. Versuchen Sie einen anderen.",
+      "contactPrompt": "Haben Sie eine Frage? Kontaktieren Sie uns",
+      "success": {
+        "title": "Termin bestätigt",
+        "description": "Bis zum {date} um {slot}. Sie erhalten eine Bestätigung per E-Mail."
+      },
+      "failure": "Die Buchung ist fehlgeschlagen, das Zeitfenster wurde möglicherweise gerade vergeben. Bitte versuchen Sie es erneut.",
+      "disabled": "Die Online-Buchung ist noch nicht aktiviert, bitte kontaktieren Sie uns direkt.",
+      "zoneLabel": "Ihre Zeitzone",
+      "chosen": "Gewähltes Zeitfenster",
+      "recap": "{date}, {slot}",
+      "calendly": {
+        "title": "Terminkalender",
+        "load": "Kalender anzeigen",
+        "notice": "Der Kalender wird von Calendly bereitgestellt, das Cookies setzen kann. Er wird erst nach Ihrem Klick geladen.",
+        "open": "In Calendly öffnen"
+      }
+    },
+    "comparisons": {
+      "title": "Vorher / Nachher",
+      "description": "Ein Beispielergebnis als Paar dargestellt. Ersetzen Sie es durch Ihre eigenen Bilder, sobald sie fertig sind.",
+      "before": "Vorher",
+      "after": "Nachher",
+      "position": "{position} von {total}",
+      "items": {
+        "first": {
+          "title": "Erstes Beispiel",
+          "description": "Beschreiben Sie hier den Ausgangspunkt und das Ergebnis.",
+          "beforeAlt": "Platzhalterbild, vorher",
+          "afterAlt": "Platzhalterbild, nachher"
+        },
+        "second": {
+          "title": "Zweites Beispiel",
+          "description": "Ein zweiter Fall, der zeigt, dass das Ergebnis überzeugt.",
+          "beforeAlt": "Platzhalterbild, vorher",
+          "afterAlt": "Platzhalterbild, nachher"
+        }
+      }
+    },
+    "testimonials": {
+      "overline": "Feedback",
+      "title": "Was die Teams sagen",
+      "items": {
+        "first": {
+          "quote": "Ein Projekt startet bereits strukturiert, wir schreiben Inhalte, statt eine Basis umzubauen.",
+          "author": "Camille Rivière",
+          "role": "Art Direction"
+        },
+        "second": {
+          "quote": "Das Design zu ändern heißt, eine einzige Datei zu bearbeiten, und die ganze Website folgt ausnahmslos.",
+          "author": "Noah Berthier",
+          "role": "Front-End-Entwicklung"
+        },
+        "third": {
+          "quote": "Die schriftlichen Konventionen beenden die Namensdebatten zu Beginn jedes Projekts.",
+          "author": "Inès Fontaine",
+          "role": "Projektleitung"
+        }
+      }
+    },
+    "faq": {
+      "title": "Lorem ipsum dolor sit amet",
+      "description": "Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.",
+      "items": {
+        "first": {
+          "question": "Lorem ipsum dolor sit amet?",
+          "answer": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas faucibus mollis interdum, nullam quis risus eget urna mollis ornare vel eu leo."
+        },
+        "second": {
+          "question": "Consectetur adipiscing elit?",
+          "answer": "Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula."
+        },
+        "third": {
+          "question": "Sed do eiusmod tempor?",
+          "answer": "Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui, praesent commodo cursus magna vel scelerisque nisl consectetur et."
+        },
+        "fourth": {
+          "question": "Ut enim ad minim veniam?",
+          "answer": "Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Nulla vitae elit libero, a pharetra augue."
+        },
+        "fifth": {
+          "question": "Duis aute irure dolor?",
+          "answer": "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum, sed posuere consectetur est at lobortis."
+        }
+      }
+    },
+    "callToAction": {
+      "title": "Bereit für ein neues Projekt?",
+      "description": "Klonen Sie das Repository, bearbeiten Sie die Konfigurationen und schreiben Sie Ihre Inhalte."
+    },
+    "contact": {
+      "overline": "Schreiben Sie uns",
+      "title": "Sprechen wir über Ihr Projekt",
+      "description": "Beschreiben Sie Ihren Bedarf in wenigen Zeilen, wir melden uns schnell bei Ihnen.",
+      "channels": {
+        "email": "E-Mail-Adresse",
+        "phone": "Telefon",
+        "address": "Adresse"
+      },
+      "promises": {
+        "response": {
+          "label": "Antwort innerhalb eines Werktags"
+        },
+        "delivery": {
+          "label": "Lieferung innerhalb von 5 Tagen"
+        }
+      },
+      "map": {
+        "title": "Standortkarte"
+      }
+    },
+    "quote": {
+      "title": "Sollen wir eine kostenlose Analyse für Sie durchführen?",
+      "description": "Gehen wir Ihr Importprojekt in dreißig Minuten durch, unverbindlich. Per Nachricht oder Videoanruf, ganz nach Wunsch.",
+      "channels": {
+        "whatsapp": {
+          "label": "Angebot per WhatsApp",
+          "message": "Guten Tag, ich möchte ein kostenloses Angebot für ein Importprojekt."
+        },
+        "email": {
+          "label": "Angebot per E-Mail",
+          "subject": "Anfrage für ein kostenloses Angebot"
+        }
+      },
+      "cta": "Termin buchen",
+      "kicker": "30 Minuten, auf unsere Kosten"
+    },
+    "schedule": {
+      "title": "Öffnungszeiten",
+      "description": "Die Öffnungszeiten werden in Pariser Zeit angegeben.",
+      "now": "Es ist {time} ({offset})",
+      "open": "Jetzt geöffnet",
+      "closed": "Derzeit geschlossen",
+      "range": "{opensAt} bis {closesAt}",
+      "nextDay": "{closesAt} am Folgetag",
+      "zone": "Pariser Zeit"
+    },
+    "catalog": {
+      "title": "Blättern Sie im <accent>Katalog</accent>",
+      "description": "Arbeitskleidung, beheizbare Kleidung, Handschuhe und Sicherheitsschuhe. Blättern Sie hier oder laden Sie das PDF herunter, um es mit Ihrem Team zu teilen.",
+      "download": "PDF herunterladen",
+      "cta": "Im Gespräch besprechen",
+      "hint": "Klicken Sie auf eine Seite oder nutzen Sie die Pfeiltasten zum Umblättern.",
+      "book": "Katalog",
+      "previous": "Vorherige Seite",
+      "next": "Nächste Seite",
+      "pageOf": "Seite {page} von {total}",
+      "pageAlt": "Katalogseite {page}",
+      "chapters": {
+        "cover": "Titelseite",
+        "about": "Über uns",
+        "workwear": "Arbeitskleidung",
+        "heated": "Beheizbare Kleidung",
+        "gloves": "Handschuhe",
+        "footwear": "Schuhe",
+        "contact": "Auf Anfrage"
+      }
+    },
+    "group": {
+      "title": "<accent>Lance Group</accent>",
+      "description": "Lance Stratégie gehört zur Lance Group, einem Verbund von Unternehmen, die zusammenarbeiten und sich bei veränderten Bedürfnissen gegenseitig übergeben.",
+      "hub": "Die Gruppe",
+      "soon": "Bald kommen weitere Unternehmen zur Gruppe hinzu.",
+      "affiliates": {
+        "itemsprotect": {
+          "tag": "Schutz von Gegenständen",
+          "title": "ItemsProtect",
+          "description": "Schützen Sie Ihre Gegenstände und Kreationen, vom Entwurf bis zum Verkauf.",
+          "cta": "ItemsProtect entdecken"
+        },
+        "strategy": {
+          "tag": "Import und Beschaffung",
+          "title": "Lance Stratégie",
+          "description": "Beschaffung, Import und Begleitung Ihrer Projekte im Ausland.",
+          "cta": "Sie sind hier"
+        }
+      }
+    },
+    "flight": {
+      "banner": "Kostenlose Importanalyse"
+    }
+  },
+  "forms": {
+    "contact": {
+      "success": "Nachricht gesendet, wir melden uns in Kürze bei Ihnen.",
+      "fields": {
+        "fullName": {
+          "label": "Vollständiger Name",
+          "placeholder": "Max Mustermann"
+        },
+        "email": {
+          "label": "E-Mail-Adresse",
+          "placeholder": "max.mustermann@example.com"
+        },
+        "phone": {
+          "label": "Telefon",
+          "placeholder": "+33 6 00 00 00 00",
+          "hint": "Optional, nur wenn Sie lieber angerufen werden möchten."
+        },
+        "subject": {
+          "label": "Betreff",
+          "placeholder": "Betreff wählen",
+          "options": {
+            "information": "Informationsanfrage",
+            "quote": "Angebotsanfrage",
+            "partnership": "Partnerschaft",
+            "other": "Etwas anderes"
+          }
+        },
+        "message": {
+          "label": "Nachricht",
+          "placeholder": "Beschreiben Sie Ihr Projekt in wenigen Zeilen.",
+          "hint": "Mindestens zwanzig Zeichen."
+        },
+        "consent": {
+          "label": "Einwilligung",
+          "choice": "Ich bin damit einverstanden, dass meine Angaben verwendet werden, um mich zu kontaktieren."
+        }
+      }
+    },
+    "newsletter": {
+      "success": "Abonnement gespeichert, vielen Dank.",
+      "fields": {
+        "email": {
+          "label": "E-Mail-Adresse",
+          "placeholder": "max.mustermann@example.com"
+        }
+      }
+    },
+    "bookAppointment": {
+      "fields": {
+        "fullName": {
+          "label": "Vollständiger Name",
+          "placeholder": "Max Mustermann"
+        },
+        "email": {
+          "label": "E-Mail-Adresse",
+          "placeholder": "max.mustermann@example.com"
+        },
+        "phone": {
+          "label": "Telefon",
+          "placeholder": "+49 151 00000000"
+        },
+        "note": {
+          "label": "Nachricht",
+          "placeholder": "Noch etwas hinzuzufügen?",
+          "hint": "Optional."
+        }
+      }
+    }
+  },
+  "validation": {
+    "required": "Dieses Feld ist erforderlich.",
+    "minLength": "Mindestens {count} Zeichen erforderlich.",
+    "maxLength": "Dieses Feld darf {count} Zeichen nicht überschreiten.",
+    "min": "Der Mindestwert ist {count}.",
+    "max": "Der Höchstwert ist {count}.",
+    "pattern": "Das eingegebene Format ist ungültig.",
+    "mismatch": "Die beiden Werte stimmen nicht überein."
+  },
+  "errors": {
+    "badRequest": "Die Anfrage konnte nicht verarbeitet werden.",
+    "unauthorized": "Eine Anmeldung ist erforderlich.",
+    "forbidden": "Dieser Zugriff ist nicht erlaubt.",
+    "notFound": "Diese Seite existiert nicht.",
+    "notFoundHint": "Der Link ist möglicherweise veraltet oder falsch geschrieben.",
+    "conflict": "Diese Aktion steht im Konflikt mit einem bestehenden Zustand.",
+    "unprocessable": "Einige Angaben sind unvollständig.",
+    "tooManyRequests": "Zu viele Anfragen gesendet, versuchen Sie es gleich noch einmal.",
+    "serverError": "Auf dem Server ist ein Problem aufgetreten.",
+    "network": "Die Verbindung zum Server ist fehlgeschlagen.",
+    "timeout": "Der Server hat zu lange für die Antwort gebraucht.",
+    "unknown": "Ein unerwarteter Fehler ist aufgetreten.",
+    "turbulence": {
+      "kicker": "Turbulenzen voraus",
+      "title": "Ein kleines Luftloch, nichts Ernstes.",
+      "text": "Die Seite ist mitten im Flug stehen geblieben. Versuchen Sie es erneut oder kehren Sie zur Startseite zurück."
+    },
+    "retryHint": "Laden Sie die Seite neu, der Vorfall ist möglicherweise vorübergehend."
+  },
+  "feedback": {
+    "loading": "Wird geladen",
+    "saved": "Änderung gespeichert.",
+    "pagination": "Seite {page} von {totalPages}, {total} Ergebnisse",
+    "empty": {
+      "title": "Kein Ergebnis",
+      "description": "Erweitern Sie die Suche oder entfernen Sie einen Filter, um mehr Einträge zu sehen."
+    }
+  },
+  "consent": {
+    "title": "Wir respektieren Ihre Privatsphäre",
+    "description": "Diese Website verwendet Cookies zur Reichweitenmessung, um ihren Datenverkehr zu verstehen. Wählen Sie, was Sie akzeptieren, und ändern Sie Ihre Meinung jederzeit.",
+    "privacyLink": "Datenschutzerklärung lesen",
+    "required": "Immer aktiv",
+    "actions": {
+      "declineAll": "Alle ablehnen",
+      "saveChoices": "Meine Auswahl speichern",
+      "acceptAll": "Alle akzeptieren"
+    },
+    "categories": {
+      "necessary": {
+        "label": "Notwendige Cookies",
+        "description": "Erforderlich für den Betrieb der Website: Sprache, Design und die hier gespeicherte Auswahl. Sie können nicht deaktiviert werden."
+      },
+      "analytics": {
+        "label": "Reichweitenmessung",
+        "description": "Anonyme Besucherstatistiken, um zu verstehen, welche Seiten nützlich sind. Ohne Ihre Zustimmung wird nichts gespeichert."
+      }
+    }
+  },
+  "showcase": {
+    "title": "Atlas des Designsystems",
+    "description": "Jeder Block liest direkt die Register des Projekts, daher entspricht das Gezeigte genau dem, was im Code existiert.",
+    "sample": "Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich.",
+    "columns": {
+      "label": "Bezeichnung",
+      "value": "Wert"
+    },
+    "descriptions": {
+      "buttons": "Die Varianten stammen aus dem Register, eine neue erscheint hier, ohne diese Seite zu bearbeiten.",
+      "forms": "Dieses Formular wird allein aus seiner Deklaration gerendert, kein Feld ist im Markup geschrieben."
+    },
+    "blocks": {
+      "palette": "Palette und Tokens",
+      "typography": "Schriftskala",
+      "icons": "Icon-Register",
+      "buttons": "Aktionen",
+      "badges": "Abzeichen",
+      "alerts": "Meldungen",
+      "data": "Daten",
+      "overlays": "Schwebende Ebenen",
+      "modal": "Modaler Dialog",
+      "drawer": "Seitenpanel",
+      "tooltip": "Tooltip",
+      "notification": "Benachrichtigung",
+      "navigation": "Navigation",
+      "collections": "Sammlungen",
+      "placeholders": "Wartezustände",
+      "forms": "Formulare",
+      "globe": "Gravierter Globus",
+      "profileCard": "Profilkarte"
+    }
+  },
+  "legal": {
+    "legalNotice": {
+      "sections": {
+        "publisher": {
+          "title": "Herausgeber",
+          "body": "Diese Website wird herausgegeben von {legalName}, eingetragen unter der Nummer {registration}, mit Sitz in {address}. Verantwortlich für die Veröffentlichung ist {publisherName}, erreichbar unter {publisherEmail}."
+        },
+        "hosting": {
+          "title": "Hosting",
+          "body": "Diese Website wird gehostet von {hostingName}, {hostingAddress}."
+        },
+        "property": {
+          "title": "Geistiges Eigentum",
+          "body": "Alle auf dieser Website veröffentlichten Inhalte, Texte, Bilder und Code, bleiben Eigentum von {legalName}, sofern nicht anders angegeben. Jede Vervielfältigung ohne schriftliche Zustimmung ist untersagt. Erdbilder: NASA Visible Earth (Blue Marble und Black Marble), gemeinfrei. Katalogfotos: Unsplash."
+        },
+        "liability": {
+          "title": "Haftung",
+          "body": "Die veröffentlichten Informationen dienen der Orientierung und können sich ändern. Bei Fragen schreiben Sie an {email}."
+        }
+      }
+    },
+    "privacyPolicy": {
+      "sections": {
+        "collection": {
+          "title": "Erhobene Daten",
+          "body": "Erhoben werden nur die Angaben, die freiwillig über das Kontaktformular gesendet werden: Name, E-Mail-Adresse, optionale Telefonnummer und Nachricht."
+        },
+        "purpose": {
+          "title": "Zweck",
+          "body": "Diese Angaben werden ausschließlich verwendet, um die an {legalName} gerichtete Anfrage zu beantworten. Sie werden weder verkauft noch zu kommerziellen Zwecken an Dritte weitergegeben."
+        },
+        "retention": {
+          "title": "Aufbewahrungsdauer",
+          "body": "Nachrichten werden so lange aufbewahrt, wie die Anfrage es erfordert, und spätestens nach sechsunddreißig Monaten gelöscht."
+        },
+        "rights": {
+          "title": "Ihre Rechte",
+          "body": "Sie können Ihre Daten einsehen, berichtigen und löschen lassen. Schreiben Sie dazu an {email}."
+        },
+        "cookies": {
+          "title": "Cookies",
+          "body": "Die Website speichert die Design-Präferenz im lokalen Speicher des Browsers. Wenn Sie eine andere Sprache als die Ihres Browsers wählen, merkt sich ein Cookie diese bis zum Schließen des Browsers. Ist die Reichweitenmessung aktiviert, werden Analyse-Cookies erst nach Ihrer Einwilligung über das am Seitenende eingeblendete Banner gesetzt. Sie können Ihre Meinung jederzeit über den Link \"Cookie-Einstellungen\" in der Fußzeile ändern. Wenn Sie den Terminkalender anzeigen, laden Sie freiwillig einen Drittanbieterdienst (Calendly), der eigene Cookies setzen kann."
+        },
+        "contact": {
+          "title": "Kontakt",
+          "body": "Bei Fragen zu diesen Daten wenden Sie sich an {legalName} unter {email} oder telefonisch unter {phone}."
+        }
+      }
+    }
+  }
+}

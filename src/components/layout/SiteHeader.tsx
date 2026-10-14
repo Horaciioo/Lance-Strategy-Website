@@ -6,12 +6,14 @@ import { useTranslations } from 'next-intl'
 import { ActionLink } from '@/components/elements/actions/ActionLink'
 import { IconButton } from '@/components/elements/actions/IconButton'
 import { Logo } from '@/components/elements/media/Logo'
+import { LanguagePicker } from '@/components/structures/navigation/LanguagePicker'
 import { NavigationList } from '@/components/structures/navigation/NavigationList'
 import { Drawer } from '@/components/structures/overlays/Drawer'
 import { SECTION_ANCHORS } from '@/declarations/routes'
 import { LAYERS } from '@/declarations/ui/tokens'
 import { NAVIGATION_STYLES } from '@/declarations/ui/variants'
 import { Link, usePathname } from '@/i18n/routing'
+import { ConfigurationService } from '@/services/ConfigurationService'
 import { NavigationService } from '@/services/NavigationService'
 import { ScrollService } from '@/services/ScrollService'
 import { cn } from '@/utils/classnames'
@@ -105,6 +107,9 @@ export const SiteHeader = () => {
             {callToActionLabel}
           </ActionLink>
         </div>
+        {ConfigurationService.isEnabled('languageSwitcher') && (
+          <LanguagePicker className="mt-6" onPick={() => setIsMenuOpen(false)} />
+        )}
       </Drawer>
     </header>
   )
