@@ -143,6 +143,7 @@ const preparePlaces = ({ places, labels }: GlobeMountOptions): PreparedPlace[] =
     id,
     vector: vectorOf(place),
     label: place.isLabelled ? labels[id] : undefined,
+    flag: place.flag,
   }))
 
 class GlobeServiceClass extends Service {
@@ -259,6 +260,11 @@ class GlobeServiceClass extends Service {
 
   private paint = (session: GlobeSession, now: number): void => {
     const { isStill } = session.options
+    // Inks stay empty until the theme sheet lands
+    if (Object.values(session.palette).some((ink) => !ink)) {
+      session.palette = this.readPalette(session.options.canvas)
+      if (Object.values(session.palette).some((ink) => !ink)) return
+    }
     const elapsed = isStill ? SETTLED_MS : now - session.startedAt
     const routeProgress = progressOf(elapsed, routeDelayMs, routeMs)
     const settledFor = elapsed - routeDelayMs - routeMs
