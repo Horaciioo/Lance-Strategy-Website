@@ -34,3 +34,4 @@ yarn-error.log*
 # Markdown
 *.md
 !/README.md
+!/guide/REGISTRE.md
