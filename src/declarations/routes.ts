@@ -7,6 +7,7 @@ import type { RouteDeclaration, SectionLinkDeclaration } from '@/types/navigatio
 
 export const ROUTES = {
   home: { path: '/', icon: 'home' },
+  presentation: { path: '/presentation', icon: 'users' },
   booking: { path: '/booking', icon: 'calendar', ctaAction: 'bookAppointment' },
   showcase: { path: '/showcase', icon: 'sparkles', ctaAction: 'showcase' },
   contact: { path: '/contact', icon: 'mail', ctaAction: 'contact' },
@@ -22,8 +23,8 @@ export const ROUTES = {
 
 export const SECTION_ANCHORS = {
   hero: 'hero',
-  story: 'story',
   intro: 'intro',
+  story: 'story',
   offers: 'offers',
   team: 'team',
   features: 'features',
@@ -41,13 +42,13 @@ export const SECTION_ANCHORS = {
 } as const
 
 /**
-/**
  * Landing title the navbar logo flies from
  * @type {string}
  */
 
 export const HERO_LOGO_ATTRIBUTE = 'data-hero-logo'
 
+/**
  * Home section links
  * @type {Object}
  */

@@ -1183,3 +1183,16 @@ export const ERROR_STYLES = {
   text: 'max-w-md text-base leading-relaxed text-foreground-subtle',
   actions: 'mt-2 flex flex-wrap items-center justify-center gap-3',
 } as const
+
+/**
+ * Presentation section styles
+ * @type {Object}
+ */
+
+export const PRESENTATION_STYLES = {
+  grid: 'grid gap-14 md:grid-cols-2 md:gap-16',
+  member: 'flex flex-col items-center gap-6 text-center',
+  card: 'w-56 sm:w-64',
+  tags: 'flex flex-wrap justify-center gap-2',
+  tag: 'rounded-pill bg-surface px-3 py-1 text-xs font-medium text-foreground-muted',
+} as const

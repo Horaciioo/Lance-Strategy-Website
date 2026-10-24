@@ -24,7 +24,12 @@
     "home": {
       "label": "首页",
       "metaTitle": "Lance Stratégie",
-      "metaDescription": "洛伦伊普苏姆多洛尔西特阿梅特，康塞克特图尔阿迪皮斯金埃利特。"
+      "metaDescription": "Lance Stratégie 从巴黎和上海出发，为您寻找、开发并交付产品。一支团队，从寻找工厂到送货上门。"
+    },
+    "presentation": {
+      "label": "团队介绍",
+      "metaTitle": "认识我们的团队",
+      "metaDescription": "认识 Lance Stratégie 的两位创始人，一位在巴黎，一位在上海，他们全程跟进您的产品，从工厂直到您的家门口。"
     },
     "booking": {
       "label": "预约",

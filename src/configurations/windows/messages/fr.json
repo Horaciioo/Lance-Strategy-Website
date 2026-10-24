@@ -24,7 +24,12 @@
     "home": {
       "label": "Accueil",
       "metaTitle": "Lance Stratégie",
-      "metaDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore."
+      "metaDescription": "Lance Stratégie trouve, développe et livre vos produits depuis Paris et Shanghai. Une seule équipe, de la recherche d'usine jusqu'à votre porte."
+    },
+    "presentation": {
+      "label": "Présentation",
+      "metaTitle": "Présentation de l'équipe",
+      "metaDescription": "Rencontrez les deux fondateurs de Lance Stratégie, l'un à Paris, l'autre à Shanghai, qui suivent vos produits de l'usine jusqu'à votre porte."
     },
     "booking": {
       "label": "Rendez-vous",

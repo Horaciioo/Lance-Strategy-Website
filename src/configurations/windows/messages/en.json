@@ -24,7 +24,12 @@
     "home": {
       "label": "Home",
       "metaTitle": "Lance Stratégie",
-      "metaDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore."
+      "metaDescription": "Lance Stratégie finds, develops and delivers your products from Paris and Shanghai. One team, from factory sourcing to your door."
+    },
+    "presentation": {
+      "label": "About us",
+      "metaTitle": "Meet the team",
+      "metaDescription": "Meet the two founders of Lance Stratégie, one in Paris, one in Shanghai, who follow your products from the factory to your door."
     },
     "booking": {
       "label": "Appointment",
