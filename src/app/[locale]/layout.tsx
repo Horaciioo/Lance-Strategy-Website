@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import Script from 'next/script'
 import { NextIntlClientProvider } from 'next-intl'
 
 import { AnalyticsGate } from '@/components/layout/AnalyticsGate'
@@ -49,7 +50,6 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     <html lang={locale} className={FONT_VARIABLES} suppressHydrationWarning>
       <head>
         <style dangerouslySetInnerHTML={{ __html: ThemeService.buildStyleSheet() }} />
-        <script dangerouslySetInnerHTML={{ __html: ThemeService.buildBootScript() }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -58,6 +58,11 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
         />
       </head>
       <body>
+        <Script
+          id="theme-boot"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: ThemeService.buildBootScript() }}
+        />
         <NextIntlClientProvider>
           <SiteLayout>{children}</SiteLayout>
           <ConsentManager />
