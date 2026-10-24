@@ -223,30 +223,63 @@ export const QUOTE_CHANNELS: QuoteChannel[] = [
 ]
 
 /**
- * Printed catalogue, one picture per page
- * @type {CatalogBook}
+ * Catalogue editions
+ * @type {readonly string[]}
  */
 
-export const CATALOG_BOOK: CatalogBook = {
-  file: '/catalog/catalogue-2026-2027.pdf',
-  pages: Array.from(
-    { length: 16 },
-    (_, index) => `/catalog/pages/page-${String(index + 1).padStart(2, '0')}.webp`
-  ),
-  // Page size, pixels
-  width: 900,
-  height: 1273,
-  // First page of each chapter
-  chapters: [
-    { id: 'cover', page: 1 },
-    { id: 'about', page: 2 },
-    { id: 'workwear', page: 4 },
-    { id: 'heated', page: 7 },
-    { id: 'gloves', page: 11 },
-    { id: 'footwear', page: 15 },
-    { id: 'contact', page: 16 },
-  ],
+export const CATALOG_EDITIONS = ['enfr', 'de', 'es'] as const
+
+export type CatalogEditionId = (typeof CATALOG_EDITIONS)[number]
+
+// English edition, when the locale has none
+export const CATALOG_DEFAULT_EDITION: CatalogEditionId = 'enfr'
+
+/**
+ * Edition per locale
+ * @type {Partial<Record<string, CatalogEditionId>>}
+ */
+
+export const CATALOG_LOCALE_EDITIONS: Partial<Record<string, CatalogEditionId>> = {
+  fr: 'enfr',
+  en: 'enfr',
+  de: 'de',
+  es: 'es',
 }
+
+// Pages per edition
+const CATALOG_PAGE_COUNT = 15
+
+/**
+ * Printed catalogues, one picture per page
+ * @type {Record<CatalogEditionId, CatalogBook>}
+ */
+
+export const CATALOG_BOOKS = Object.fromEntries(
+  CATALOG_EDITIONS.map((id) => [
+    id,
+    {
+      id,
+      file: `/catalog/catalogue-${id}.pdf`,
+      pages: Array.from(
+        { length: CATALOG_PAGE_COUNT },
+        (_, index) => `/catalog/${id}/page-${String(index + 1).padStart(2, '0')}.webp`
+      ),
+      // Page size, pixels
+      width: 900,
+      height: 1273,
+      // First page of each chapter
+      chapters: [
+        { id: 'cover', page: 1 },
+        { id: 'about', page: 2 },
+        { id: 'workwear', page: 3 },
+        { id: 'heated', page: 6 },
+        { id: 'gloves', page: 10 },
+        { id: 'footwear', page: 14 },
+        { id: 'contact', page: 15 },
+      ],
+    },
+  ])
+) as Record<CatalogEditionId, CatalogBook>
 
 /**
  * Lance Group affiliates, left then right of the hub

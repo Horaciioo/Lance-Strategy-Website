@@ -207,11 +207,13 @@ export interface GroupAffiliate {
 /**
  * Printed catalogue
  * @typedef CatalogBook
+ * @property {string} id - Edition id
  * @property {string} file - Downloadable PDF
  * @property {string[]} pages - Page pictures, in order
  */
 
 export interface CatalogBook {
+  id: string
   file: string
   pages: string[]
   width: number

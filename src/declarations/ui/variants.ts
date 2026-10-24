@@ -1051,29 +1051,48 @@ export const CATALOG_STYLES = {
  */
 
 export const CATALOG_BOOK_STYLES = {
-  layout: 'grid gap-8 lg:grid-cols-[13rem_minmax(0,1fr)] lg:items-center',
-  chapters: 'flex gap-1 overflow-x-auto pb-1 lg:flex-col lg:overflow-visible lg:pb-0',
-  chapter: `flex w-full items-center gap-3 whitespace-nowrap rounded-pill px-3 py-2 text-left text-sm text-foreground-muted ${TRANSITION} ${FOCUS_RING} hover:bg-foreground/[0.06] hover:text-foreground`,
-  chapterActive: 'bg-foreground/[0.08] text-foreground',
+  layout: 'grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[16rem_minmax(0,1fr)] lg:items-center',
+  chapters: 'flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:gap-1 lg:overflow-visible lg:pb-0',
+  chapter: `flex w-full items-center gap-3 whitespace-nowrap rounded-2xl border border-transparent px-3 py-2.5 text-left text-sm text-foreground-muted ${TRANSITION} ${FOCUS_RING} hover:bg-foreground/[0.06] hover:text-foreground`,
+  chapterActive: 'border-border-strong bg-foreground/[0.08] text-foreground',
   chapterIndex: 'type-expanded text-[0.625rem] font-semibold tabular-nums text-accent',
-  stage: 'relative flex justify-center [perspective:2200px] lg:row-span-2',
-  book: `relative w-full max-w-[56rem] rounded-sm [transform-style:preserve-3d] ${FOCUS_RING}`,
+  chapterLabel: 'min-w-0 truncate',
+  chapterPages: 'ml-auto shrink-0 pl-3 text-xs tabular-nums text-foreground-subtle',
+  stage: 'relative flex justify-center overflow-x-clip [perspective:2200px] lg:row-span-2',
+  // Contact shadow on the table
+  table:
+    'pointer-events-none absolute inset-x-[8%] -bottom-5 h-12 rounded-[50%] bg-black/60 blur-2xl',
+  // Empty areas of the shifted box let clicks through
+  book: `pointer-events-none relative w-full max-w-[56rem] rounded-sm [transform-style:preserve-3d] ${FOCUS_RING}`,
   // Right half, hinged on the spine
-  leaf: 'absolute inset-y-0 left-1/2 w-1/2 origin-left [transform-style:preserve-3d]',
+  hinge: 'absolute inset-y-0 left-1/2 w-1/2 [transform-style:preserve-3d]',
+  // Far leaves leave the 3D sorting
+  hingeFar: 'invisible',
+  leaf: 'absolute inset-0 origin-left [transform-style:preserve-3d]',
   face: 'absolute inset-0 overflow-hidden bg-white [backface-visibility:hidden] shadow-[0_30px_60px_-30px_rgb(0_0_0/0.8)]',
   front: 'rounded-r-md',
   back: 'rounded-l-md [transform:rotateY(180deg)]',
   picture: 'object-cover',
+  // Page left for the binding, logo on the night sky
+  blank:
+    'flex h-full w-full items-center justify-center bg-gradient-to-b from-sky-top to-sky-bottom p-[18%] ring-1 ring-inset ring-foreground/10',
+  blankLogo: 'h-auto w-full',
   // Paper curving into the binding
   spineRight:
     'pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-black/25 to-transparent',
   spineLeft:
     'pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-black/25 to-transparent',
   shade: 'pointer-events-none absolute inset-0 bg-black',
-  hitLeft: 'absolute inset-y-0 left-0 z-[100] w-1/2 cursor-w-resize',
-  hitRight: 'absolute inset-y-0 right-0 z-[100] w-1/2 cursor-e-resize',
+  // Above every leaf, even lifted
+  hitLeft:
+    'pointer-events-auto absolute inset-y-0 left-0 w-1/2 cursor-w-resize [transform:translateZ(80px)]',
+  hitRight:
+    'pointer-events-auto absolute inset-y-0 right-0 w-1/2 cursor-e-resize [transform:translateZ(80px)]',
   controls: 'flex items-center justify-center gap-4 lg:col-start-2',
-  counter: 'min-w-32 text-center text-sm tabular-nums text-foreground-muted',
+  meter: 'flex min-w-44 flex-col items-center gap-2',
+  counter: 'text-center text-sm tabular-nums text-foreground-muted',
+  track: 'h-1 w-full overflow-hidden rounded-pill bg-foreground/10',
+  progress: 'block h-full rounded-pill bg-accent transition-[width] duration-slow ease-out',
 } as const
 
 /**

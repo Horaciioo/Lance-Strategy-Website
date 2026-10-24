@@ -1,17 +1,22 @@
+'use client'
+
 import type { CSSProperties, ReactNode } from 'react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 import { ActionLink } from '@/components/elements/actions/ActionLink'
 import { CatalogBook } from '@/components/sections/CatalogBook'
 import { GroupBuild } from '@/components/sections/GroupBuild'
 import { Container } from '@/components/structures/layout/Container'
-import { CATALOG_BOOK } from '@/declarations/content'
+import {
+  CATALOG_BOOKS,
+  CATALOG_DEFAULT_EDITION,
+  CATALOG_LOCALE_EDITIONS,
+} from '@/declarations/content'
 import { SECTION_ANCHORS } from '@/declarations/routes'
 import { CATALOG_PANEL_VARIABLES } from '@/declarations/ui/shapes'
 import { SECTION_SPACING } from '@/declarations/ui/tokens'
 import { CATALOG_STYLES } from '@/declarations/ui/variants'
 import { NavigationService } from '@/services/NavigationService'
-import type { CatalogBook as CatalogBookData } from '@/types/content'
 import { cn } from '@/utils/classnames'
 
 // Build order, top to bottom
@@ -20,18 +25,16 @@ const stepOf = (step: number): CSSProperties => ({ '--build-step': step }) as CS
 // Accent chunk
 const accent = (chunks: ReactNode) => <span className={CATALOG_STYLES.accent}>{chunks}</span>
 
-export interface CatalogSectionProps {
-  book?: CatalogBookData
-}
-
 /**
- * Printed catalogue, turned page by page
- * @param {CatalogSectionProps} props - Catalogue props
+ * Printed catalogue in the visitor language, turned page by page
  * @return {JSX.Element} - Rendered section
  */
 
-export const CatalogSection = ({ book = CATALOG_BOOK }: CatalogSectionProps) => {
+export const CatalogSection = () => {
   const t = useTranslations('sections.catalog')
+  const locale = useLocale()
+  // Locale edition, English without one
+  const book = CATALOG_BOOKS[CATALOG_LOCALE_EDITIONS[locale] ?? CATALOG_DEFAULT_EDITION]
 
   return (
     <section id={SECTION_ANCHORS.catalog} className={SECTION_SPACING.md}>
@@ -48,7 +51,7 @@ export const CatalogSection = ({ book = CATALOG_BOOK }: CatalogSectionProps) => 
             </div>
 
             <div className="build-rise" style={stepOf(2)}>
-              <CatalogBook book={book} />
+              <CatalogBook key={book.id} book={book} />
             </div>
             <p className={CATALOG_STYLES.hint}>{t('hint')}</p>
           </div>
