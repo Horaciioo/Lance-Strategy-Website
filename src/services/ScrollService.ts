@@ -1,3 +1,4 @@
+import { SECTION_ANCHORS } from '@/declarations/routes'
 import { ConfigurationService } from '@/services/ConfigurationService'
 import { bindWindowEvent, createStore } from '@/services/core/StoreService'
 import { Service } from '@/structures/Service'
@@ -73,6 +74,18 @@ class ScrollServiceClass extends Service {
       unbindScroll()
       unbindResize()
     }
+  }
+
+  /**
+   * Scroll where the landing animation ends
+   * @return {number} - Offset, 0 without animation
+   */
+
+  introEnd = (): number => {
+    const runway = isBrowser() ? document.getElementById(SECTION_ANCHORS.intro) : null
+    if (!runway) return 0
+
+    return runway.getBoundingClientRect().bottom + window.scrollY - window.innerHeight
   }
 
   /**

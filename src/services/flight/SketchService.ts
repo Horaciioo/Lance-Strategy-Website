@@ -1,4 +1,4 @@
-import { FLIGHT, FLIGHT_PATH_BACK } from '@/declarations/flight'
+import { FLIGHT } from '@/declarations/flight'
 import { Service } from '@/structures/Service'
 import type { FlightKeyframe, FlightSize } from '@/types/flight'
 import { flightPhaseOf, flightPointAt } from '@/utils/flightPath'
@@ -9,22 +9,17 @@ const NEAREST_DEPTH = 12
 const HEADING_PROBE = 0.02
 const TRAIL_POINTS = 28
 const DEGREES = 180 / Math.PI
-// Cloth width, share of the stage width
-const BANNER_SHARE = 0.55
-const BANNER_FLUTTER_DEGREES = 1.4
 
 /**
  * Flat flight elements
  * @typedef SketchParts
  * @property {SVGSVGElement} plane - Plane glyph
  * @property {SVGPolylineElement} trail - Contrail line
- * @property {HTMLElement} banner - Towed cloth
  */
 
 export interface SketchParts {
   plane: SVGSVGElement
   trail: SVGPolylineElement
-  banner: HTMLElement
 }
 
 class SketchServiceClass extends Service {
@@ -35,7 +30,7 @@ class SketchServiceClass extends Service {
    * @param {number} input.progress - Scroll share
    * @param {FlightSize} input.size - Stage geometry
    * @param {SketchParts} input.parts - Elements to move
-   * @return {number} - Banner tail, share of the stage width
+   * @return {void}
    */
 
   place = ({
@@ -48,11 +43,10 @@ class SketchServiceClass extends Service {
     progress: number
     size: FlightSize
     parts: SketchParts
-  }): number => {
+  }): void => {
     const { leg, share } = flightPhaseOf(progress)
-    const path = leg === 'back' ? FLIGHT_PATH_BACK : keys
     const screenOf = (at: number) => {
-      const point = flightPointAt(path, at)
+      const point = flightPointAt(keys, at)
 
       return {
         x: ((point.x + 1) / 2) * size.width,
@@ -60,14 +54,13 @@ class SketchServiceClass extends Service {
         depth: point.depth,
       }
     }
-    const { plane, trail, banner } = parts
+    const { plane, trail } = parts
     const isFlying = leg !== 'gap' && progress > 0
     plane.style.opacity = isFlying ? '1' : '0'
-    banner.style.opacity = leg === 'back' ? '1' : '0'
     if (!isFlying) {
       trail.setAttribute('points', '')
 
-      return 0
+      return
     }
 
     const here = screenOf(share)
@@ -82,27 +75,16 @@ class SketchServiceClass extends Service {
     plane.style.height = `${glyph}px`
     plane.style.transform = `translate3d(${here.x - glyph / 2}px, ${here.y - glyph / 2}px, 0) rotate(${heading}deg)`
 
-    // Contrail on the way out, cloth on the way back
+    // Contrail on the way out
     const first = Math.max(0, share - FLIGHT.trailSpan)
     trail.setAttribute(
       'points',
-      leg === 'out'
-        ? Array.from({ length: TRAIL_POINTS }, (_, step) => {
-            const point = screenOf(first + ((share - first) * step) / (TRAIL_POINTS - 1))
+      Array.from({ length: TRAIL_POINTS }, (_, step) => {
+        const point = screenOf(first + ((share - first) * step) / (TRAIL_POINTS - 1))
 
-            return `${point.x.toFixed(1)},${point.y.toFixed(1)}`
-          }).join(' ')
-        : ''
+        return `${point.x.toFixed(1)},${point.y.toFixed(1)}`
+      }).join(' ')
     )
-    if (leg !== 'back') return 0
-
-    const cloth = size.width * BANNER_SHARE
-    const flutter = Math.sin(progress * 90) * BANNER_FLUTTER_DEGREES
-    banner.style.width = `${cloth}px`
-    const tail = here.x - glyph * 0.45 - cloth
-    banner.style.transform = `translate3d(${tail}px, ${here.y - banner.offsetHeight / 2}px, 0) rotate(${flutter}deg)`
-
-    return tail / size.width
   }
 }
 

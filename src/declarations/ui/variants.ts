@@ -465,9 +465,7 @@ export const NAVIGATION_STYLES = {
   narrow: 'lg:hidden',
   mobileList: 'flex flex-col gap-1',
   mobileLink: `rounded-lg px-3 py-2.5 text-base font-medium text-foreground-muted ${TRANSITION} hover:bg-surface hover:text-foreground`,
-  brand: `relative flex items-center gap-2.5 rounded-pill py-1 pr-2 text-[0.8125rem] font-semibold uppercase tracking-[0.14em] text-foreground ${FOCUS_RING}`,
-  // Filled tile, a nod to the chop
-  brandSymbol: `type-expanded flex h-8 w-8 items-center justify-center rounded-pill bg-foreground text-[0.625rem] font-bold tracking-normal text-background`,
+  brand: `relative flex items-center rounded-pill ${FOCUS_RING}`,
 } as const
 
 /**
@@ -489,12 +487,28 @@ export const LANGUAGE_SWITCHER_STYLES = {
  */
 
 export const LANGUAGE_PICKER_STYLES = {
-  root: 'flex flex-col items-start gap-2',
+  root: 'relative',
   trigger: `inline-flex size-10 items-center justify-center rounded-pill text-xl leading-none ${TRANSITION} hover:bg-foreground/[0.07] ${FOCUS_RING}`,
-  list: 'flex w-full flex-col gap-1',
+  // Floats under the flag
+  list: 'absolute right-0 top-full z-20 mt-3 flex w-48 flex-col gap-1 rounded-lg border border-border bg-background p-1.5 shadow-lg',
   option: `flex w-full items-center gap-3 rounded-md px-3 py-2 text-left text-sm text-foreground-muted ${TRANSITION} hover:bg-foreground/[0.07] hover:text-foreground ${FOCUS_RING}`,
   optionActive: 'bg-foreground/[0.07] text-foreground',
   flag: 'text-base leading-none',
+} as const
+
+/**
+ * Logo styles
+ * @type {Object}
+ */
+
+export const LOGO_STYLES = {
+  // Dark chip, the wordmark is white on blue
+  chip: 'relative flex items-center rounded-pill px-4 py-1.5',
+  flat: 'relative flex items-center',
+  backdrop: 'absolute inset-0 rounded-pill bg-sky-top',
+  image: 'relative h-9 w-auto',
+  // Flown from the landing title, never catches clicks
+  flying: 'pointer-events-none origin-top-left',
 } as const
 
 /**
@@ -507,6 +521,8 @@ export const FOOTER_STYLES = {
   frame: 'relative mt-24 bg-surface pt-[var(--notch-top)] [clip-path:var(--shape-clip)]',
   tab: 'absolute left-0 top-0 flex h-[var(--notch-top)] w-[var(--notch-tab)] items-center px-4 font-semibold text-foreground sm:px-6 lg:px-10',
   grid: 'grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4',
+  // Tagline under the logo tab, clear of it
+  brand: 'flex flex-col gap-3 pt-8',
   accent: 'text-accent',
   columnTitle: 'text-xs font-semibold uppercase tracking-wider text-foreground-subtle',
   list: 'mt-4 flex flex-col gap-2',
@@ -771,32 +787,20 @@ export const STARFIELD_STYLES = {
 export const INTRO_STYLES = {
   track: 'intro-track',
   stage: 'intro-stage',
+  runway: 'intro-runway',
   sky: 'intro-layer intro-sky',
   planet: 'intro-layer',
   globe: 'absolute inset-0 aspect-auto h-full',
-  heading:
-    'intro-heading absolute inset-x-0 top-[15svh] z-10 flex flex-col items-center gap-6 px-6 text-center',
+  heading: 'absolute inset-x-0 top-[15svh] z-10 flex flex-col items-center gap-6 px-6 text-center',
+  // Leaves upwards, the title stays for the navbar logo
+  headingBody: 'intro-heading flex flex-col items-center gap-6',
   title: 'flex justify-center',
-  logo: 'h-auto w-[min(82vw,34rem)]',
+  // Invisible, the navbar logo flies from here
+  logo: 'intro-hero-logo h-auto w-[min(82vw,34rem)]',
   // Weight sets the accent apart
   accent: 'font-semibold text-globe-air',
   subtitle: 'max-w-md text-sm leading-relaxed text-sky-ink/80 sm:text-base',
   cta: 'mt-1',
-  people: 'intro-layer intro-people z-10',
-  pin: 'intro-pin',
-  dot: 'absolute left-0 top-0 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-pill border-2 border-sky-ink bg-globe-air transition-opacity duration-300',
-  ping: 'absolute left-0 top-0 h-3 w-3 -translate-x-1/2 -translate-y-1/2 animate-ping rounded-pill bg-globe-air/70 transition-opacity duration-300',
-  column: 'absolute bottom-0 left-0 flex -translate-x-1/2 flex-col items-center',
-  stack: 'grid',
-  person: 'relative flex flex-col items-center [grid-area:1/1]',
-  hidden: 'invisible',
-  card: 'w-32 sm:w-36',
-  enter: 'animate-card-pop',
-  leave: 'animate-card-out',
-  tags: 'absolute bottom-6 left-full ml-3 hidden flex-col items-start gap-1 sm:flex',
-  tag: 'animate-rise whitespace-nowrap rounded-pill bg-sky-ink px-2.5 py-1 text-[0.6875rem] font-medium text-cover shadow-md',
-  stem: 'h-12 w-0 border-l-2 border-dashed border-sky-ink/90 transition-opacity duration-300',
-  stemHidden: 'opacity-0',
   // World caption, beside the planet
   beat: 'intro-beat intro-layer z-10 flex flex-col items-center justify-start px-6 pt-[16svh] text-center md:items-start md:justify-center md:px-[6vw] md:pt-0 md:text-left',
   beatTitle:
@@ -806,7 +810,7 @@ export const INTRO_STYLES = {
   reachItem:
     'intro-reach-item flex items-center gap-3 text-base text-sky-ink/80 [grid-area:1/1] md:text-lg',
   reachDot: 'h-1.5 w-1.5 shrink-0 rounded-pill bg-globe-air',
-  // Free assessment box, under the banner lane
+  // Free assessment box
   box: 'intro-box absolute inset-x-0 top-[27svh] z-10 mx-auto w-[min(92vw,56rem)] px-0',
   // Copy in the rising sheet
   dock: 'bilan-dock mx-auto w-[min(92vw,56rem)]',
@@ -1123,7 +1127,9 @@ export const GROUP_STYLES = {
 
 export const SCROLL_PLANE_STYLES = {
   // Always shown, visible track
-  rail: 'pointer-events-none fixed inset-y-24 right-2 z-[90] w-5 md:right-4',
+  rail: 'pointer-events-none fixed inset-y-24 right-2 z-[90] w-5 transition-[opacity,visibility] duration-slow md:right-4',
+  // Waits for the landing animation
+  hidden: 'invisible opacity-0',
   track:
     'absolute inset-y-0 left-1/2 w-0.5 -translate-x-1/2 rounded-full bg-white/40 mix-blend-difference',
   progress: 'absolute left-1/2 top-0 w-0.5 -translate-x-1/2 rounded-full bg-accent',
@@ -1142,8 +1148,6 @@ export const FLIGHT_STYLES = {
   glyph: 'absolute left-0 top-0 z-20 drop-shadow-[0_6px_10px_rgb(0_0_0/0.35)]',
   trail: 'absolute inset-0 z-[15] h-full w-full pointer-events-none',
   trailLine: 'fill-none stroke-sky-ink/35 [stroke-linecap:round] [stroke-width:3]',
-  banner:
-    'absolute left-0 top-0 z-20 flex items-center justify-center border-y-4 border-dashed border-globe-air bg-sky-ink px-8 py-3 text-center text-xl font-extrabold uppercase tracking-[0.12em] text-cover shadow-lg [clip-path:polygon(0_0,100%_0,95%_50%,100%_100%,0_100%)] sm:text-3xl',
 } as const
 
 /**

@@ -27,13 +27,49 @@ export const GLOBE_ROUTE_KINDS = ['air', 'road', 'sea'] as const
  */
 
 export const GLOBE_PLACES = {
-  paris: { longitude: 2.35, latitude: 48.86, isLabelled: true },
+  paris: { longitude: 2.35, latitude: 48.86, isLabelled: true, flag: 'france' },
   lyon: { longitude: 4.84, latitude: 45.76 },
   marseille: { longitude: 5.37, latitude: 43.3 },
-  shanghai: { longitude: 121.47, latitude: 31.23, isLabelled: true },
+  shanghai: { longitude: 121.47, latitude: 31.23, isLabelled: true, flag: 'china' },
   wuhan: { longitude: 114.31, latitude: 30.59 },
   shenzhen: { longitude: 114.06, latitude: 22.54 },
 } as const satisfies Record<string, GlobePlace>
+
+/**
+ * National flag colours
+ * @type {Object}
+ */
+
+export const GLOBE_FLAGS = {
+  // Blue, white, red bands
+  france: { colors: ['#0055a4', '#ffffff', '#ef4135'] },
+  // Field, then stars
+  china: { colors: ['#de2910', '#ffde00'] },
+} as const
+
+/**
+ * Planted flag geometry
+ * @type {Object}
+ */
+
+export const GLOBE_FLAG_GEOMETRY = {
+  // Pole height, share of the radius
+  poleShare: 0.17,
+  poleMinPx: 28,
+  poleMaxPx: 64,
+  // Cloth size, share of the pole
+  clothShare: 0.62,
+  // Width over height
+  aspect: 1.5,
+  // Texture size, pixels
+  textureWidth: 240,
+  textureHeight: 160,
+  strips: 16,
+  // Ripple, share of the cloth height
+  waveShare: 0.09,
+  waveSpeed: 3.2,
+  waveSpread: 0.6,
+} as const
 
 /**
  * Place identifier
@@ -261,9 +297,9 @@ export const INTRO_BEATS = {
   flightStart: 0.29,
   flightEnd: 0.8,
   sinkEnd: 0.5,
-  // Box filled, flight shares after the banner
-  boxFillDelay: 0.02,
-  boxFillSpan: 0.1,
+  // Box filled, flight shares once the plane is gone
+  boxFillStart: 0.6,
+  boxFillSpan: 0.3,
   // Next section slides over
   sheetStart: 0.9,
   // Scroll smoothing, share per frame

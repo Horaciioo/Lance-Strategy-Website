@@ -6,27 +6,30 @@ import type { CSSProperties, ReactNode } from 'react'
 import { Globe } from '@/components/elements/media/Globe'
 import { PlaneGlyph } from '@/components/elements/media/PlaneGlyph'
 import { Starfield } from '@/components/elements/media/Starfield'
-import { IntroPeople } from '@/components/sections/IntroPeople'
-import type { IntroPerson } from '@/components/sections/IntroPeople'
 import { FLIGHT_STYLES, INTRO_STYLES } from '@/declarations/ui/variants'
+import { SECTION_ANCHORS } from '@/declarations/routes'
 import { IntroSceneService } from '@/services/IntroSceneService'
 import { ViewportService } from '@/services/ViewportService'
-import type { GlobeHandle, GlobeLabel } from '@/types/globe'
+import type { GlobeCoordinate, GlobeHandle, GlobeLabel } from '@/types/globe'
 import type { StarfieldHandle } from '@/types/sky'
 
 const NO_LABELS: Record<string, GlobeLabel> = {}
 
 export interface IntroSceneProps {
-  people: IntroPerson[]
+  // Camera putting the landing city on top
+  initialView: GlobeCoordinate
+  // Landing logo, stays put
+  title: ReactNode
   heading: ReactNode
   // World caption
   beat: ReactNode
   // Lines under the caption
   reach: string[]
   globeLabel: string
-  bannerText: string
-  // Box traced behind the banner
+  // Free assessment box
   children: ReactNode
+  // Page body riding over the pinned planet
+  sheet: ReactNode
 }
 
 /**
@@ -36,57 +39,51 @@ export interface IntroSceneProps {
  */
 
 export const IntroScene = ({
-  people,
+  initialView,
+  title,
   heading,
   beat,
   reach,
   globeLabel,
-  bannerText,
   children,
+  sheet,
 }: IntroSceneProps) => {
   const isStill = ViewportService.usePrefers('reducedMotion')
   // Flat plane when WebGL is out of reach
   const [isSketched, setIsSketched] = useState(false)
-  const [initialView] = useState(() => people[0]?.view)
-  const trackRef = useRef<HTMLDivElement>(null)
+  const runwayRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
   const boxRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const sketchRefs = {
     plane: useRef<SVGSVGElement>(null),
     trail: useRef<SVGPolylineElement>(null),
-    banner: useRef<HTMLDivElement>(null),
   }
   const globeRef = useRef<GlobeHandle | null>(null)
   const starfieldRef = useRef<StarfieldHandle | null>(null)
 
   // Scroll choreography
   useEffect(() => {
-    const [track, stage, box] = [trackRef.current, stageRef.current, boxRef.current]
-    const [plane, trail, banner] = [
-      sketchRefs.plane.current,
-      sketchRefs.trail.current,
-      sketchRefs.banner.current,
-    ]
+    const [runway, stage, box] = [runwayRef.current, stageRef.current, boxRef.current]
+    const [plane, trail] = [sketchRefs.plane.current, sketchRefs.trail.current]
     if (isStill && stage) return IntroSceneService.still(stage, globeRef)
-    if (!track || !stage || !box) return undefined
+    if (!runway || !stage || !box) return undefined
 
     return IntroSceneService.mount({
-      track,
+      track: runway,
       stage,
       box,
       globe: globeRef,
       starfield: starfieldRef,
       canvas: isSketched ? null : canvasRef.current,
-      sketch: isSketched && plane && trail && banner ? { plane, trail, banner } : null,
-      bannerText,
+      sketch: isSketched && plane && trail ? { plane, trail } : null,
       onFallback: () => setIsSketched(true),
     })
-  }, [isStill, isSketched, bannerText])
+  }, [isStill, isSketched])
 
   return (
     <>
-      <div ref={trackRef} className={INTRO_STYLES.track}>
+      <div className={INTRO_STYLES.track}>
         <div ref={stageRef} className={INTRO_STYLES.stage}>
           <div className={INTRO_STYLES.sky} />
           <Starfield handleRef={starfieldRef} />
@@ -102,9 +99,9 @@ export const IntroScene = ({
             />
           </div>
 
-          <div className={INTRO_STYLES.heading}>{heading}</div>
-          <div className={INTRO_STYLES.people}>
-            <IntroPeople people={people} globeRef={globeRef} />
+          <div className={INTRO_STYLES.heading}>
+            {title}
+            <div className={INTRO_STYLES.headingBody}>{heading}</div>
           </div>
           <div className={INTRO_STYLES.beat}>
             <h2 className={INTRO_STYLES.beatTitle}>{beat}</h2>
@@ -132,9 +129,6 @@ export const IntroScene = ({
               <svg aria-hidden="true" className={FLIGHT_STYLES.trail}>
                 <polyline ref={sketchRefs.trail} className={FLIGHT_STYLES.trailLine} />
               </svg>
-              <div ref={sketchRefs.banner} aria-hidden="true" className={FLIGHT_STYLES.banner}>
-                {bannerText}
-              </div>
               <PlaneGlyph glyphRef={sketchRefs.plane} />
             </>
           ) : (
@@ -145,6 +139,13 @@ export const IntroScene = ({
 
           <div className={INTRO_STYLES.shade} />
         </div>
+        <div
+          ref={runwayRef}
+          id={SECTION_ANCHORS.intro}
+          aria-hidden="true"
+          className={INTRO_STYLES.runway}
+        />
+        {sheet}
       </div>
     </>
   )

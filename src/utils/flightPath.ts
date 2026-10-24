@@ -21,9 +21,8 @@ export const flightKeysOf = (origin: { x: number; y: number }): FlightKeyframe[]
 
 export const flightPhaseOf = (progress: number): FlightPhase => {
   if (progress <= FLIGHT.outEnd) return { leg: 'out', share: clampUnit(progress / FLIGHT.outEnd) }
-  if (progress < FLIGHT.backStart) return { leg: 'gap', share: 0 }
 
-  return { leg: 'back', share: clampUnit((progress - FLIGHT.backStart) / (1 - FLIGHT.backStart)) }
+  return { leg: 'gap', share: 0 }
 }
 
 /**

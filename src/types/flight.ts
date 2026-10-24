@@ -62,12 +62,12 @@ export interface PlaneRig {
 /**
  * Leg of the flight
  * @typedef FlightPhase
- * @property {string} leg - Outbound, waiting off screen, or return towing the banner
+ * @property {string} leg - Outbound, or gone off screen
  * @property {number} share - Position along the leg, 0 to 1
  */
 
 export interface FlightPhase {
-  leg: 'out' | 'gap' | 'back'
+  leg: 'out' | 'gap'
   share: number
 }
 
@@ -75,14 +75,10 @@ export interface FlightPhase {
  * Flight scene request
  * @typedef FlightMount
  * @property {HTMLCanvasElement} canvas - Target canvas
- * @property {string} bannerText - Words on the towed banner
- * @property {Function} onWake - Receives the banner tail, share of the stage width
  */
 
 export interface FlightMount {
   canvas: HTMLCanvasElement
-  bannerText: string
-  onWake: (edge: number) => void
 }
 
 /**

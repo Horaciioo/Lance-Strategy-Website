@@ -1,16 +1,23 @@
 import Image from 'next/image'
+import type { CSSProperties, Ref } from 'react'
 
-import { NAVIGATION_STYLES } from '@/declarations/ui/variants'
+import { LOGO_STYLES } from '@/declarations/ui/variants'
 import { ConfigurationService } from '@/services/ConfigurationService'
 import type { Styleable } from '@/types/common'
 import { cn } from '@/utils/classnames'
 
 export interface LogoProps extends Styleable {
-  // Wordmark visibility
-  withName?: boolean
+  imageRef?: Ref<HTMLImageElement>
+  // Chip backdrop opacity
+  backdrop?: number
+  // Bare image, no chip
+  isFlat?: boolean
+  imageStyle?: CSSProperties
+  imageClassName?: string
 }
 
-const { logo, name } = ConfigurationService.site
+const { name } = ConfigurationService.site
+const { wordmark } = ConfigurationService.site.logo
 
 /**
  * Site logo
@@ -18,19 +25,27 @@ const { logo, name } = ConfigurationService.site
  * @return {JSX.Element} - Rendered logo
  */
 
-export const Logo = ({ withName = true, className }: LogoProps) => (
-  <span className={cn('flex items-center gap-2', className)}>
-    {logo.image ? (
-      <Image
-        src={logo.image}
-        alt={name}
-        width={32}
-        height={32}
-        className="h-8 w-8 object-contain"
-      />
-    ) : (
-      <span className={NAVIGATION_STYLES.brandSymbol}>{logo.symbol}</span>
+export const Logo = ({
+  imageRef,
+  backdrop = 1,
+  isFlat = false,
+  imageStyle,
+  imageClassName,
+  className,
+}: LogoProps) => (
+  <span className={cn(isFlat ? LOGO_STYLES.flat : LOGO_STYLES.chip, className)}>
+    {!isFlat && (
+      <span aria-hidden="true" className={LOGO_STYLES.backdrop} style={{ opacity: backdrop }} />
     )}
-    {withName && <span>{name}</span>}
+    <Image
+      ref={imageRef}
+      src={wordmark.src}
+      alt={name}
+      width={wordmark.width}
+      height={wordmark.height}
+      unoptimized
+      style={imageStyle}
+      className={cn(LOGO_STYLES.image, imageClassName)}
+    />
   </span>
 )

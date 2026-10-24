@@ -12,7 +12,7 @@ import { mailLinkOf, whatsappLinkOf } from '@/utils/contact'
 const { email, whatsapp } = ConfigurationService.identity
 
 /**
- * Free assessment box, revealed behind the towed banner
+ * Free assessment box
  * @return {JSX.Element} - Rendered box
  */
 

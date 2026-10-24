@@ -23,9 +23,8 @@ class HomePage extends Page {
 
   render(): ReactNode {
     return (
-      <>
-        <IntroSection />
-        <div className={LAYOUT.sheet}>
+      <IntroSection>
+        <div data-scheme="dark" className={LAYOUT.sheet}>
           <div data-bilan-dock className={INTRO_STYLES.dock}>
             <BilanBox />
           </div>
@@ -35,7 +34,7 @@ class HomePage extends Page {
           <FeatureSection />
           <GroupSection />
         </div>
-      </>
+      </IntroSection>
     )
   }
 }

@@ -5,18 +5,20 @@ import { useTranslations } from 'next-intl'
 
 import { ActionLink } from '@/components/elements/actions/ActionLink'
 import { IconButton } from '@/components/elements/actions/IconButton'
-import { Logo } from '@/components/elements/media/Logo'
+import { HeaderBrand } from '@/components/layout/HeaderBrand'
 import { LanguagePicker } from '@/components/structures/navigation/LanguagePicker'
 import { NavigationList } from '@/components/structures/navigation/NavigationList'
 import { Drawer } from '@/components/structures/overlays/Drawer'
 import { SECTION_ANCHORS } from '@/declarations/routes'
 import { LAYERS } from '@/declarations/ui/tokens'
 import { NAVIGATION_STYLES } from '@/declarations/ui/variants'
-import { Link, usePathname } from '@/i18n/routing'
+import { usePathname } from '@/i18n/routing'
 import { ConfigurationService } from '@/services/ConfigurationService'
 import { NavigationService } from '@/services/NavigationService'
 import { ScrollService } from '@/services/ScrollService'
 import { cn } from '@/utils/classnames'
+
+const hasLanguagePicker = ConfigurationService.isEnabled('languageSwitcher')
 
 /**
  * Site header
@@ -31,13 +33,15 @@ export const SiteHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   // Unknown until measured, night first
   const [sceneEnd, setSceneEnd] = useState(Number.POSITIVE_INFINITY)
+  const [introEnd, setIntroEnd] = useState(Number.POSITIVE_INFINITY)
   const { offset } = ScrollService.use()
 
-  // Night scene height, home only
+  // Night scene and animation height, home only
   useEffect(() => {
     const measure = () => {
       const scene = document.getElementById(SECTION_ANCHORS.hero)
       setSceneEnd(scene ? scene.offsetHeight - window.innerHeight * 1.05 : 0)
+      setIntroEnd(ScrollService.introEnd())
     }
     measure()
     window.addEventListener('resize', measure)
@@ -46,6 +50,7 @@ export const SiteHeader = () => {
   }, [pathname])
 
   const isOverScene = offset < sceneEnd
+  const isOverIntro = offset < introEnd
   const entries = NavigationService.headerEntries({ pathname, translate: t })
   const callToAction = NavigationService.callToActionRoute()
   const callToActionLabel = actions(NavigationService.ctaActionOf(callToAction))
@@ -60,12 +65,10 @@ export const SiteHeader = () => {
             aria-hidden="true"
             className={cn(
               NAVIGATION_STYLES.backdrop,
-              isOverScene && NAVIGATION_STYLES.backdropHidden
+              isOverIntro && NAVIGATION_STYLES.backdropHidden
             )}
           />
-          <Link href={NavigationService.pathOf('home')} className={NAVIGATION_STYLES.brand}>
-            <Logo />
-          </Link>
+          <HeaderBrand />
 
           <nav aria-label={navigation('primary')}>
             <NavigationList entries={entries} />
@@ -76,10 +79,11 @@ export const SiteHeader = () => {
               route={callToAction}
               icon="arrowRight"
               iconPosition="right"
-              variant={isOverScene ? 'onMedia' : 'primary'}
+              variant={isOverIntro ? 'onMedia' : 'primary'}
               className={NAVIGATION_STYLES.wide}>
               {callToActionLabel}
             </ActionLink>
+            {hasLanguagePicker && <LanguagePicker />}
             <IconButton
               icon="menu"
               label={actions('open')}
@@ -107,9 +111,6 @@ export const SiteHeader = () => {
             {callToActionLabel}
           </ActionLink>
         </div>
-        {ConfigurationService.isEnabled('languageSwitcher') && (
-          <LanguagePicker className="mt-6" onPick={() => setIsMenuOpen(false)} />
-        )}
       </Drawer>
     </header>
   )

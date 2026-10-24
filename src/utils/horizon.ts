@@ -1,6 +1,5 @@
 import { GLOBE_HORIZON, INTRO_BEATS } from '@/declarations/globe'
 import type { GlobeCoordinate, GlobeFraming } from '@/types/globe'
-import { toRadians } from '@/utils/geo'
 import { clampUnit, easeInOutCubic, lerp } from '@/utils/motion'
 
 const { radiusOfWidth, radiusOfHeight, worldRadius, skylineOfWidth, skylineOfHeight } =
@@ -28,7 +27,7 @@ export const beatOf = (progress: number, from: number, to: number): number =>
  * @param {number} input.width - Stage width
  * @param {number} input.height - Stage height
  * @param {number} input.progress - Scroll share
- * @return {Object} - Framing and city anchor
+ * @return {GlobeFraming} - Planet framing
  */
 
 export const horizonFramingOf = ({
@@ -39,7 +38,7 @@ export const horizonFramingOf = ({
   width: number
   height: number
   progress: number
-}): GlobeFraming & { anchorY: number } => {
+}): GlobeFraming => {
   // Landing hill, whole world, horizon under the flight
   const landing = Math.max(width * radiusOfWidth, height * radiusOfHeight)
   const world = Math.min(width, height) * worldRadius
@@ -61,7 +60,6 @@ export const horizonFramingOf = ({
     radius,
     turnDegrees: spinDegrees * beatOf(progress, INTRO_BEATS.riseEnd, 1),
     towards: { view: worldView, share: rise },
-    anchorY: centerY - radius * Math.sin(toRadians(tiltDegrees)),
   }
 }
 

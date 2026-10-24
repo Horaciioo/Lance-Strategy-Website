@@ -36,11 +36,11 @@ export const SiteFooter = () => {
   return (
     <footer className={FOOTER_STYLES.frame} style={FOOTER_SLAB_VARIABLES as CSSProperties}>
       <div className={FOOTER_STYLES.tab}>
-        <Logo />
+        <Logo isFlat />
       </div>
       <Container>
         <div className={FOOTER_STYLES.grid}>
-          <div className="flex flex-col gap-3">
+          <div className={FOOTER_STYLES.brand}>
             <Text appearance="description">{navigation.rich('tagline', { accent })}</Text>
             {socials.length > 0 && (
               <div className={FOOTER_STYLES.socials}>

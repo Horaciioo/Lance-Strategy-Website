@@ -23,6 +23,7 @@ export const ROUTES = {
 export const SECTION_ANCHORS = {
   hero: 'hero',
   story: 'story',
+  intro: 'intro',
   offers: 'offers',
   team: 'team',
   features: 'features',
@@ -40,6 +41,13 @@ export const SECTION_ANCHORS = {
 } as const
 
 /**
+/**
+ * Landing title the navbar logo flies from
+ * @type {string}
+ */
+
+export const HERO_LOGO_ATTRIBUTE = 'data-hero-logo'
+
  * Home section links
  * @type {Object}
  */

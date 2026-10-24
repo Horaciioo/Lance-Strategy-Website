@@ -10,17 +10,13 @@ import { I18nService } from '@/services/I18nService'
 import type { Styleable } from '@/types/common'
 import { cn } from '@/utils/classnames'
 
-export interface LanguagePickerProps extends Styleable {
-  onPick?: () => void
-}
-
 /**
  * Language picker
- * @param {LanguagePickerProps} props - Picker props
+ * @param {Styleable} props - Picker props
  * @return {JSX.Element | null} - Flag and options
  */
 
-export const LanguagePicker = ({ onPick, className }: LanguagePickerProps) => {
+export const LanguagePicker = ({ className }: Styleable) => {
   const locale = useLocale()
   const pathname = usePathname()
   const router = useRouter()
@@ -32,7 +28,6 @@ export const LanguagePicker = ({ onPick, className }: LanguagePickerProps) => {
   // Swap locale on same route
   const handlePick = (next: string) => {
     setIsOpen(false)
-    onPick?.()
     if (next === locale) return
     AnalyticsService.track('localeChanged', { locale: next })
     router.replace(pathname, { locale: next })

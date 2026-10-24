@@ -10,11 +10,8 @@ export const FLIGHT = {
   near: 1,
   far: 400,
   maxPixelRatio: 1.75,
-  // Scroll share where the plane leaves left, then comes back from the left
-  outEnd: 0.46,
-  backStart: 0.5,
-  // Narrowest aspect showing the banner at full size
-  bannerAspect: 1.5,
+  // Flight share where the plane is off screen left
+  outEnd: 0.6,
   // Share of the outbound flight the contrails keep
   trailSpan: 0.4,
   trailSamples: 64,
@@ -46,40 +43,6 @@ export const FLIGHT_PATH_OUT: FlightKeyframe[] = [
   { x: -1.5, y: 0.05, depth: 11 },
   { x: -2.6, y: 0.2, depth: 12 },
 ]
-
-/**
- * Return leg, back in from the left and out to the right, towing the banner
- * @type {FlightKeyframe[]}
- */
-
-export const FLIGHT_PATH_BACK: FlightKeyframe[] = [
-  { x: -1.75, y: 0.3, depth: 17 },
-  { x: -1.2, y: 0.34, depth: 16.5 },
-  { x: -0.2, y: 0.28, depth: 16 },
-  { x: 0.7, y: 0.32, depth: 16 },
-  { x: 1.7, y: 0.28, depth: 16.5 },
-  { x: 2.8, y: 0.32, depth: 17 },
-]
-
-/**
- * Towed banner, plane space with the tail along -X
- * @type {Object}
- */
-
-export const FLIGHT_BANNER = {
-  length: 8.4,
-  height: 1.5,
-  segments: [56, 8],
-  // Rope anchor on the plane tail, and rope reach
-  anchor: [-2.3, -0.02, 0],
-  rope: 0.9,
-  wave: { amplitude: 0.36, frequency: 1.6, speed: 3.1 },
-  droop: 0.2,
-  // Swallowtail notch depth, share of the length
-  notch: 0.05,
-  texture: { width: 2048, height: 366, padding: 150 },
-  colors: { cloth: '#f5f2ec', border: '#f2a33a', ink: '#12141a', rope: '#c9c3b8' },
-} as const
 
 /**
  * Plane colours

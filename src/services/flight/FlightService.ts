@@ -1,7 +1,6 @@
 import type * as ThreeNamespace from 'three'
 
-import { FLIGHT, FLIGHT_LIGHTS, FLIGHT_PATH_BACK } from '@/declarations/flight'
-import { BannerService } from '@/services/flight/BannerService'
+import { FLIGHT, FLIGHT_LIGHTS } from '@/declarations/flight'
 import { PlaneService } from '@/services/flight/PlaneService'
 import { SkyLightService } from '@/services/flight/SkyLightService'
 import { TrailService } from '@/services/flight/TrailService'
@@ -20,11 +19,11 @@ const ATTITUDE_EASE = 0.18
 class FlightServiceClass extends Service {
   /**
    * Start the flight scene
-   * @param {FlightMount} request - Canvas, banner words and wake callback
+   * @param {FlightMount} request - Target canvas
    * @return {Promise<FlightHandle | null>} - Controls, null without WebGL
    */
 
-  mount = async ({ canvas, bannerText, onWake }: FlightMount): Promise<FlightHandle | null> => {
+  mount = async ({ canvas }: FlightMount): Promise<FlightHandle | null> => {
     // No GPU, no engine: skip the download and the console noise
     if (!hasWebGL()) return null
 
@@ -54,13 +53,10 @@ class FlightServiceClass extends Service {
 
     const camera = new three.PerspectiveCamera(fieldOfView, 1, near, far)
     const rig = PlaneService.build(three)
-    const banner = BannerService.build(three, bannerText)
-    rig.group.add(banner.group)
     const ribbons = FLIGHT.trailOffsets.map(() => TrailService.create(three))
     scene.add(rig.group, ...ribbons.map((ribbon) => ribbon.mesh))
 
     let outCurve: ThreeNamespace.CatmullRomCurve3 | null = null
-    let backCurve: ThreeNamespace.CatmullRomCurve3 | null = null
     let progress = 0
     let frameId = 0
     let isDisposed = false
@@ -129,37 +125,26 @@ class FlightServiceClass extends Service {
     }
 
     const orientation = new three.Quaternion()
-    const tail = new three.Vector3()
 
     let lastLeg = ''
 
     const draw = (now: number) => {
-      if (!outCurve || !backCurve) return
+      if (!outCurve) return
       const seconds = (now - startedAt) / 1000
       const { leg, share } = flightPhaseOf(progress)
-      const curve = leg === 'back' ? backCurve : outCurve
 
       rig.group.visible = leg !== 'gap'
-      banner.group.visible = leg === 'back'
       ribbons.forEach((ribbon) => ribbon.update([], 0))
-      let edge = 0
 
       if (leg !== 'gap') {
-        rig.group.position.copy(curve.getPoint(share))
-        orientAt(curve, share, orientation)
+        rig.group.position.copy(outCurve.getPoint(share))
+        orientAt(outCurve, share, orientation)
         // Eased attitude, snapped on a new leg
         if (leg === lastLeg) rig.group.quaternion.slerp(orientation, ATTITUDE_EASE)
         else rig.group.quaternion.copy(orientation)
         lastLeg = leg
       }
       if (leg === 'out') trail(share)
-      if (leg === 'back') {
-        banner.update(seconds)
-        rig.group.updateMatrixWorld(true)
-        const projected = rig.group.localToWorld(banner.tailAt(seconds, tail)).project(camera)
-        edge = (projected.x + 1) / 2
-      }
-      onWake(edge)
 
       SkyLightService.pulse(rig.lights, seconds)
       renderer.render(scene, camera)
@@ -183,7 +168,7 @@ class FlightServiceClass extends Service {
         camera.updateProjectionMatrix()
         camera.updateMatrixWorld(true)
 
-        // Take-off point on the planet, then the fixed legs
+        // Take-off point on the planet
         const origin = {
           x: (size.originX / size.width) * 2 - 1,
           y: 1 - (size.originY / size.height) * 2,
@@ -195,9 +180,6 @@ class FlightServiceClass extends Service {
             'centripetal'
           )
         outCurve = curveOf(flightKeysOf(origin))
-        // Narrow screens push the banner back so it fits
-        const reach = Math.max(1, FLIGHT.bannerAspect / aspect)
-        backCurve = curveOf(FLIGHT_PATH_BACK.map((key) => ({ ...key, depth: key.depth * reach })))
         draw(performance.now())
       },
       setActive: (isActive) => {

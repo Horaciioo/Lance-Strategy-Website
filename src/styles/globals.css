@@ -13,6 +13,8 @@
     scroll-behavior: smooth;
     scroll-padding-top: calc(var(--layout-header) + 3rem);
     -webkit-text-size-adjust: 100%;
+    /* Overscroll shows the sky, never white */
+    background-color: rgb(var(--color-sky-top));
   }
 
   body {
@@ -71,26 +73,38 @@
     text-orientation: upright;
   }
 
-  /* Landing scene, pinned while --intro runs 0 to 1 */
+  /* Landing scene, planet pinned behind the whole page */
   .intro-track {
     --intro: 0;
     position: relative;
-    height: 100svh;
     margin-top: calc(var(--layout-header) * -1 - 0.75rem);
     background-color: rgb(var(--color-sky-top));
   }
 
-  /* The next section slides over the last stretch */
   .intro-stage {
     --sheet: 0;
-    position: sticky;
-    top: 0;
+    position: relative;
     height: 100svh;
     overflow: hidden;
     isolation: isolate;
-    transform: scale(calc(1 - var(--sheet) * 0.05));
-    transform-origin: 50% 0;
-    border-radius: calc(var(--sheet) * 2.5rem);
+  }
+
+  /* Navbar logo flies in from here, title shown without motion */
+  .intro-hero-logo {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .intro-hero-logo {
+      opacity: 0;
+    }
+  }
+
+  /* Scroll length of the animation, drives --intro */
+  .intro-runway {
+    height: 100svh;
+    margin-top: -100svh;
+    pointer-events: none;
   }
 
   .intro-layer {
@@ -115,12 +129,6 @@
     transform: translate3d(0, calc(var(--leave) * -24vh), 0) scale(calc(1 - var(--leave) * 0.08));
     opacity: calc(1 - var(--leave) * 1.4);
     filter: blur(calc(var(--leave) * 6px));
-  }
-
-  /* Cards settle back into the planet */
-  .intro-people {
-    transform: translate3d(0, calc(var(--intro) * 60vh), 0);
-    opacity: calc(1 - var(--intro) * 16);
   }
 
   /* World caption, between the rise and the take-off */
@@ -151,7 +159,7 @@
     }
   }
 
-  /* Box waits for the banner, interactive once filled */
+  /* Box waits for the plane, interactive once filled */
   .intro-box {
     --fill: 0;
     pointer-events: none;
@@ -187,12 +195,11 @@
     }
   }
 
-  /* Unrolls left to right, in the banner wake */
+  /* Rises into place as the plane leaves */
   .intro-box-body {
-    --edge: calc(var(--fill) * 130%);
-    mask-image: linear-gradient(to right, #000 calc(var(--edge) - 30%), transparent var(--edge));
+    opacity: var(--fill);
     translate: 0 calc((1 - var(--fill)) * 1rem);
-    will-change: mask-image, translate;
+    will-change: opacity, translate;
   }
 
   /* Lines settle one after the other */
@@ -230,17 +237,15 @@
     opacity: calc(var(--sheet) * 0.6);
   }
 
-  /* Pinned to the focused city */
-  .intro-pin {
-    position: absolute;
-    left: 50%;
-    top: var(--anchor-y, 80svh);
-  }
-
-  /* Long track only when motion is welcome */
+  /* Long runway only when motion is welcome */
   @media (prefers-reduced-motion: no-preference) {
-    .intro-track {
-      height: 880svh;
+    .intro-stage {
+      position: sticky;
+      top: 0;
+    }
+
+    .intro-runway {
+      height: 640svh;
     }
 
     .intro-sheet {
@@ -248,13 +253,11 @@
     }
   }
 
-  /* Rises over the pinned scene */
+  /* Page body over the planet, dark scheme text */
   .intro-sheet {
     position: relative;
     z-index: 10;
-    border-radius: 2.5rem 2.5rem 0 0;
-    background-color: rgb(var(--color-background));
-    box-shadow: 0 -2rem 4rem -2rem rgb(var(--color-overlay) / 0.5);
+    color: rgb(var(--color-foreground));
   }
 
   /* Catalogue light table, warm light pooled under the book */

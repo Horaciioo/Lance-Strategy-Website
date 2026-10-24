@@ -1,4 +1,4 @@
-import type { GLOBE_INKS, GLOBE_ROUTE_KINDS } from '@/declarations/globe'
+import type { GLOBE_FLAGS, GLOBE_INKS, GLOBE_ROUTE_KINDS } from '@/declarations/globe'
 
 /**
  * Unit sphere vector
@@ -73,11 +73,20 @@ export interface GlobeHandle {
  * Marked place
  * @typedef GlobePlace
  * @property {boolean} [isLabelled] - Label drawn
+ * @property {GlobeFlagId} [flag] - Planted flag
  */
 
 export interface GlobePlace extends GlobeCoordinate {
   isLabelled?: boolean
+  flag?: GlobeFlagId
 }
+
+/**
+ * Flag identifier
+ * @typedef {keyof typeof GLOBE_FLAGS} GlobeFlagId
+ */
+
+export type GlobeFlagId = keyof typeof GLOBE_FLAGS
 
 /**
  * Route kind
@@ -177,6 +186,7 @@ export interface PreparedPlace {
   id: string
   vector: Vector
   label?: GlobeLabel
+  flag?: GlobeFlagId
 }
 
 /**

@@ -1,4 +1,5 @@
 import { GLOBE_GEOMETRY, GLOBE_VEHICLES } from '@/declarations/globe'
+import { FlagRenderService } from '@/services/FlagRenderService'
 import { PlanetFallbackService } from '@/services/PlanetFallbackService'
 import { VehicleRenderService } from '@/services/VehicleRenderService'
 import { Service } from '@/structures/Service'
@@ -286,6 +287,7 @@ class GlobeRenderServiceClass extends Service {
       context.fillStyle = inkOf(frame, 'air', frame.presence)
       context.fill()
 
+      if (place.flag) FlagRenderService.draw({ frame, place, point })
       if (place.label && labelAlpha > 0) this.drawLabel(frame, place.label, screen, labelAlpha)
     }
   }

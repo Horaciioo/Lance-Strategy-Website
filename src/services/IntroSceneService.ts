@@ -14,7 +14,7 @@ import { beatOf, horizonFramingOf, takeOffOf } from '@/utils/horizon'
 import { clampUnit, easeOutCubic as easeOut } from '@/utils/motion'
 
 const { flightStart, flightEnd, follow, sheetStart } = INTRO_BEATS
-const { boxFillDelay, boxFillSpan } = INTRO_BEATS
+const { boxFillStart, boxFillSpan } = INTRO_BEATS
 
 // Preload the plane one screen ahead
 const PRELOAD_MARGIN = '100% 0px'
@@ -31,14 +31,13 @@ const SETTLED = 0.0004
 export interface IntroSceneMount {
   track: HTMLElement
   stage: HTMLElement
-  // Free assessment box, traced by the banner
+  // Free assessment box, filled once the plane is gone
   box: HTMLElement
   globe: RefObject<GlobeHandle | null>
   starfield: RefObject<StarfieldHandle | null>
   // 3D plane, or the flat fallback
   canvas: HTMLCanvasElement | null
   sketch: SketchParts | null
-  bannerText: string
   // WebGL missing, switch to the flat plane
   onFallback: () => void
 }
@@ -54,7 +53,6 @@ class IntroSceneServiceClass extends Service {
   still = (stage: HTMLElement, globe: RefObject<GlobeHandle | null>): void => {
     const { clientWidth: width, clientHeight: height } = stage
     const framing = horizonFramingOf({ width, height, progress: 0 })
-    stage.style.setProperty('--anchor-y', `${framing.anchorY}px`)
     globe.current?.frame(framing)
   }
 
@@ -74,31 +72,16 @@ class IntroSceneServiceClass extends Service {
     let keys: FlightKeyframe[] = []
     let size: FlightSize = { width: 1, height: 1, originX: 0, originY: 0 }
 
-    // Flight share where the banner closed the top edge
-    let closedAt: number | null = null
     // Shown fill, eased towards the target
     let shownFill = 0
 
-    // Top edge follows the banner tail, the rest once it is closed
-    const trace = (edge: number, flight: number) => {
-      const bounds = box.getBoundingClientRect()
-      const tail = clampUnit(edge) * size.width
-      const top = flight > 0.5 ? clampUnit((tail - bounds.left) / Math.max(bounds.width, 1)) : 0
-      // Sticky once closed, the flutter cannot reopen it
-      if (closedAt !== null && flight < closedAt) closedAt = null
-      if (top >= 1) closedAt ??= flight
-      // Done once the flight is over
-      const since = closedAt === null ? -1 : flight >= 1 ? 1 : flight - closedAt
-      const fill = clampUnit((since - boxFillDelay) / boxFillSpan)
-      shownFill += (easeOut(fill) - shownFill) * FILL_EASE
-      if (Math.abs(easeOut(fill) - shownFill) < SETTLED) shownFill = easeOut(fill)
+    // Box fills once the plane is gone
+    const reveal = (flight: number) => {
+      const fill = easeOut(clampUnit((flight - boxFillStart) / boxFillSpan))
+      shownFill += (fill - shownFill) * FILL_EASE
+      if (Math.abs(fill - shownFill) < SETTLED) shownFill = fill
       box.style.setProperty('--fill', shownFill.toFixed(4))
       box.dataset.ready = String(shownFill > 0.5)
-    }
-
-    const sketch = (flight: number) => {
-      if (!parts.sketch) return
-      trace(SketchService.place({ keys, progress: flight, size, parts: parts.sketch }), flight)
     }
 
     // One frame of the whole scene
@@ -106,14 +89,16 @@ class IntroSceneServiceClass extends Service {
       const flight = clampUnit((progress - flightStart) / (flightEnd - flightStart))
       const framing = horizonFramingOf({ width: size.width, height: size.height, progress })
       stage.style.setProperty('--intro', String(progress))
-      stage.style.setProperty('--anchor-y', `${framing.anchorY}px`)
       stage.style.setProperty('--sheet', String(beatOf(progress, sheetStart, 1)))
+      // Box hands over to its copy in the sheet
+      box.style.opacity = String(1 - beatOf(progress, sheetStart, 1))
       parts.globe.current?.frame(framing)
       parts.starfield.current?.frame(progress)
       handle?.frame(flight)
       // Plane waits on the ground
       if (parts.canvas) parts.canvas.style.opacity = flight > 0 ? '1' : '0'
-      sketch(flight)
+      if (parts.sketch) SketchService.place({ keys, progress: flight, size, parts: parts.sketch })
+      reveal(flight)
     }
 
     // Eases towards the scroll position
@@ -147,12 +132,7 @@ class IntroSceneServiceClass extends Service {
       ([entry]) => {
         if (!entry) return
         if (entry.isIntersecting && !handle && !isStopped && parts.canvas) {
-          FlightService.mount({
-            canvas: parts.canvas,
-            bannerText: parts.bannerText,
-            onWake: (edge) =>
-              trace(edge, clampUnit((current - flightStart) / (flightEnd - flightStart))),
-          }).then((mounted) => {
+          FlightService.mount({ canvas: parts.canvas }).then((mounted) => {
             if (isStopped) return mounted?.dispose()
             if (!mounted) return parts.onFallback()
             handle = mounted
