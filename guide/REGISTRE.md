@@ -29,14 +29,14 @@ Une entrée par système livré avec le template. Pour chacun : les fichiers qui
 
 ## 2. Internationalisation
 
-|                   |                                                              |
-| ----------------- | ------------------------------------------------------------ |
-| **Service**       | `src/services/I18nService.ts`                                |
-| **Configuration** | `src/configurations/localization.json`                       |
-| **Câblage**       | `src/i18n/routing.ts`, `src/i18n/request.ts`, `src/proxy.ts` |
+|                   |                                                                                   |
+| ----------------- | --------------------------------------------------------------------------------- |
+| **Service**       | `src/services/I18nService.ts`                                                     |
+| **Configuration** | `src/configurations/localization.json`                                            |
+| **Câblage**       | `src/i18n/routing.ts`, `src/i18n/request.ts`, `src/proxy.ts`                      |
 | **Composants**    | `src/components/structures/navigation/LanguageSwitcher.tsx`, `LanguagePicker.tsx` |
-| **Textes**        | `src/configurations/windows/messages/<locale>.json`          |
-| **Drapeau**       | `features.json → languageSwitcher`                           |
+| **Textes**        | `src/configurations/windows/messages/<locale>.json`                               |
+| **Drapeau**       | `features.json → languageSwitcher`                                                |
 
 **Variables** — `I18nService.locales`, `defaultLocale`, `localePrefix`, `isSupported()`, `resolve()`,
 `alternatesOf()`, `hreflangOf(urlOf)` (une URL par langue plus `x-default` vers la langue par défaut,
@@ -1078,12 +1078,12 @@ Sans WebGL : avion SVG (`SketchService`) et planète CPU (`PlanetFallbackService
 
 ## 44. Catalogue à feuilleter
 
-|                  |                                                                                                                                                                  |
-| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|                  |                                                                                                                                                       |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Composants**   | `CatalogSection` (client, édition de la langue), `CatalogBook` (état), `CatalogChapters`, `CatalogStage` (livre 3D), `CatalogLeaf`, `CatalogControls` |
-| **Déclarations** | `CATALOG_EDITIONS`, `CATALOG_LOCALE_EDITIONS`, `CATALOG_BOOKS` (`declarations/content.ts`), `MOTION_SPRINGS` (`declarations/ui/motion.ts`)                       |
-| **Utilitaires**  | `catalogSlotsOf`, `catalogViewOf`, `catalogNumbersOf` (`utils/catalog.ts`)                                                                                       |
-| **Fichiers**     | `public/catalog/<édition>/page-XX.webp` (900 px), `public/catalog/catalogue-<édition>.pdf`, éditions `enfr`, `de`, `es`                                          |
+| **Déclarations** | `CATALOG_EDITIONS`, `CATALOG_LOCALE_EDITIONS`, `CATALOG_BOOKS` (`declarations/content.ts`), `MOTION_SPRINGS` (`declarations/ui/motion.ts`)            |
+| **Utilitaires**  | `catalogSlotsOf`, `catalogViewOf`, `catalogNumbersOf` (`utils/catalog.ts`)                                                                            |
+| **Fichiers**     | `public/catalog/<édition>/page-XX.webp` (900 px), `public/catalog/catalogue-<édition>.pdf`, éditions `enfr`, `de`, `es`                               |
 
 Une édition par langue, celle du sélecteur de langue du site : `fr` et `en` lisent `enfr`, `de` et `es`
 leur propre PDF, toute langue sans édition retombe sur `enfr` (anglais). Pas de boutons de langue
