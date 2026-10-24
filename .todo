@@ -1,0 +1,10 @@
+# TODO
+
+## Espagnol (es)
+
+Fait : `es.json` traduit depuis `fr.json`, `es` activé dans `locales` (2ᵉ position, juste après le français).
+
+- [ ] Relire les textes avec un natif (présentation, réservation, mentions légales, confidentialité)
+- [ ] Vérifier les débordements de texte (l'espagnol est ~20 % plus long que l'anglais) : header, bannières, globe
+- [ ] Vérifier `/es`, `/es/presentation`, hreflang et sitemap
+- [ ] Lancer `yarn build` et `yarn lint`
