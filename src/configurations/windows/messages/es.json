@@ -155,11 +155,6 @@
     },
     "team": {
       "title": "Nuestro campo de acción es <accent>internacional</accent>",
-      "reach": {
-        "offices": "París de día, Shanghái de noche.",
-        "route": "Alguien sobre el terreno que habla su idioma.",
-        "control": "Nada sale sin su luz verde."
-      },
       "globe": "Globo grabado que une París y Shanghái por mar, carretera y aire",
       "places": {
         "paris": {

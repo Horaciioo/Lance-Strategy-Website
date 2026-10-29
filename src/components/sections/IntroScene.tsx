@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import type { CSSProperties, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 import { Globe } from '@/components/elements/media/Globe'
 import { PlaneGlyph } from '@/components/elements/media/PlaneGlyph'
@@ -23,8 +23,6 @@ export interface IntroSceneProps {
   heading: ReactNode
   // World caption
   beat: ReactNode
-  // Lines under the caption
-  reach: string[]
   globeLabel: string
   // Free assessment box
   children: ReactNode
@@ -43,7 +41,6 @@ export const IntroScene = ({
   title,
   heading,
   beat,
-  reach,
   globeLabel,
   children,
   sheet,
@@ -105,17 +102,6 @@ export const IntroScene = ({
           </div>
           <div className={INTRO_STYLES.beat}>
             <h2 className={INTRO_STYLES.beatTitle}>{beat}</h2>
-            <ul className={INTRO_STYLES.reach}>
-              {reach.map((line, index) => (
-                <li
-                  key={line}
-                  className={INTRO_STYLES.reachItem}
-                  style={{ '--step': index } as CSSProperties}>
-                  <span className={INTRO_STYLES.reachDot} />
-                  {line}
-                </li>
-              ))}
-            </ul>
           </div>
 
           {!isStill && (

@@ -137,28 +137,6 @@
     opacity: min(calc((var(--intro) - 0.09) * 14), calc((0.3 - var(--intro)) * 14));
   }
 
-  /* Lines take turns in one slot, after the title has settled */
-  .intro-reach-item {
-    --at: calc(0.15 + var(--step, 0) * 0.04);
-    --in: clamp(0, calc((var(--intro) - var(--at)) * 60), 1);
-    --out: clamp(0, calc((var(--intro) - var(--at) - 0.032) * 60), 1);
-    opacity: calc(var(--in) - var(--out));
-    filter: blur(calc((1 - var(--in) + var(--out)) * 6px));
-    transform: translate3d(0, calc((1 - var(--in) - var(--out)) * 0.6rem), 0);
-  }
-
-  /* The last one stays until the caption leaves */
-  .intro-reach-item:last-child {
-    --out: 0;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .intro-reach-item {
-      --in: 1;
-      --out: 0;
-    }
-  }
-
   /* Box waits for the plane, interactive once filled */
   .intro-box {
     --fill: 0;

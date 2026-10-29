@@ -254,10 +254,3 @@ export const GROUP_AFFILIATES: GroupAffiliate[] = [
   { id: 'itemsprotect', translationKey: 'itemsprotect', url: ConfigurationService.site.group.url },
   { id: 'strategy', translationKey: 'strategy', url: null },
 ]
-
-/**
- * Reach lines under the world caption, message keys in order
- * @type {string[]}
- */
-
-export const INTRO_REACH = ['offices', 'route', 'control'] as const

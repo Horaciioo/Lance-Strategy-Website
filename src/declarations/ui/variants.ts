@@ -805,11 +805,6 @@ export const INTRO_STYLES = {
   beat: 'intro-beat intro-layer z-10 flex flex-col items-center justify-start px-6 pt-[16svh] text-center md:items-start md:justify-center md:px-[6vw] md:pt-0 md:text-left',
   beatTitle:
     'max-w-sm text-3xl font-medium leading-[1.05] tracking-[-0.03em] text-sky-ink md:max-w-[19rem] lg:text-[3rem]',
-  // Reach lines, one at a time in the same slot
-  reach: 'mt-5 grid max-w-[18rem] md:mt-7',
-  reachItem:
-    'intro-reach-item flex items-center gap-3 text-base text-sky-ink/80 [grid-area:1/1] md:text-lg',
-  reachDot: 'h-1.5 w-1.5 shrink-0 rounded-pill bg-globe-air',
   // Free assessment box
   box: 'intro-box absolute inset-x-0 top-[27svh] z-10 mx-auto w-[min(92vw,56rem)] px-0',
   // Copy in the rising sheet

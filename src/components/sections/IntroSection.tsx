@@ -6,7 +6,6 @@ import Image from 'next/image'
 import { ActionLink } from '@/components/elements/actions/ActionLink'
 import { BilanBox } from '@/components/sections/BilanBox'
 import { IntroScene } from '@/components/sections/IntroScene'
-import { INTRO_REACH } from '@/declarations/content'
 import { GLOBE_PLACES } from '@/declarations/globe'
 import { HERO_LOGO_ATTRIBUTE, SECTION_ANCHORS } from '@/declarations/routes'
 import { INTRO_STYLES } from '@/declarations/ui/variants'
@@ -73,7 +72,6 @@ export const IntroSection = ({ children }: IntroSectionProps) => {
         title={title}
         heading={heading}
         beat={team.rich('title', { accent })}
-        reach={INTRO_REACH.map((key) => team(`reach.${key}`))}
         globeLabel={team('globe')}
         sheet={children}>
         <BilanBox />

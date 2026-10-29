@@ -155,11 +155,6 @@
     },
     "team": {
       "title": "Notre champ d’action est à l’<accent>international</accent>",
-      "reach": {
-        "offices": "Paris le jour, Shanghai la nuit.",
-        "route": "Quelqu’un sur place, qui parle votre langue.",
-        "control": "Rien ne part sans votre feu vert."
-      },
       "globe": "Globe gravé reliant Paris et Shanghai par la mer, la route et les airs",
       "places": {
         "paris": {

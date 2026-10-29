@@ -155,11 +155,6 @@
     },
     "team": {
       "title": "Our reach is <accent>international</accent>",
-      "reach": {
-        "offices": "Paris by day, Shanghai by night.",
-        "route": "Someone on site who speaks your language.",
-        "control": "Nothing ships without your go-ahead."
-      },
       "globe": "Engraved globe linking Paris and Shanghai by sea, road and air",
       "places": {
         "paris": {

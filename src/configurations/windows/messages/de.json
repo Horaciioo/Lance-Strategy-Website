@@ -155,11 +155,6 @@
     },
     "team": {
       "title": "Unsere Reichweite ist <accent>international</accent>",
-      "reach": {
-        "offices": "Paris am Tag, Shanghai in der Nacht.",
-        "route": "Jemand vor Ort, der Ihre Sprache spricht.",
-        "control": "Nichts wird ohne Ihr Okay versandt."
-      },
       "globe": "Gravierter Globus, der Paris und Shanghai über See, Straße und Luft verbindet",
       "places": {
         "paris": {
