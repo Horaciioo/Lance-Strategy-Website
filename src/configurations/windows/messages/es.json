@@ -369,8 +369,8 @@
       }
     },
     "quote": {
-      "title": "¿Le hacemos un diagnóstico gratuito?",
-      "description": "Hagamos balance de su proyecto de importación en treinta minutos, sin compromiso. Por mensaje o por videollamada, usted elige.",
+      "title": "Diagnóstico gratuito",
+      "description": "Hagamos balance de su proyecto de importación en treinta minutos, sin compromiso.",
       "channels": {
         "whatsapp": {
           "label": "Presupuesto por WhatsApp",

@@ -370,8 +370,8 @@
       }
     },
     "quote": {
-      "title": "我们为您做一次免费评估，好吗？",
-      "description": "用三十分钟梳理您的进口项目，无需任何承诺。可以发消息，也可以视频通话。",
+      "title": "免费评估",
+      "description": "用三十分钟梳理您的进口项目，无需任何承诺。",
       "channels": {
         "whatsapp": {
           "label": "通过 WhatsApp 获取报价",

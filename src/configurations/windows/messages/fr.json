@@ -369,8 +369,8 @@
       }
     },
     "quote": {
-      "title": "On vous fait un bilan gratuit ?",
-      "description": "Faisons le point sur votre projet d'import en trente minutes, sans engagement. Par message ou en visio, à vous de choisir.",
+      "title": "Bilan gratuit",
+      "description": "Faisons le point sur votre projet d'import en trente minutes, sans engagement.",
       "channels": {
         "whatsapp": {
           "label": "Devis sur WhatsApp",

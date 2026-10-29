@@ -369,8 +369,8 @@
       }
     },
     "quote": {
-      "title": "Shall we run a free assessment for you?",
-      "description": "Let's review your import project in thirty minutes, no strings attached. By message or video call, your choice.",
+      "title": "Free assessment",
+      "description": "Let's review your import project in thirty minutes, no strings attached.",
       "channels": {
         "whatsapp": {
           "label": "Quote on WhatsApp",

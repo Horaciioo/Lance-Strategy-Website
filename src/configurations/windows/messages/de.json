@@ -369,8 +369,8 @@
       }
     },
     "quote": {
-      "title": "Sollen wir eine kostenlose Analyse für Sie durchführen?",
-      "description": "Gehen wir Ihr Importprojekt in dreißig Minuten durch, unverbindlich. Per Nachricht oder Videoanruf, ganz nach Wunsch.",
+      "title": "Kostenlose Analyse",
+      "description": "Gehen wir Ihr Importprojekt in dreißig Minuten durch, unverbindlich.",
       "channels": {
         "whatsapp": {
           "label": "Angebot per WhatsApp",
