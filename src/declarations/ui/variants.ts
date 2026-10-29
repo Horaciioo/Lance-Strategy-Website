@@ -489,8 +489,8 @@ export const MOBILE_MENU_STYLES = {
   item: 'border-b border-border/60',
   link: `group/link flex items-center gap-4 rounded-lg py-4 ${FOCUS_RING}`,
   linkActive: 'text-accent',
-  // Same chip as the journey badges
-  chip: 'grid h-11 w-11 shrink-0 place-items-center rounded-pill bg-surface text-accent ring-1 ring-accent/40',
+  // Plain chip, no outline
+  chip: 'grid h-11 w-11 shrink-0 place-items-center rounded-pill bg-surface text-accent',
   label: 'flex-1 font-display text-2xl font-medium tracking-tight',
   arrow: `text-foreground-muted transition-transform duration-base group-hover/link:translate-x-1 group-aria-[current=page]/link:text-accent`,
   footer: 'mt-auto flex flex-col gap-5 pt-10',
