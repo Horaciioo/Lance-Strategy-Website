@@ -6,7 +6,7 @@ import type { ReactNode } from 'react'
 import { Globe } from '@/components/elements/media/Globe'
 import { PlaneGlyph } from '@/components/elements/media/PlaneGlyph'
 import { Starfield } from '@/components/elements/media/Starfield'
-import { FLIGHT_STYLES, INTRO_STYLES } from '@/declarations/ui/variants'
+import { FLIGHT_STYLES, INTRO_STYLES, LAYOUT } from '@/declarations/ui/variants'
 import { SECTION_ANCHORS } from '@/declarations/routes'
 import { IntroSceneService } from '@/services/IntroSceneService'
 import { ViewportService } from '@/services/ViewportService'
@@ -24,7 +24,7 @@ export interface IntroSceneProps {
   // World caption
   beat: ReactNode
   globeLabel: string
-  // Free assessment box
+  // Free assessment box, first screen of the page
   children: ReactNode
   // Page body riding over the pinned planet
   sheet: ReactNode
@@ -48,7 +48,6 @@ export const IntroScene = ({
   const isStill = ViewportService.usePrefers('reducedMotion')
   // Flat plane when WebGL is out of reach
   const [isSketched, setIsSketched] = useState(false)
-  const sceneRef = useRef<HTMLDivElement>(null)
   const runwayRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
   const boxRef = useRef<HTMLDivElement>(null)
@@ -62,18 +61,12 @@ export const IntroScene = ({
 
   // Landing choreography, played then scrolled
   useEffect(() => {
-    const [scene, runway, stage, box] = [
-      sceneRef.current,
-      runwayRef.current,
-      stageRef.current,
-      boxRef.current,
-    ]
+    const [runway, stage, box] = [runwayRef.current, stageRef.current, boxRef.current]
     const [plane, trail] = [sketchRefs.plane.current, sketchRefs.trail.current]
     if (isStill && stage) return IntroSceneService.still(stage, globeRef)
-    if (!scene || !runway || !stage || !box) return undefined
+    if (!runway || !stage || !box) return undefined
 
     return IntroSceneService.mount({
-      scene,
       track: runway,
       stage,
       box,
@@ -87,7 +80,7 @@ export const IntroScene = ({
 
   return (
     <>
-      <div ref={sceneRef} className={INTRO_STYLES.track}>
+      <div className={INTRO_STYLES.track}>
         <div ref={stageRef} className={INTRO_STYLES.stage}>
           <div className={INTRO_STYLES.sky} />
           <Starfield handleRef={starfieldRef} />
@@ -111,12 +104,6 @@ export const IntroScene = ({
             <h2 className={INTRO_STYLES.beatTitle}>{beat}</h2>
           </div>
 
-          {!isStill && (
-            <div ref={boxRef} className={INTRO_STYLES.box}>
-              {children}
-            </div>
-          )}
-
           {isSketched ? (
             <>
               <svg aria-hidden="true" className={FLIGHT_STYLES.trail}>
@@ -138,7 +125,12 @@ export const IntroScene = ({
           aria-hidden="true"
           className={INTRO_STYLES.runway}
         />
-        {sheet}
+        <div data-scheme="dark" className={LAYOUT.sheet}>
+          <div ref={boxRef} className={INTRO_STYLES.dock}>
+            {children}
+          </div>
+          {sheet}
+        </div>
       </div>
     </>
   )

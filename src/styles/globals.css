@@ -137,44 +137,23 @@
     opacity: min(calc((var(--intro) - 0.09) * 14), calc((0.3 - var(--intro)) * 14));
   }
 
-  /* Box waits for the plane, interactive once filled */
-  .intro-box {
-    --fill: 0;
-    pointer-events: none;
-  }
-
-  .intro-box[data-ready='true'] {
-    pointer-events: auto;
-  }
-
-  /* Copy carried by the sheet, filled */
+  /* Free assessment box, one copy carried by the page: it scrolls away like any other block */
   .bilan-dock {
     --fill: 1;
     padding-top: 5rem;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    /* Same height as the pinned box */
+    /* First screen over the planet, waits for the plane, interactive once filled */
     .bilan-dock {
+      --fill: 0;
+      min-height: 100svh;
       padding-top: 27svh;
+      pointer-events: none;
     }
 
-    /* The copy waits for the scene to finish playing */
-    .intro-track[data-playing] .bilan-dock {
-      visibility: hidden;
-    }
-
-    /* Holds the box spot while the sheet rises, scroll linked */
-    @supports (animation-timeline: view()) {
-      .intro-sheet {
-        view-timeline: --sheet block;
-      }
-
-      .bilan-dock {
-        animation: bilan-dock linear forwards;
-        animation-timeline: --sheet;
-        animation-range: cover 0% cover 100svh;
-      }
+    .bilan-dock[data-ready='true'] {
+      pointer-events: auto;
     }
   }
 
@@ -231,8 +210,9 @@
       height: 200svh;
     }
 
+    /* Starts at the top, over the pinned stage */
     .intro-sheet {
-      margin-top: -100svh;
+      margin-top: -200svh;
     }
   }
 
@@ -588,16 +568,6 @@ main > section {
     [data-built] .build-draw {
       animation-name: build-draw-x, group-flow;
     }
-  }
-}
-
-@keyframes bilan-dock {
-  from {
-    translate: 0 -100svh;
-  }
-
-  to {
-    translate: 0 0;
   }
 }
 

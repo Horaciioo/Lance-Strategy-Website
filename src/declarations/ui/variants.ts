@@ -811,9 +811,7 @@ export const INTRO_STYLES = {
   beat: 'intro-beat intro-layer z-10 flex flex-col items-center justify-start px-6 pt-[16svh] text-center md:items-start md:justify-center md:px-[6vw] md:pt-0 md:text-left',
   beatTitle:
     'max-w-sm text-3xl font-medium leading-[1.05] tracking-[-0.03em] text-sky-ink md:max-w-[19rem] lg:text-[3rem]',
-  // Free assessment box
-  box: 'intro-box absolute inset-x-0 top-[27svh] z-10 mx-auto w-[min(92vw,56rem)] px-0',
-  // Copy in the rising sheet
+  // Free assessment box, first screen of the page
   dock: 'bilan-dock mx-auto w-[min(92vw,56rem)]',
   // Dims as the page covers it
   shade: 'intro-layer intro-shade',

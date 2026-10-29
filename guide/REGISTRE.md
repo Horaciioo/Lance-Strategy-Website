@@ -1072,7 +1072,7 @@ d'accueil tient `INTRO_PLAY.holdMs`, puis la chorégraphie avance à l'horloge s
 jusqu'à la boîte remplie (`PLAY_END`, déduit de `INTRO_BEATS`). L'horloge compte les images affichées,
 plafonnées à `MAX_FRAME_MS` : une image lente (chargement, shaders) ralentit la scène au lieu de la faire
 sauter. Une tentative de défilement (molette, glisser, flèche bas, espace) écourte l'attente. Le défilement
-est verrouillé pendant ce temps (`ScrollService.lock`), le décor porte `data-playing`. Un remontage
+est verrouillé pendant ce temps (`ScrollService.lock`). Un remontage
 reprend où la scène en était ; un retour sur l'accueil montre directement la boîte ; une page ouverte plus
 bas saute à la fin. Ensuite, le reste du temps (`PLAY_END` à 1) suit le défilement de `.intro-runway`
 (200svh) avec un lissage (`INTRO_BEATS.follow`). Dans l'ordre : la colline monte en planète entière (`riseEnd`), le titre
@@ -1080,16 +1080,17 @@ bas saute à la fin. Ensuite, le reste du temps (`PLAY_END` à 1) suit le défil
 horizon (`sinkEnd`). L'avion quitte l'écran à gauche (`FLIGHT.outEnd`), puis la boîte du bilan
 apparaît (`--fill`, `INTRO_BEATS.boxFillStart`). Pas de banderole. La scène (`.intro-stage`, collante) reste
 épinglée derrière toute la page d'accueil : la planète est toujours en arrière-plan, la section suivante
-(`LAYOUT.sheet`, transparente, `data-scheme="dark"`, marge de -100svh) défile par-dessus et assombrit
-la planète (`--sheet`). `IntroSection` reçoit ce corps de page en `children`.
+(`LAYOUT.sheet`, transparente, `data-scheme="dark"`, marge de -200svh : elle commence en haut) défile
+par-dessus et assombrit la planète (`--sheet`). `IntroSection` reçoit ce corps de page en `children`.
 **Drapeaux** — Paris et Shanghai portent un drapeau planté (`GLOBE_FLAGS`, `GLOBE_FLAG_GEOMETRY`,
 `FlagRenderService`) : mât le long de la normale, tissu ondulant par bandes.
 **Logo** — `Logo` (barre et footer) rend le wordmark dans une pastille sombre (le texte est blanc). Dans
 la barre, `HeaderBrand` le fait voler depuis le titre de la scène (`HERO_LOGO_ATTRIBUTE`, invisible) vers
 sa place pendant `INTRO_BEATS.leaveEnd` (`brandFlightOf`), en suivant le temps de la scène
 (`IntroSceneService.use()`) ; sans animation, il reste en place.
-**Copie de la boîte** — la feuille porte une copie remplie de la boîte (`.bilan-dock`), tenue à la place de
-la boîte de la scène pendant que la feuille monte ; elle reste cachée tant que `data-playing` est posé.
+**Boîte du bilan** — une seule `BilanBox`, premier écran de la feuille (`.bilan-dock`, 100svh, boîte à
+27svh) : elle se remplit pendant la scène (`--fill`, cliquable une fois remplie, `data-ready`) puis défile
+avec la page comme n'importe quel bloc. Pas de copie épinglée : rien à synchroniser au défilement.
 **Barre de défilement** — `ScrollPlane` ne démarre qu'à la fin de l'animation (`ScrollService.introEnd()`),
 et seulement à partir de `md` : un téléphone garde son propre indicateur.
 **Fond** — espace profond : `StarfieldService` dessine des étoiles en profondeur et une bande galactique,

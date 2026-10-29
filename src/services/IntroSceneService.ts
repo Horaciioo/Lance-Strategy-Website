@@ -39,8 +39,6 @@ const INTENT_EVENTS = ['wheel', 'touchmove', 'keydown'] as const
  */
 
 export interface IntroSceneMount {
-  // Whole scene, flagged while it plays
-  scene: HTMLElement
   track: HTMLElement
   stage: HTMLElement
   // Free assessment box, filled once the plane is gone
@@ -129,8 +127,6 @@ class IntroSceneServiceClass extends Service {
       store.setState(progress)
       stage.style.setProperty('--intro', String(progress))
       stage.style.setProperty('--sheet', String(beatOf(progress, sheetStart, 1)))
-      // Box hands over to its copy in the sheet
-      box.style.opacity = String(1 - beatOf(progress, sheetStart, 1))
       parts.globe.current?.frame(framing)
       parts.starfield.current?.frame(progress)
       handle?.frame(flight)
@@ -170,7 +166,6 @@ class IntroSceneServiceClass extends Service {
       playedShare = PLAY_END
       unlock?.()
       unlock = null
-      delete parts.scene.dataset.playing
       INTENT_EVENTS.forEach((name) => window.removeEventListener(name, onIntent))
       schedule()
     }
@@ -211,7 +206,6 @@ class IntroSceneServiceClass extends Service {
     measure()
 
     if (played < PLAY_END) {
-      parts.scene.dataset.playing = 'true'
       unlock = ScrollService.lock()
       INTENT_EVENTS.forEach((name) => window.addEventListener(name, onIntent, { passive: true }))
       playId = requestAnimationFrame(play)
@@ -241,7 +235,6 @@ class IntroSceneServiceClass extends Service {
       cancelAnimationFrame(playId)
       INTENT_EVENTS.forEach((name) => window.removeEventListener(name, onIntent))
       unlock?.()
-      delete parts.scene.dataset.playing
       stopTracking()
       resizing.disconnect()
       watching.disconnect()
