@@ -2044,7 +2044,6 @@ __metadata:
     autoprefixer: "npm:^10.6.1"
     clsx: "npm:^2.1.1"
     eslint: "npm:^10.12.0"
-    lucide-react: "npm:^1"
     motion: "npm:^12"
     next: "npm:16.3.8"
     next-intl: "npm:^4.14.9"
@@ -2091,19 +2090,6 @@ __metadata:
   dependencies:
     p-locate: "npm:^5.0.0"
   checksum: 10c0/d3972ab70dfe58ce620e64265f90162d247e87159b6126b01314dd67be43d50e96a50b517bce2d9452a79409c7614054c277b5232377de50416564a77ac7aad3
-  languageName: node
-  linkType: hard
-
-"lucide-react@npm:^1":
-  version: 1.52.0
-  resolution: "lucide-react@npm:1.52.0"
-  peerDependencies:
-    "@types/react": "*"
-    react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  peerDependenciesMeta:
-    "@types/react":
-      optional: true
-  checksum: 10c0/773966f9da9c4336cf1cb5dcf17cda93c6b9de15a3f42f4ae24e782d06efe4e20f59b13c4df71f1ea771586c306bcfdf01c7642b65e2bf0b12f6d16421efee5f
   languageName: node
   linkType: hard
 
