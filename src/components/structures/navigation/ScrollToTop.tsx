@@ -11,6 +11,7 @@ import { cn } from '@/utils/classnames'
 
 // Minimum scroll threshold
 const VISIBLE_FROM = ConfigurationService.viewport.breakpoints.sm
+const hasStickyActionBar = ConfigurationService.isEnabled('stickyActionBar')
 
 /**
  * Scroll-to-top
@@ -31,6 +32,7 @@ export const ScrollToTop = () => {
       onClick={ScrollService.toTop}
       className={cn(
         SCROLL_TO_TOP_STYLES.button,
+        hasStickyActionBar ? SCROLL_TO_TOP_STYLES.raised : SCROLL_TO_TOP_STYLES.bottom,
         LAYERS.dropdown,
         !isVisible && SCROLL_TO_TOP_STYLES.hidden
       )}

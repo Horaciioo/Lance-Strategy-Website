@@ -620,9 +620,12 @@ nom qu'aujourd'hui.
 `sticky` (`NAVIGATION_STYLES.header`) et donc visible sans défiler sur desktop : les deux ensemble
 couvrent « CTA sans scroll » sur toutes les tailles d'écran.
 **Espace de sécurité** — `pb-[max(0.75rem,env(safe-area-inset-bottom))]` évite la zone d'encoche iOS.
-**Non-chevauchement** — `ScrollToTop` remonte à `bottom-20` sous `md` et redescend à `bottom-6` au-delà,
-pour ne jamais se superposer à la barre. Cette valeur doit rester cohérente avec la hauteur de la barre
-si l'une des deux change.
+**Non-chevauchement** — `ScrollToTop` (`SCROLL_TO_TOP_STYLES.raised`) et la bulle des cookies
+(`CONSENT_STYLES.triggerRaised`) lisent le même drapeau et remontent au-dessus de la barre quand elle est
+active ; sinon ils restent au ras du bas (`bottom`, `triggerBottom`, zone d'encoche iOS comprise). Ces
+valeurs doivent rester cohérentes avec la hauteur de la barre si l'une change.
+**État livré** — désactivée (`false`) : sur téléphone, le bilan gratuit et la barre suffisent, la barre
+collante masquait le bas de chaque section.
 **Contenu de page** — `SiteLayout` ajoute `pb-20 md:pb-0` au `<main>` quand le drapeau est actif, pour
 que le dernier bloc de page ne passe pas sous la barre.
 

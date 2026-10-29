@@ -13,6 +13,7 @@ import type { IconName } from '@/declarations/ui/icons'
 import { LAYERS } from '@/declarations/ui/tokens'
 import { CONSENT_STYLES, FIELD_STYLES } from '@/declarations/ui/variants'
 import { Link } from '@/i18n/routing'
+import { ConfigurationService } from '@/services/ConfigurationService'
 import { ConsentService } from '@/services/ConsentService'
 import { NamingService } from '@/services/NamingService'
 import { NavigationService } from '@/services/NavigationService'
@@ -24,6 +25,8 @@ const CATEGORY_ICONS: Record<ConsentCategory, IconName> = {
   necessary: 'shield',
   analytics: 'trend',
 }
+
+const hasStickyActionBar = ConfigurationService.isEnabled('stickyActionBar')
 
 /**
  * Cookie preferences bubble and dialog
@@ -62,7 +65,11 @@ export const ConsentManager = () => {
         type="button"
         aria-label={actions('manageCookies')}
         title={actions('manageCookies')}
-        className={cn(CONSENT_STYLES.trigger, LAYERS.dropdown)}
+        className={cn(
+          CONSENT_STYLES.trigger,
+          hasStickyActionBar ? CONSENT_STYLES.triggerRaised : CONSENT_STYLES.triggerBottom,
+          LAYERS.dropdown
+        )}
         onClick={open}>
         <Image
           src="/cookies/cookie.png"

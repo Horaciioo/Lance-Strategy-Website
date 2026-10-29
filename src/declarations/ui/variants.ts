@@ -634,8 +634,11 @@ export const buttonClass = ({
  */
 
 export const SCROLL_TO_TOP_STYLES = {
-  // Centered on the plane rail
-  button: `fixed bottom-20 right-[18px] translate-x-1/2 hover:bg-transparent md:bottom-6 md:right-[26px] ${TRANSITION_ALL}`,
+  // Phone corner, centered on the plane rail from md
+  button: `fixed right-4 hover:bg-transparent md:right-[26px] md:translate-x-1/2 ${TRANSITION_ALL}`,
+  bottom: 'bottom-[max(1rem,env(safe-area-inset-bottom))] md:bottom-6',
+  // Clear of the sticky action bar, when it is on
+  raised: 'bottom-20 md:bottom-6',
   hidden: 'pointer-events-none translate-y-3 opacity-0',
 } as const
 
@@ -655,8 +658,11 @@ export const STICKY_ACTION_BAR_STYLES = {
  */
 
 export const CONSENT_STYLES = {
-  // Bottom-left, clear of ScrollToTop and the sticky action bar which both sit bottom-right
-  trigger: `fixed bottom-24 left-5 flex h-14 w-14 items-center justify-center rounded-pill sm:bottom-8 sm:left-8 ${TRANSITION_ALL} ${FOCUS_RING} hover:scale-105`,
+  // Bottom-left, clear of ScrollToTop which sits bottom-right
+  trigger: `fixed left-4 flex h-12 w-12 items-center justify-center rounded-pill sm:left-8 sm:h-14 sm:w-14 ${TRANSITION_ALL} ${FOCUS_RING} hover:scale-105`,
+  triggerBottom: 'bottom-[max(1rem,env(safe-area-inset-bottom))] sm:bottom-8',
+  // Clear of the sticky action bar, when it is on
+  triggerRaised: 'bottom-24 sm:bottom-8',
   triggerImage: 'h-full w-full object-contain drop-shadow-sm',
   body: 'flex flex-col gap-6',
   categories: 'flex flex-col divide-y divide-border border-y border-border',

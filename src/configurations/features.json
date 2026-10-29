@@ -5,7 +5,7 @@
   "notifications": true,
   "analytics": true,
   "contactForm": true,
-  "stickyActionBar": true,
+  "stickyActionBar": false,
   "locationMap": false,
   "appointmentBooking": true
 }
