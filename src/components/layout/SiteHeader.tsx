@@ -1,14 +1,13 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 
 import { ActionLink } from '@/components/elements/actions/ActionLink'
-import { IconButton } from '@/components/elements/actions/IconButton'
 import { HeaderBrand } from '@/components/layout/HeaderBrand'
 import { LanguagePicker } from '@/components/structures/navigation/LanguagePicker'
+import { MenuToggle, MobileMenu } from '@/components/structures/navigation/MobileMenu'
 import { NavigationList } from '@/components/structures/navigation/NavigationList'
-import { Drawer } from '@/components/structures/overlays/Drawer'
 import { SECTION_ANCHORS } from '@/declarations/routes'
 import { LAYERS } from '@/declarations/ui/tokens'
 import { NAVIGATION_STYLES } from '@/declarations/ui/variants'
@@ -31,6 +30,9 @@ export const SiteHeader = () => {
   const navigation = useTranslations('navigation')
   const actions = useTranslations('actions')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const menuId = useId()
+  const toggleRef = useRef<HTMLButtonElement>(null)
+  const closeMenu = useCallback(() => setIsMenuOpen(false), [])
   // Unknown until measured, night first
   const [sceneEnd, setSceneEnd] = useState(Number.POSITIVE_INFINITY)
   const [introEnd, setIntroEnd] = useState(Number.POSITIVE_INFINITY)
@@ -49,6 +51,9 @@ export const SiteHeader = () => {
     return () => window.removeEventListener('resize', measure)
   }, [pathname])
 
+  // A new page closes the menu
+  useEffect(closeMenu, [pathname, closeMenu])
+
   const isOverScene = offset < sceneEnd
   const isOverIntro = offset < introEnd
   const entries = NavigationService.headerEntries({ pathname, translate: t })
@@ -57,7 +62,7 @@ export const SiteHeader = () => {
 
   return (
     <header
-      data-scheme={isOverScene ? 'dark' : undefined}
+      data-scheme={isOverScene || isMenuOpen ? 'dark' : undefined}
       className={cn(NAVIGATION_STYLES.header, LAYERS.header)}>
       <div className={NAVIGATION_STYLES.shell}>
         <div className={NAVIGATION_STYLES.bar}>
@@ -65,7 +70,7 @@ export const SiteHeader = () => {
             aria-hidden="true"
             className={cn(
               NAVIGATION_STYLES.backdrop,
-              isOverIntro && NAVIGATION_STYLES.backdropHidden
+              (isOverIntro || isMenuOpen) && NAVIGATION_STYLES.backdropHidden
             )}
           />
           <HeaderBrand />
@@ -84,34 +89,24 @@ export const SiteHeader = () => {
               {callToActionLabel}
             </ActionLink>
             {hasLanguagePicker && <LanguagePicker />}
-            <IconButton
-              icon="menu"
-              label={actions('open')}
-              className={NAVIGATION_STYLES.narrow}
-              onClick={() => setIsMenuOpen(true)}
+            <MenuToggle
+              isOpen={isMenuOpen}
+              controls={menuId}
+              label={actions(isMenuOpen ? 'close' : 'open')}
+              onToggle={() => setIsMenuOpen((isOpen) => !isOpen)}
+              toggleRef={toggleRef}
             />
           </div>
         </div>
       </div>
 
-      <Drawer
+      <MobileMenu
+        id={menuId}
+        entries={entries}
         isOpen={isMenuOpen}
-        onClose={() => setIsMenuOpen(false)}
-        name="navigation"
-        title={navigation('primary')}
-        closeLabel={actions('close')}>
-        <NavigationList
-          entries={entries}
-          direction="vertical"
-          withIcons
-          onNavigate={() => setIsMenuOpen(false)}
-        />
-        <div className="mt-6 flex flex-col gap-3">
-          <ActionLink route={callToAction} fullWidth>
-            {callToActionLabel}
-          </ActionLink>
-        </div>
-      </Drawer>
+        onClose={closeMenu}
+        toggleRef={toggleRef}
+      />
     </header>
   )
 }

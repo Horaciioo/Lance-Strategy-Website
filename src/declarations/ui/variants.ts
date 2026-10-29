@@ -462,10 +462,40 @@ export const NAVIGATION_STYLES = {
   highlight: 'absolute inset-0 -z-10 rounded-pill bg-foreground/[0.07]',
   actions: 'relative flex items-center gap-1.5',
   wide: 'hidden lg:inline-flex',
-  narrow: 'lg:hidden',
-  mobileList: 'flex flex-col gap-1',
-  mobileLink: `rounded-lg px-3 py-2.5 text-base font-medium text-foreground-muted ${TRANSITION} hover:bg-surface hover:text-foreground`,
   brand: `relative flex items-center rounded-pill ${FOCUS_RING}`,
+} as const
+
+/**
+ * Phone menu styles
+ * @type {Object}
+ */
+
+export const MOBILE_MENU_STYLES = {
+  toggle: `group relative grid h-10 w-10 place-items-center rounded-pill text-foreground ${TRANSITION} ${FOCUS_RING} hover:bg-foreground/[0.07] lg:hidden`,
+  bars: 'relative h-3.5 w-5',
+  bar: 'absolute inset-x-0 h-[1.5px] rounded-full bg-current transition-all duration-slow ease-out',
+  // Top and bottom cross, the middle one slips away
+  barTop:
+    'top-0 group-aria-expanded:top-1/2 group-aria-expanded:-translate-y-1/2 group-aria-expanded:rotate-45',
+  barMiddle:
+    'top-1/2 -translate-y-1/2 group-aria-expanded:translate-x-2 group-aria-expanded:opacity-0',
+  barBottom:
+    'bottom-0 group-aria-expanded:bottom-1/2 group-aria-expanded:translate-y-1/2 group-aria-expanded:-rotate-45',
+  // Night sky under the bar, grows from the toggle
+  panel:
+    'intro-sky fixed inset-0 -z-10 flex flex-col overflow-y-auto px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[calc(var(--layout-header)+2.5rem)] text-foreground lg:hidden',
+  kicker: 'text-xs font-semibold uppercase tracking-widest text-accent',
+  list: 'mt-5 flex flex-col',
+  item: 'border-b border-border/60',
+  link: `group/link flex items-center gap-4 rounded-lg py-4 ${FOCUS_RING}`,
+  linkActive: 'text-accent',
+  // Same chip as the journey badges
+  chip: 'grid h-11 w-11 shrink-0 place-items-center rounded-pill bg-surface text-accent ring-1 ring-accent/40',
+  label: 'flex-1 font-display text-2xl font-medium tracking-tight',
+  arrow: `text-foreground-muted transition-transform duration-base group-hover/link:translate-x-1 group-aria-[current=page]/link:text-accent`,
+  footer: 'mt-auto flex flex-col gap-5 pt-10',
+  tagline: 'text-sm leading-relaxed text-foreground-muted',
+  accent: 'text-accent',
 } as const
 
 /**

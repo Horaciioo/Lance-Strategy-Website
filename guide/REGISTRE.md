@@ -62,12 +62,12 @@ seuls.
 
 ## 3. Routes et navigation
 
-|                   |                                                                          |
-| ----------------- | ------------------------------------------------------------------------ |
-| **Déclaration**   | `src/declarations/routes.ts` (`ROUTES`, `SECTION_ANCHORS`)               |
-| **Service**       | `src/services/NavigationService.ts`                                      |
-| **Configuration** | `src/configurations/navigation.json`                                     |
-| **Composants**    | `NavigationList`, `Breadcrumb`, `SiteHeader`, `SiteFooter`, `ActionLink` |
+|                   |                                                                                        |
+| ----------------- | -------------------------------------------------------------------------------------- |
+| **Déclaration**   | `src/declarations/routes.ts` (`ROUTES`, `SECTION_ANCHORS`)                             |
+| **Service**       | `src/services/NavigationService.ts`                                                    |
+| **Configuration** | `src/configurations/navigation.json`                                                   |
+| **Composants**    | `NavigationList`, `MobileMenu`, `Breadcrumb`, `SiteHeader`, `SiteFooter`, `ActionLink` |
 
 **Variables** — `pathOf(id)`, `keyOf(id)`, `declarationOf(id)`, `anchorOf(anchor)`, `mailtoOf(email)`,
 `telOf(phone)`, `buildEntries()`, `headerEntries()`, `footerColumns()`, `callToActionRoute()`,
@@ -310,7 +310,7 @@ pseudo-élément `after`), `MOTION` (voir §35).
 `SKELETON_*`, `EMPTY_STATE_STYLES`, `ALERT_STYLES`, `OVERLAY_STYLES`, `DRAWER_STYLES`,
 `ACCORDION_STYLES`, `TABS_STYLES`, `TABLE_STYLES`, `NAVIGATION_STYLES`, `FOOTER_STYLES`,
 `CARD_STYLES`, `STAT_STYLES`, `TOAST_STYLES`, `LAYOUT`, `ACTION_ICON_SIZES`,
-`ICON_BUTTON_ICON_SIZES`, `AVATAR_PIXELS`, `LANGUAGE_SWITCHER_STYLES`, `CONSENT_STYLES` (§33),
+`ICON_BUTTON_ICON_SIZES`, `AVATAR_PIXELS`, `LANGUAGE_SWITCHER_STYLES`, `MOBILE_MENU_STYLES`, `CONSENT_STYLES` (§33),
 `BOOKING_STYLES` (§37), `COMPARISON_STYLES` (§19), `TEXTURE_BACKDROP_STYLES` (§36), `GLOBE_STYLES` (§40),
 `HERO_STYLES`, `TEAM_STYLES`, `FAQ_STYLES`, `JOURNEY_STYLES` (§19).
 **Style `display`** — `TEXT_STYLES.display`, lettrage cartographique du titre d'accroche : capitales
@@ -1030,7 +1030,12 @@ que les styles lisent (`[clip-path:var(--shape-clip)]`). `JourneySection` (ongle
 l'utilisent. Sur une face qui tourne en 3D, l'ombre (`drop-shadow`) va sur un enfant : un `filter` sur la
 face elle-même casse `backface-visibility`.
 **En-tête** — transparent au défilement : logo, pastille de navigation et actions portent chacun leur
-verre (`bg-surface-strong/75` + flou), la navigation bascule en tiroir sous `lg`.
+verre (`bg-surface-strong/75` + flou). Sous `lg`, la navigation passe dans `MobileMenu`
+(`structures/navigation`) : `MenuToggle` replie ses trois traits en croix (`aria-expanded`), le panneau de
+nuit (`.intro-sky`, `data-scheme="dark"`) grandit en cercle depuis le bouton sous la barre, qui reste au-dessus
+(`clip-path`, `motion`), puis les liens montent un à un (pastille d'icône, flèche), avec l'action et le slogan
+en bas. Échap ferme, la page est gelée (`Overlay`), le focus revient au bouton, un changement de page ferme le
+menu ; sous `prefers-reduced-motion`, un simple fondu. `NavigationList` ne sert plus qu'à la barre desktop.
 
 **Découpe téléphone** — `shapeVariables(shape, compact)` accepte une seconde déclaration et en tire
 `--shape-clip-compact` et `--notch-<nom>-compact`. Les panneaux (bilan, créneaux, catalogue, groupe,
