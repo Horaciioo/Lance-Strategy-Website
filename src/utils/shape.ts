@@ -60,19 +60,33 @@ export const roundedPolygon = (vertices: ShapeVertex[], radius: number, box: Box
 }
 
 /**
- * Panel CSS variables
+ * Clip and notches of one shape
  * @param {ShapeDeclaration} shape - Cut panel
+ * @param {string} suffix - Variable name suffix
  * @return {Record<string, string>} - Clip and notch variables
  */
 
-export const shapeVariables = ({
-  outline,
-  reach,
-  box,
-  notches,
-}: ShapeDeclaration): Record<string, string> => ({
-  '--shape-clip': roundedPolygon(outline, reach, box),
+const variablesOf = (
+  { outline, reach, box, notches }: ShapeDeclaration,
+  suffix: string
+): Record<string, string> => ({
+  [`--shape-clip${suffix}`]: roundedPolygon(outline, reach, box),
   ...Object.fromEntries(
-    Object.entries(notches).map(([name, rem]) => [`--notch-${name}`, `${rem}rem`])
+    Object.entries(notches).map(([name, rem]) => [`--notch-${name}${suffix}`, `${rem}rem`])
   ),
+})
+
+/**
+ * Panel CSS variables
+ * @param {ShapeDeclaration} shape - Cut panel
+ * @param {ShapeDeclaration} [compact] - Same panel on a phone, suffixed -compact
+ * @return {Record<string, string>} - Clip and notch variables
+ */
+
+export const shapeVariables = (
+  shape: ShapeDeclaration,
+  compact?: ShapeDeclaration
+): Record<string, string> => ({
+  ...variablesOf(shape, ''),
+  ...(compact ? variablesOf(compact, '-compact') : {}),
 })

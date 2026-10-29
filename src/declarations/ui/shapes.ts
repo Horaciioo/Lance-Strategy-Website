@@ -82,6 +82,17 @@ const FOOTER = {
   height: 24,
 }
 
+// Phone panels, one shared cut: tab top left over a share of the width
+const PHONE = {
+  tabShare: 0.78,
+  tabDepth: 2.75,
+  tabSlope: 2.25,
+  notch: 2,
+  reach: 1.25,
+  width: 22,
+  height: 40,
+}
+
 // Raised title tab, notched bottom left
 const REASONS_SHAPE: ShapeDeclaration = {
   outline: [
@@ -200,12 +211,31 @@ const FOOTER_SHAPE: ShapeDeclaration = {
   notches: { top: FOOTER.tabDepth, tab: FOOTER.tabWidth },
 }
 
+// Phone cut, a tab wide enough for its label whatever the screen, clipped corner bottom right
+const PHONE_SHAPE: ShapeDeclaration = {
+  outline: [
+    [at(0), at(0)],
+    [at(PHONE.tabShare), at(0)],
+    [at(PHONE.tabShare, PHONE.tabSlope), at(0, PHONE.tabDepth)],
+    [at(1), at(0, PHONE.tabDepth)],
+    [at(1), at(1, -PHONE.notch)],
+    [at(1, -PHONE.notch), at(1)],
+    [at(0), at(1)],
+  ],
+  reach: PHONE.reach,
+  box: { width: PHONE.width, height: PHONE.height },
+  notches: { top: PHONE.tabDepth },
+}
+
 /**
  * Group panel variables
  * @type {Record<string, string>}
  */
 
-export const GROUP_PANEL_VARIABLES: Record<string, string> = shapeVariables(GROUP_SHAPE)
+export const GROUP_PANEL_VARIABLES: Record<string, string> = shapeVariables(
+  GROUP_SHAPE,
+  PHONE_SHAPE
+)
 
 /**
  * Footer slab variables
@@ -219,21 +249,24 @@ export const FOOTER_SLAB_VARIABLES: Record<string, string> = shapeVariables(FOOT
  * @type {Record<string, string>}
  */
 
-export const BILAN_BOX_VARIABLES: Record<string, string> = shapeVariables(BILAN_SHAPE)
+export const BILAN_BOX_VARIABLES: Record<string, string> = shapeVariables(BILAN_SHAPE, PHONE_SHAPE)
 
 /**
  * Slot board variables
  * @type {Record<string, string>}
  */
 
-export const SLOT_BOARD_VARIABLES: Record<string, string> = shapeVariables(SLOTS_SHAPE)
+export const SLOT_BOARD_VARIABLES: Record<string, string> = shapeVariables(SLOTS_SHAPE, PHONE_SHAPE)
 
 /**
  * Catalogue panel variables
  * @type {Record<string, string>}
  */
 
-export const CATALOG_PANEL_VARIABLES: Record<string, string> = shapeVariables(CATALOG_SHAPE)
+export const CATALOG_PANEL_VARIABLES: Record<string, string> = shapeVariables(
+  CATALOG_SHAPE,
+  PHONE_SHAPE
+)
 
 /**
  * Profile card variables

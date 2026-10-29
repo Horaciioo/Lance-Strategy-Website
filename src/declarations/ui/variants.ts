@@ -689,8 +689,8 @@ export const BOOKING_STYLES = {
   dayToday: 'ring-1 ring-inset ring-primary/50',
   // Cut board, zone in the top left tab
   board:
-    'booking-board flex h-[31rem] flex-col rounded-[1.75rem] bg-surface sm:rounded-none sm:[clip-path:var(--shape-clip)]',
-  tab: 'flex items-center gap-3 border-b border-border px-5 py-4 sm:h-[var(--notch-top)] sm:w-[var(--notch-tab)] sm:border-0 sm:px-6 sm:py-0',
+    'booking-board flex h-[31rem] flex-col bg-surface [clip-path:var(--shape-clip-compact)] sm:[clip-path:var(--shape-clip)]',
+  tab: 'flex h-[var(--notch-top-compact)] shrink-0 items-center gap-3 px-5 sm:h-[var(--notch-top)] sm:w-[var(--notch-tab)] sm:px-6',
   tabIcon: 'booking-tick text-accent',
   tabLabel: 'text-[0.625rem] font-semibold uppercase tracking-[0.18em] text-foreground-subtle',
   tabZone: 'text-sm font-medium text-foreground',
@@ -976,7 +976,7 @@ export const CATALOG_STYLES = {
   stage: 'relative flex flex-col gap-6',
   // Night light table, clipped on desktop
   panel:
-    'catalog-panel relative flex flex-col gap-12 overflow-hidden rounded-[2.5rem] px-5 py-12 text-foreground sm:px-10 sm:py-16 lg:rounded-none lg:px-14 lg:pb-[calc(var(--notch-bottom)+2rem)] lg:pt-8 lg:[clip-path:var(--shape-clip)]',
+    'catalog-panel relative flex flex-col gap-12 overflow-hidden px-5 pb-12 pt-[calc(var(--notch-top-compact)+1.75rem)] text-foreground [clip-path:var(--shape-clip-compact)] sm:px-10 sm:pb-16 lg:px-14 lg:pb-[calc(var(--notch-bottom)+2rem)] lg:pt-8 lg:[clip-path:var(--shape-clip)]',
   head: 'grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-start',
   intro: 'flex flex-col gap-4',
   title:
@@ -1049,7 +1049,7 @@ export const GROUP_STYLES = {
   stage: 'relative',
   // Cut slab on desktop, soon line in the notch
   panel:
-    'relative flex flex-col gap-12 overflow-hidden rounded-[2rem] bg-surface px-6 py-12 sm:px-10 lg:rounded-none lg:px-14 lg:pb-[calc(var(--notch-bottom)+3rem)] lg:pt-[calc(var(--notch-top)+2rem)] lg:[clip-path:var(--shape-clip)]',
+    'relative flex flex-col gap-12 overflow-hidden bg-surface px-6 pb-12 pt-[calc(var(--notch-top-compact)+1.75rem)] [clip-path:var(--shape-clip-compact)] sm:px-10 lg:px-14 lg:pb-[calc(var(--notch-bottom)+3rem)] lg:pt-[calc(var(--notch-top)+2rem)] lg:[clip-path:var(--shape-clip)]',
   // Top right, on the raised half
   head: 'flex max-w-2xl flex-col items-start gap-4 lg:absolute lg:right-0 lg:top-0 lg:h-[var(--notch-top)] lg:w-1/2 lg:max-w-none lg:justify-center lg:px-14',
   title: 'text-3xl font-medium tracking-tight text-foreground sm:text-4xl lg:text-[2.5rem]',
@@ -1121,13 +1121,15 @@ export const FLIGHT_STYLES = {
 
 export const BILAN_STYLES = {
   frame: 'w-full',
-  // Dark slab, kicker in the top tab
-  body: 'intro-box-body flex flex-col items-center gap-5 bg-cover px-6 pb-10 text-center [clip-path:var(--shape-clip)] sm:px-12 sm:pb-12',
+  // Dark slab, kicker in the top tab: left tab on a phone, centred tab above
+  body: 'intro-box-body flex flex-col items-start gap-4 bg-cover px-5 pb-6 text-left [clip-path:var(--shape-clip-compact)] sm:items-center sm:gap-5 sm:px-12 sm:pb-12 sm:text-center sm:[clip-path:var(--shape-clip)]',
   kicker:
-    'flex h-[var(--notch-top)] items-center text-xs font-semibold uppercase tracking-widest text-accent',
+    'flex h-[var(--notch-top-compact)] items-center text-xs font-semibold uppercase tracking-widest text-accent sm:h-[var(--notch-top)]',
   title: 'max-w-xl text-3xl font-medium tracking-tight text-sky-ink sm:text-4xl lg:text-5xl',
   description: 'max-w-lg text-sm leading-relaxed text-sky-ink/75 sm:text-base',
-  channels: 'mt-2 flex flex-wrap justify-center gap-3',
+  // Stacked full width under the thumb, one row above
+  channels:
+    'mt-2 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:justify-center [&>*]:w-full sm:[&>*]:w-auto',
 } as const
 
 /**

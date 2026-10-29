@@ -1026,6 +1026,14 @@ face elle-même casse `backface-visibility`.
 **En-tête** — transparent au défilement : logo, pastille de navigation et actions portent chacun leur
 verre (`bg-surface-strong/75` + flou), la navigation bascule en tiroir sous `lg`.
 
+**Découpe téléphone** — `shapeVariables(shape, compact)` accepte une seconde déclaration et en tire
+`--shape-clip-compact` et `--notch-<nom>-compact`. Les panneaux (bilan, créneaux, catalogue et
+groupe) partagent `PHONE_SHAPE` : onglet en haut à gauche sur une part de la largeur (`tabShare`, assez
+large pour son libellé sur tout écran), coin coupé en bas à droite. Le style lit la découpe compacte par
+défaut et bascule sur la découpe desktop au point de rupture où son contenu prend place dans les encoches
+(`[clip-path:var(--shape-clip-compact)] lg:[clip-path:var(--shape-clip)]`). Un onglet centré en rem ne
+tient pas sur un téléphone : ses épaules tombent à quelques pixels et la boîte semble posée sur une autre.
+
 **Modifier la découpe** : les constantes de `shapes.ts`, rien d'autre.
 
 ## 42. Entrée à l'écran
