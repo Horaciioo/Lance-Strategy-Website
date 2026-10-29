@@ -307,13 +307,13 @@ export const INTRO_BEATS = {
 } as const
 
 /**
- * Landing autoplay, the scene plays by itself up to the filled box, scroll takes over after
+ * Landing playback: the first scroll gesture plays the scene up to the filled box, an upward one at the top plays it back
  * @type {Object}
  */
 
 export const INTRO_PLAY = {
-  // Landing title held before the take-off
-  holdMs: 1800,
+  // Landing title held before the take-off, unless a scroll gesture comes first
+  holdMs: 7000,
   // Landing to filled box
   durationMs: 7000,
 } as const

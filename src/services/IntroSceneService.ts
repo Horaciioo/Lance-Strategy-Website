@@ -18,7 +18,7 @@ const { flightStart, flightEnd, follow, sheetStart } = INTRO_BEATS
 const { boxFillStart, boxFillSpan } = INTRO_BEATS
 const { holdMs, durationMs } = INTRO_PLAY
 
-// Timeline share where the box is filled, the autoplay stops there
+// Timeline share where the box is filled, the playback stops there
 const PLAY_END = flightStart + (flightEnd - flightStart) * (boxFillStart + boxFillSpan)
 // Preload the plane one screen ahead
 const PRELOAD_MARGIN = '100% 0px'
@@ -28,10 +28,16 @@ const FILL_EASE = 0.12
 const SETTLED = 0.0004
 // Longest step per frame, a stalled frame slows the scene instead of skipping it
 const MAX_FRAME_MS = 50
-// Keys that scroll the page
-const SCROLL_KEYS = new Set(['ArrowDown', 'PageDown', 'End', ' ', 'Spacebar'])
-// Gestures asking to move on, they cut the landing hold short
-const INTENT_EVENTS = ['wheel', 'touchmove', 'keydown'] as const
+// Finger travel read as a swipe, pixels
+const SWIPE_PX = 10
+// Keys that scroll the page, down then up
+const DOWN_KEYS = new Set(['ArrowDown', 'PageDown', 'End', ' ', 'Spacebar'])
+const UP_KEYS = new Set(['ArrowUp', 'PageUp', 'Home'])
+// Fields keep their own keys
+const FIELDS = 'input, textarea, select, [contenteditable]'
+
+// Forward to the box, back to the landing
+type Way = 1 | -1
 
 /**
  * Landing scene parts
@@ -55,8 +61,10 @@ export interface IntroSceneMount {
 // Scene timeline, read by the navbar logo
 const store = createStore(0)
 
-// Played once per visit: a remount resumes, a return to the landing shows the box
+// Kept across remounts: a remount resumes, a return to the landing shows where the visitor left it
 let playedShare = 0
+// The landing hold runs once per visit
+let hasStarted = false
 
 class IntroSceneServiceClass extends Service {
   store = store
@@ -84,7 +92,8 @@ class IntroSceneServiceClass extends Service {
   }
 
   /**
-   * Landing choreography: plays by itself up to the filled box, the scroll then slides the page over
+   * Landing choreography: a scroll gesture plays it up to the filled box, an upward one at the
+   * top plays it back to the landing, the scroll then slides the page over the planet
    * @param {IntroSceneMount} parts - Scene parts
    * @return {() => void} - Teardown
    */
@@ -93,15 +102,17 @@ class IntroSceneServiceClass extends Service {
     const { track, stage, box } = parts
     let handle: FlightHandle | null = null
     let isStopped = false
-    // Autoplay share reached, then the scroll share of the runway
+    // Played share of the timeline, then the scroll share of the runway
     let played = playedShare
     let scrolled = 0
     let current = played
+    // Playing towards the box, back to the landing, or resting
+    let way: Way | 0 = 0
+    let held = 0
+    let lastFrame: number | null = null
+    let touchY: number | null = null
     let frameId = 0
     let playId = 0
-    // Clock of the autoplay, the landing hold included
-    let elapsed = played > 0 ? holdMs + (played / PLAY_END) * durationMs : 0
-    let lastFrame: number | null = null
     let unlock: (() => void) | null = null
     let keys: FlightKeyframe[] = []
     let size: FlightSize = { width: 1, height: 1, originX: 0, originY: 0 }
@@ -152,36 +163,76 @@ class IntroSceneServiceClass extends Service {
       if (frameId === 0 && playId === 0) frameId = requestAnimationFrame(settle)
     }
 
-    // A scroll attempt cuts the hold short instead of moving the page
-    const onIntent = (event: Event) => {
-      if (event instanceof KeyboardEvent && !SCROLL_KEYS.has(event.key)) return
-      elapsed = Math.max(elapsed, holdMs)
+    // The page only scrolls once the box is filled
+    const lock = () => {
+      unlock ??= ScrollService.lock()
     }
-
-    // Autoplay over, the page scrolls again
-    const finish = () => {
-      cancelAnimationFrame(playId)
-      playId = 0
-      played = PLAY_END
-      playedShare = PLAY_END
+    const release = () => {
       unlock?.()
       unlock = null
-      INTENT_EVENTS.forEach((name) => window.removeEventListener(name, onIntent))
+    }
+
+    // Resting on the landing or on the box
+    const rest = () => {
+      cancelAnimationFrame(playId)
+      playId = 0
+      way = 0
+      lastFrame = null
+      if (played >= PLAY_END) release()
+      else lock()
       schedule()
     }
 
-    // Frame driven timeline: landing hold, then the flight up to the filled box
-    const play = (now: number) => {
-      elapsed += Math.min(now - (lastFrame ?? now), MAX_FRAME_MS)
+    // Frame driven clock: the landing hold, then the playback either way
+    const tick = (now: number) => {
+      const step = Math.min(now - (lastFrame ?? now), MAX_FRAME_MS)
       lastFrame = now
-      played = PLAY_END * clampUnit((elapsed - holdMs) / durationMs)
-      playedShare = played
-      if (played !== current) {
+      if (way === 0) {
+        held += step
+        if (held >= holdMs) way = 1
+      } else {
+        played = Math.min(Math.max(played + (way * PLAY_END * step) / durationMs, 0), PLAY_END)
+        playedShare = played
         current = played
         apply(current)
+        if ((way === 1 && played >= PLAY_END) || (way === -1 && played <= 0)) return rest()
       }
-      if (played < PLAY_END) playId = requestAnimationFrame(play)
-      else finish()
+      playId = requestAnimationFrame(tick)
+    }
+
+    const play = (next: Way) => {
+      hasStarted = true
+      way = next
+      lock()
+      cancelAnimationFrame(frameId)
+      frameId = 0
+      if (playId === 0) playId = requestAnimationFrame(tick)
+    }
+
+    // Down plays towards the box, up at the top plays back to the landing
+    const ask = (next: Way) => {
+      if (window.scrollY > 0) return
+      if (next === 1 && played < PLAY_END) play(1)
+      if (next === -1 && played > 0) play(-1)
+    }
+
+    const onWheel = (event: WheelEvent) => {
+      if (event.deltaY !== 0) ask(event.deltaY > 0 ? 1 : -1)
+    }
+    const onKey = (event: KeyboardEvent) => {
+      if (event.target instanceof Element && event.target.closest(FIELDS)) return
+      if (DOWN_KEYS.has(event.key)) ask(1)
+      else if (UP_KEYS.has(event.key)) ask(-1)
+    }
+    const onTouchStart = (event: TouchEvent) => {
+      touchY = event.touches[0]?.clientY ?? null
+    }
+    // Finger up reads as down the page
+    const onTouchMove = (event: TouchEvent) => {
+      const y = event.touches[0]?.clientY
+      if (touchY === null || y === undefined || Math.abs(y - touchY) < SWIPE_PX) return
+      ask(y < touchY ? 1 : -1)
+      touchY = y
     }
 
     // Stage size and take-off point
@@ -197,18 +248,29 @@ class IntroSceneServiceClass extends Service {
     const stopTracking = ScrollService.track(track, (share) => {
       // The stage tucks under the navbar, its share is not quite 0 at the top of the page
       scrolled = window.scrollY > 0 ? share : 0
-      // Arrived further down the page, nothing left to play
-      if (scrolled > 0 && played < PLAY_END) finish()
+      // Arrived further down the page, the scene is over
+      if (scrolled > 0 && played < PLAY_END) {
+        played = PLAY_END
+        playedShare = PLAY_END
+        hasStarted = true
+        rest()
+      }
       schedule()
     })
     const resizing = new ResizeObserver(measure)
     resizing.observe(stage)
     measure()
 
-    if (played < PLAY_END) {
-      unlock = ScrollService.lock()
-      INTENT_EVENTS.forEach((name) => window.addEventListener(name, onIntent, { passive: true }))
-      playId = requestAnimationFrame(play)
+    window.addEventListener('wheel', onWheel, { passive: true })
+    window.addEventListener('keydown', onKey)
+    window.addEventListener('touchstart', onTouchStart, { passive: true })
+    window.addEventListener('touchmove', onTouchMove, { passive: true })
+
+    // Resumes a flight cut short, holds the landing on the first visit
+    if (played > 0 && played < PLAY_END) play(1)
+    else if (played < PLAY_END) {
+      lock()
+      if (!hasStarted) playId = requestAnimationFrame(tick)
     }
 
     // 3D plane loads when near
@@ -233,8 +295,11 @@ class IntroSceneServiceClass extends Service {
       isStopped = true
       cancelAnimationFrame(frameId)
       cancelAnimationFrame(playId)
-      INTENT_EVENTS.forEach((name) => window.removeEventListener(name, onIntent))
-      unlock?.()
+      window.removeEventListener('wheel', onWheel)
+      window.removeEventListener('keydown', onKey)
+      window.removeEventListener('touchstart', onTouchStart)
+      window.removeEventListener('touchmove', onTouchMove)
+      release()
       stopTracking()
       resizing.disconnect()
       watching.disconnect()

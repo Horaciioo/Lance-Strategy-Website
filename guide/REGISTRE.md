@@ -1067,15 +1067,15 @@ chorégraphie). Réservé à un moment signature demandé par le brief, pas à c
 | **Jetons**       | `sky-top`, `sky-bottom`, `sky-ink`, `globe-air` (`theme.json`, clair et sombre)                                                             |
 
 **Une seule planète** — de l'atterrissage au bilan gratuit, c'est le même `Globe`. `--intro` va de 0 à 1
-et `IntroSceneService` pose toutes les variables d'un coup. **La scène se joue seule** : le titre
-d'accueil tient `INTRO_PLAY.holdMs`, puis la chorégraphie avance à l'horloge sur `INTRO_PLAY.durationMs`
-jusqu'à la boîte remplie (`PLAY_END`, déduit de `INTRO_BEATS`). L'horloge compte les images affichées,
-plafonnées à `MAX_FRAME_MS` : une image lente (chargement, shaders) ralentit la scène au lieu de la faire
-sauter. Une tentative de défilement (molette, glisser, flèche bas, espace) écourte l'attente. Le défilement
-est verrouillé pendant ce temps (`ScrollService.lock`). Un remontage
-reprend où la scène en était ; un retour sur l'accueil montre directement la boîte ; une page ouverte plus
-bas saute à la fin. Ensuite, le reste du temps (`PLAY_END` à 1) suit le défilement de `.intro-runway`
-(200svh) avec un lissage (`INTRO_BEATS.follow`). Dans l'ordre : la colline monte en planète entière (`riseEnd`), le titre
+et `IntroSceneService` pose toutes les variables d'un coup. **Le premier geste lance la scène** : le titre
+d'accueil attend un geste de défilement (molette, glisser, flèche bas, espace), ou `INTRO_PLAY.holdMs` à la
+première visite, puis la chorégraphie avance à l'horloge sur `INTRO_PLAY.durationMs` jusqu'à la boîte
+remplie (`PLAY_END`, déduit de `INTRO_BEATS`). Un geste vers le haut, en haut de page, la rejoue à l'envers
+jusqu'à l'accueil ; un geste contraire en cours de route inverse le sens. L'horloge compte les images
+affichées, plafonnées à `MAX_FRAME_MS` : une image lente (chargement, shaders) ralentit la scène au lieu de
+la faire sauter. Le défilement reste verrouillé (`ScrollService.lock`) tant que la boîte n'est pas remplie.
+Un remontage reprend où la scène en était ; une page ouverte plus bas saute à la fin. Ensuite, le reste du
+temps (`PLAY_END` à 1) suit le défilement de `.intro-runway` (200svh) avec un lissage (`INTRO_BEATS.follow`). Dans l'ordre : la colline monte en planète entière (`riseEnd`), le titre
 « monde » passe, puis l'avion 3D décolle de la planète (`takeOffOf`) pendant qu'elle s'enfonce en
 horizon (`sinkEnd`). L'avion quitte l'écran à gauche (`FLIGHT.outEnd`), puis la boîte du bilan
 apparaît (`--fill`, `INTRO_BEATS.boxFillStart`). Pas de banderole. La scène (`.intro-stage`, collante) reste
