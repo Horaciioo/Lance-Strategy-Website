@@ -134,42 +134,6 @@
         }
       }
     },
-    "dialogue": {
-      "title": "Ein Bedarf, eine Strategie, <accent>eine Lieferung</accent>",
-      "description": "So läuft ein Projekt bei uns ab, von der ersten Nachricht bis zur Produktion.",
-      "client": {
-        "name": "Sie",
-        "role": "Kunde"
-      },
-      "typing": "{speaker, select, client {Sie schreiben} other {{name} schreibt}}",
-      "steps": {
-        "need": {
-          "label": "Der Bedarf"
-        },
-        "strategy": {
-          "label": "Die Strategie"
-        },
-        "import": {
-          "label": "Der Import"
-        }
-      },
-      "lines": {
-        "need": "Hallo! Ich starte eine Marke für Isolierflaschen. Ich brauche 3.000 individuelle Stücke für das Frühjahr.",
-        "strategy": "Gerne. Ich erstelle das Lastenheft, das Budget und den Zeitplan. Sobald Sie zustimmen, beginnen wir die Fabriksuche.",
-        "import": "Auf der chinesischen Seite wähle ich Fabriken vor und prüfe die Muster. Danach begleite ich die Produktion, bis der Container ausläuft.",
-        "done": "Perfekt, freigegeben. Los geht's!"
-      },
-      "window": {
-        "title": "Ihr Projekt",
-        "subtitle": "Mit Fabien in Paris und Guillaume in Shanghai"
-      },
-      "step": "Schritt {index} · {label}",
-      "attachments": {
-        "brief": "Produktspezifikationen.pdf",
-        "samples": "12 Musterfotos"
-      },
-      "prompt": "Auch Ihr Projekt beginnt mit einer Nachricht."
-    },
     "features": {
       "title": "Warum <accent>{name}</accent> wählen?",
       "description": "Ob Sie seit Jahren importieren oder Ihr erstes Unternehmen gründen, Sie gehen voran mit einem Team, das den Boden auf beiden Seiten kennt.",

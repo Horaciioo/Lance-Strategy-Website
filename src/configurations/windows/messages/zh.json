@@ -135,43 +135,6 @@
         }
       }
     },
-    "dialogue": {
-      "title": "一个需求，一套策略，<accent>一次进口</accent>",
-      "description": "从第一条消息到投入生产，这就是与我们合作的方式。",
-      "client": {
-        "name": "您",
-        "role": "客户"
-      },
-      "typing": "{speaker, select, client {您正在输入} other {{name} 正在输入}}",
-      "steps": {
-        "need": {
-          "label": "需求"
-        },
-        "strategy": {
-          "label": "策略"
-        },
-        "import": {
-          "label": "进口"
-        }
-      },
-      "lines": {
-        "need": "您好！我正在创立一个保温杯品牌，春季前需要 3000 个定制款。",
-        "strategy": "很乐意帮忙。我来准备需求说明、预算和时间表。您确认后，我们就开始寻找工厂。",
-        "import": "在中国这边，我会筛选工厂并检验样品，然后跟进生产，直到集装箱发出。",
-        "done": "太好了，我确认。开始吧！"
-      },
-      "meta": "{name} · {role}",
-      "window": {
-        "title": "您的项目",
-        "subtitle": "巴黎的 Fabien 与上海的 Guillaume"
-      },
-      "step": "第 {index} 步 · {label}",
-      "attachments": {
-        "brief": "需求说明.pdf",
-        "samples": "12 张样品照片"
-      },
-      "prompt": "您的项目，也从一条消息开始。"
-    },
     "features": {
       "title": "为什么选择<accent>{name}</accent>？",
       "description": "无论您已进口多年，还是刚刚开始第一份事业，与您同行的团队都熟悉两边的实际情况。",

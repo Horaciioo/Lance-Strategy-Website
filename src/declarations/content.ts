@@ -3,7 +3,6 @@ import type {
   CatalogBook,
   ComparisonItem,
   CountryItem,
-  DialogueLine,
   FaqItem,
   FeatureItem,
   GroupAffiliate,
@@ -12,7 +11,6 @@ import type {
   StatItem,
   TeamMember,
   TestimonialItem,
-  TopicItem,
 } from '@/types/content'
 
 /**
@@ -81,40 +79,6 @@ export const TEAM: TeamMember[] = [
 export const HERO_COUNTRIES: CountryItem[] = [
   { id: 'france', translationKey: 'france', flag: '🇫🇷' },
   { id: 'china', translationKey: 'china', flag: '🇨🇳' },
-]
-
-/**
- * Process steps
- * @type {TopicItem[]}
- */
-
-export const DIALOGUE_STEPS: TopicItem[] = ['need', 'strategy', 'import'].map((id) => ({
-  id,
-  translationKey: id,
-}))
-
-/**
- * Scripted conversation
- * @type {DialogueLine[]}
- */
-
-export const DIALOGUE: DialogueLine[] = [
-  { id: 'need', translationKey: 'need', speaker: 'client', stepId: 'need' },
-  {
-    id: 'strategy',
-    translationKey: 'strategy',
-    speaker: 'france',
-    stepId: 'strategy',
-    attachment: { translationKey: 'brief', icon: 'file' },
-  },
-  {
-    id: 'import',
-    translationKey: 'import',
-    speaker: 'china',
-    stepId: 'import',
-    attachment: { translationKey: 'samples', icon: 'photos' },
-  },
-  { id: 'done', translationKey: 'done', speaker: 'client', stepId: 'import' },
 ]
 
 /**

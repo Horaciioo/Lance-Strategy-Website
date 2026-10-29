@@ -819,56 +819,6 @@ export const INTRO_STYLES = {
 } as const
 
 /**
- * Dialogue section styles
- * @type {Object}
- */
-
-export const DIALOGUE_STYLES = {
-  stage: 'relative',
-  layout: 'grid items-center gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20',
-  head: 'flex flex-col gap-5',
-  title:
-    'text-4xl font-medium leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]',
-  accent: 'text-accent',
-  description: 'max-w-sm text-sm leading-relaxed text-foreground-muted sm:text-base',
-  // Night slab, clipped on desktop
-  window:
-    'flex flex-col overflow-hidden rounded-[2rem] bg-surface lg:rounded-none lg:[clip-path:var(--shape-clip)]',
-  // Fills the top left tab on desktop
-  header:
-    'flex items-center gap-3 border-b border-border px-5 py-4 sm:px-7 lg:h-[var(--notch-top)] lg:w-[var(--notch-tab)] lg:border-0 lg:py-0',
-  faces: 'flex -space-x-2',
-  face: 'ring-2 ring-surface',
-  heading: 'flex flex-col',
-  windowTitle: 'text-sm font-semibold text-foreground',
-  windowSubtitle: 'text-xs text-foreground-muted',
-  // Fixed height, older lines slide out the top
-  thread:
-    'flex h-[30rem] flex-col justify-end gap-4 overflow-hidden px-5 pb-6 [mask-image:linear-gradient(to_bottom,transparent,black_18%)] sm:h-[32rem] sm:px-7 lg:h-[36rem] lg:pb-[calc(var(--notch-bottom)+1.5rem)]',
-  separator:
-    'animate-bubble-in self-center pt-2 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-foreground-muted',
-  // Chat log, no bubbles
-  line: 'flex animate-bubble-in items-start gap-3',
-  message: 'flex min-w-0 flex-1 flex-col gap-1',
-  author: 'flex items-baseline gap-2',
-  name: 'text-sm font-semibold text-foreground',
-  nameTeam: 'text-sm font-semibold text-accent',
-  role: 'text-xs text-foreground-subtle',
-  text: 'text-sm leading-relaxed text-foreground',
-  attachment:
-    'mt-1 flex w-fit items-center gap-2.5 rounded-xl border border-border bg-surface-strong py-2 pl-2 pr-4 text-xs font-medium text-foreground',
-  attachmentIcon:
-    'flex h-8 w-8 items-center justify-center rounded-lg bg-primary-soft text-primary',
-  typing: 'flex h-6 w-fit items-center gap-1',
-  dot: 'h-1.5 w-1.5 animate-bounce rounded-pill bg-foreground-muted',
-  // Sits in the bottom right notch on desktop
-  footer:
-    'mt-6 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between lg:absolute lg:bottom-0 lg:right-0 lg:mt-0 lg:h-[var(--notch-bottom)] lg:w-[var(--notch-cta)] lg:justify-start lg:gap-5 lg:pl-2',
-  prompt: 'max-w-xs text-sm leading-snug text-foreground-muted lg:max-w-40 lg:text-xs',
-  cta: 'rounded-pill',
-} as const
-
-/**
  * Story book section styles
  * @type {Object}
  */

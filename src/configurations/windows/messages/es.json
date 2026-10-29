@@ -134,42 +134,6 @@
         }
       }
     },
-    "dialogue": {
-      "title": "Una necesidad, una estrategia, <accent>una importación</accent>",
-      "description": "Así transcurre un proyecto con nosotros, desde el primer mensaje hasta la puesta en producción.",
-      "client": {
-        "name": "Usted",
-        "role": "Cliente"
-      },
-      "typing": "{speaker, select, client {Usted escribe} other {{name} escribe}}",
-      "steps": {
-        "need": {
-          "label": "La necesidad"
-        },
-        "strategy": {
-          "label": "La estrategia"
-        },
-        "import": {
-          "label": "La importación"
-        }
-      },
-      "lines": {
-        "need": "¡Hola! Voy a lanzar mi marca de botellas isotérmicas. Necesitaría 3 000 unidades personalizadas para la primavera.",
-        "strategy": "Con mucho gusto. Le preparo el pliego de condiciones, el presupuesto y el calendario. Usted lo valida y empezamos la búsqueda de fábricas.",
-        "import": "En China, preselecciono las fábricas y controlo las muestras. Después sigo la producción hasta la salida del contenedor.",
-        "done": "Perfecto, lo valido. ¡Adelante!"
-      },
-      "window": {
-        "title": "Su proyecto",
-        "subtitle": "Con Fabien en París y Guillaume en Shanghái"
-      },
-      "step": "Paso {index} · {label}",
-      "attachments": {
-        "brief": "Pliego de condiciones.pdf",
-        "samples": "12 fotos de muestras"
-      },
-      "prompt": "Su proyecto también empieza con un mensaje."
-    },
     "features": {
       "title": "¿Por qué elegir <accent>{name}</accent>?",
       "description": "Ya importe desde hace años o lance su primer negocio, avanza con un equipo que conoce el terreno en ambos lados.",

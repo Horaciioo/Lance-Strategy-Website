@@ -394,11 +394,6 @@ l'accueil qui peuvent figurer dans `navigation.json → header` à côté des ro
 **Page d'accueil du projet** — `HeroSection` porte le titre d'accroche et le livre 3D (§41, `HeroBook`).
 Le titre tient en deux lignes décalées (`sections.hero.titleLead`, `titleTail`, balise `<accent>`), la
 description se cale à droite de la seconde ; `intro` accepte `<strong>`.
-`DialogueSection` : titre à gauche, fenêtre de conversation de nuit à droite (`DialogueStage`). Les
-étapes (`DIALOGUE_STEPS`) ne sont plus un menu : elles s'insèrent dans le fil comme séparateurs
-(`sections.dialogue.step`), une ligne peut porter une pièce jointe (`DialogueLine.attachment`, clé
-`attachments.<id>`). La boucle frappe / lecture ne démarre qu'une fois la fenêtre à l'écran ; le pied de
-fenêtre renvoie vers la prise de rendez-vous.
 `OfferSection` : titre centré, puis bandeau défilant pleine largeur (`MOTION.marqueeBleed`) de cartes
 image à cadre sombre et étiquette (`OFFERS`, type `MediaItem`, clés `items.<id>.title|alt`), une carte
 sur deux décalée vers le bas ; garder un nombre pair d'offres pour que la boucle reste continue.

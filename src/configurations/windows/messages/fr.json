@@ -134,42 +134,6 @@
         }
       }
     },
-    "dialogue": {
-      "title": "Un besoin, une stratégie, <accent>une importation</accent>",
-      "description": "Voici comment se passe un projet avec nous, du premier message à la mise en production.",
-      "client": {
-        "name": "Vous",
-        "role": "Client"
-      },
-      "typing": "{speaker, select, client {Vous écrivez} other {{name} écrit}}",
-      "steps": {
-        "need": {
-          "label": "Le besoin"
-        },
-        "strategy": {
-          "label": "La stratégie"
-        },
-        "import": {
-          "label": "L’importation"
-        }
-      },
-      "lines": {
-        "need": "Bonjour ! Je lance ma marque de gourdes isothermes. Il me faudrait 3 000 pièces personnalisées pour le printemps.",
-        "strategy": "Avec plaisir. Je vous prépare le cahier des charges, le budget et le calendrier. Vous validez, et on lance la recherche d’usines.",
-        "import": "Côté Chine, je présélectionne les usines et je contrôle les échantillons. Puis je suis la production jusqu’au départ du conteneur.",
-        "done": "Parfait, je valide. On y va !"
-      },
-      "window": {
-        "title": "Votre projet",
-        "subtitle": "Avec Fabien à Paris et Guillaume à Shanghai"
-      },
-      "step": "Étape {index} · {label}",
-      "attachments": {
-        "brief": "Cahier des charges.pdf",
-        "samples": "12 photos d’échantillons"
-      },
-      "prompt": "Votre projet commence aussi par un message."
-    },
     "features": {
       "title": "Pourquoi choisir <accent>{name}</accent> ?",
       "description": "Que vous importiez depuis des années ou que vous lanciez votre première affaire, vous avancez avec une équipe qui connaît le terrain des deux côtés.",

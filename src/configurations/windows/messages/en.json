@@ -134,42 +134,6 @@
         }
       }
     },
-    "dialogue": {
-      "title": "One need, one strategy, <accent>one shipment</accent>",
-      "description": "This is how a project runs with us, from the first message to production.",
-      "client": {
-        "name": "You",
-        "role": "Client"
-      },
-      "typing": "{speaker, select, client {You are typing} other {{name} is typing}}",
-      "steps": {
-        "need": {
-          "label": "The need"
-        },
-        "strategy": {
-          "label": "The strategy"
-        },
-        "import": {
-          "label": "The import"
-        }
-      },
-      "lines": {
-        "need": "Hi! I'm launching an insulated bottle brand. I need 3,000 custom pieces for spring.",
-        "strategy": "Happy to help. I'll draft the specs, the budget and the schedule. Once you approve, we start the factory search.",
-        "import": "On the China side, I shortlist factories and check the samples. Then I follow production until the container leaves.",
-        "done": "Perfect, approved. Let's go!"
-      },
-      "window": {
-        "title": "Your project",
-        "subtitle": "With Fabien in Paris and Guillaume in Shanghai"
-      },
-      "step": "Step {index} · {label}",
-      "attachments": {
-        "brief": "Product specifications.pdf",
-        "samples": "12 sample photos"
-      },
-      "prompt": "Your project starts with a message too."
-    },
     "features": {
       "title": "Why choose <accent>{name}</accent>?",
       "description": "Whether you have imported for years or are launching your first business, you move forward with a team that knows the ground on both sides.",

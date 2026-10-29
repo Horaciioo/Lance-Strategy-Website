@@ -35,7 +35,6 @@ export const SECTION_ANCHORS = {
   comparisons: 'comparisons',
   testimonials: 'testimonials',
   faq: 'faq',
-  dialogue: 'dialogue',
   callToAction: 'call-to-action',
   catalog: 'catalog',
   group: 'group',

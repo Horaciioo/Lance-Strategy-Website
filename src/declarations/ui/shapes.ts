@@ -18,19 +18,6 @@ const REASONS = {
   height: 38,
 }
 
-// Dialogue window measures in rem
-const DIALOGUE = {
-  tabWidth: 24,
-  tabDepth: 4.5,
-  tabSlope: 4,
-  ctaWidth: 30,
-  ctaDepth: 5,
-  ctaSlope: 4,
-  reach: 2,
-  width: 48,
-  height: 42,
-}
-
 // Catalogue panel measures in rem
 const CATALOG = {
   dropDepth: 4,
@@ -129,28 +116,6 @@ const PROFILE_SHAPE: ShapeDeclaration = {
   reach: PROFILE.reach,
   box: { width: PROFILE.width, height: PROFILE.height },
   notches: { tab: PROFILE.tabDepth, 'tab-width': PROFILE.tabWidth, corner: PROFILE.notch },
-}
-
-// Header tab top left, action notch bottom right
-const DIALOGUE_SHAPE: ShapeDeclaration = {
-  outline: [
-    [at(0), at(0)],
-    [at(0, DIALOGUE.tabWidth), at(0)],
-    [at(0, DIALOGUE.tabWidth + DIALOGUE.tabSlope), at(0, DIALOGUE.tabDepth)],
-    [at(1), at(0, DIALOGUE.tabDepth)],
-    [at(1), at(1, -DIALOGUE.ctaDepth)],
-    [at(1, -DIALOGUE.ctaWidth), at(1, -DIALOGUE.ctaDepth)],
-    [at(1, -(DIALOGUE.ctaWidth + DIALOGUE.ctaSlope)), at(1)],
-    [at(0), at(1)],
-  ],
-  reach: DIALOGUE.reach,
-  box: { width: DIALOGUE.width, height: DIALOGUE.height },
-  notches: {
-    top: DIALOGUE.tabDepth,
-    tab: DIALOGUE.tabWidth,
-    bottom: DIALOGUE.ctaDepth,
-    cta: DIALOGUE.ctaWidth,
-  },
 }
 
 // Title tab top left, action notch bottom right
@@ -262,13 +227,6 @@ export const BILAN_BOX_VARIABLES: Record<string, string> = shapeVariables(BILAN_
  */
 
 export const SLOT_BOARD_VARIABLES: Record<string, string> = shapeVariables(SLOTS_SHAPE)
-
-/**
- * Dialogue window variables
- * @type {Record<string, string>}
- */
-
-export const DIALOGUE_WINDOW_VARIABLES: Record<string, string> = shapeVariables(DIALOGUE_SHAPE)
 
 /**
  * Catalogue panel variables

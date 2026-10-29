@@ -75,22 +75,6 @@ export interface CountryItem extends TopicItem {
 }
 
 /**
- * Conversation line
- * @typedef DialogueLine
- * @property {TranslationKey} translationKey - Message key
- * @property {string} speaker - Client or team member ID
- * @property {string} stepId - Process step ID
- * @property {Object} [attachment] - Shared file
- */
-
-export interface DialogueLine extends Identifiable {
-  translationKey: TranslationKey
-  speaker: string
-  stepId: string
-  attachment?: { translationKey: TranslationKey; icon: IconName }
-}
-
-/**
  * Statistic item
  * @typedef StatItem
  * @property {TranslationKey} translationKey - Label key
