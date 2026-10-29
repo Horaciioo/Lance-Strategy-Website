@@ -398,7 +398,7 @@ description se cale à droite de la seconde ; `intro` accepte `<strong>`.
 image à cadre sombre et étiquette (`OFFERS`, type `MediaItem`, clés `items.<id>.title|alt`), une carte
 sur deux décalée vers le bas ; garder un nombre pair d'offres pour que la boucle reste continue.
 `JourneySection` (« nous vous accompagnons, à chaque étape », ancre `journey`) : panneau sombre découpé
-(§41), `kicker` dans l'onglet, puis six étapes (`JOURNEY_STEPS`, type `JourneyStep` : `FeatureItem` plus
+(§41), titre dans l'onglet sur desktop, sous l'onglet sur téléphone, puis six étapes (`JOURNEY_STEPS`, type `JourneyStep` : `FeatureItem` plus
 `src`, une photo par étape dans `public/images/journey/`, ratio `strip` 8:3 de `Picture`). Chaque carte
 porte son numéro (pastille d'accent), l'icône à cheval sur la photo, le titre en lettrage cartographique
 (`.type-expanded`) et la description soulignée d'un filet d'accent (clés `items.<id>.title|description|alt`).

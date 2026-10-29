@@ -135,9 +135,7 @@
       }
     },
     "journey": {
-      "kicker": "Sechs Schritte, ein Team",
       "title": "Wir begleiten Ihre Projekte, <accent>bei jedem Schritt.</accent>",
-      "description": "Ein Team in Paris, ein Team in Shanghai: Ihr Projekt begleitet von der Idee bis zu Ihrer Haustür.",
       "note": "Dreißig Minuten, um Ihr Projekt abzustecken.",
       "items": {
         "project": {

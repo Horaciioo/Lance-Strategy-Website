@@ -109,7 +109,12 @@ const JOURNEY_SHAPE: ShapeDeclaration = {
   ],
   reach: JOURNEY.reach,
   box: { width: RAIL_WIDTH, height: JOURNEY.height },
-  notches: { top: JOURNEY.tabDepth, bottom: JOURNEY.ctaDepth, left: JOURNEY.ctaWidth },
+  notches: {
+    top: JOURNEY.tabDepth,
+    tab: JOURNEY.tabHalf * 2,
+    bottom: JOURNEY.ctaDepth,
+    left: JOURNEY.ctaWidth,
+  },
 }
 
 // City tab top left, flag notch bottom right

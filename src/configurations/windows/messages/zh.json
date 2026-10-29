@@ -136,9 +136,7 @@
       }
     },
     "journey": {
-      "kicker": "六个步骤，一支团队",
       "title": "我们陪伴您的项目，<accent>走好每一步。</accent>",
-      "description": "巴黎一支团队，上海一支团队：您的项目从构想到门口全程跟进。",
       "note": "三十分钟，理清您的项目。",
       "items": {
         "project": {

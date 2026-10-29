@@ -897,15 +897,14 @@ export const OFFER_STYLES = {
 
 export const JOURNEY_STYLES = {
   stage: 'relative flex flex-col gap-6',
-  // Dark slab over the dimmed planet, kicker in the top tab
+  // Dark slab over the dimmed planet, title in the top tab on desktop
   panel:
     'relative bg-surface px-5 pb-10 [clip-path:var(--shape-clip-compact)] sm:px-8 lg:px-14 lg:pb-[calc(var(--notch-bottom)+4rem)] lg:[clip-path:var(--shape-clip)]',
-  kicker:
-    'flex h-[var(--notch-top-compact)] items-center text-xs font-semibold uppercase tracking-widest text-accent lg:h-[var(--notch-top)] lg:justify-center',
-  head: 'mt-8 flex max-w-2xl flex-col items-start gap-4 lg:mx-auto lg:mt-6 lg:items-center lg:text-center',
-  title: 'text-3xl font-medium tracking-tight text-foreground sm:text-4xl lg:text-[2.5rem]',
+  // Under the phone tab, inside the tab on desktop
+  head: 'pt-[calc(var(--notch-top-compact)+1.5rem)] lg:mx-auto lg:flex lg:h-[var(--notch-top)] lg:max-w-[var(--notch-tab)] lg:items-center lg:justify-center lg:px-8 lg:pt-0',
+  title:
+    'text-3xl font-medium leading-tight tracking-tight text-foreground sm:text-4xl lg:text-center lg:text-2xl xl:text-[1.75rem]',
   accent: 'text-accent',
-  description: 'text-sm leading-relaxed text-foreground-muted sm:text-base',
   // One column on a phone, zigzag rows of three on desktop
   trail: 'relative mt-12 lg:mt-16',
   route: 'grid gap-8 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 lg:gap-x-12 lg:gap-y-14 lg:pb-12',

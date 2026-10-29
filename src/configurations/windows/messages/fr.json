@@ -135,9 +135,7 @@
       }
     },
     "journey": {
-      "kicker": "Six étapes, une seule équipe",
       "title": "Nous vous accompagnons dans vos projets, <accent>à chaque étape.</accent>",
-      "description": "Une équipe à Paris, une équipe à Shanghai : votre projet suivi de l'idée jusqu'à votre porte.",
       "note": "Trente minutes pour cadrer votre projet.",
       "items": {
         "project": {

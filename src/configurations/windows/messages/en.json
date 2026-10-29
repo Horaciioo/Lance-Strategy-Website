@@ -135,9 +135,7 @@
       }
     },
     "journey": {
-      "kicker": "Six steps, one team",
       "title": "We support your projects, <accent>every step of the way.</accent>",
-      "description": "One team in Paris, one team in Shanghai: your project followed from the idea to your door.",
       "note": "Thirty minutes to frame your project.",
       "items": {
         "project": {

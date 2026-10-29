@@ -135,9 +135,7 @@
       }
     },
     "journey": {
-      "kicker": "Seis etapas, un solo equipo",
       "title": "Le acompañamos en sus proyectos, <accent>en cada etapa.</accent>",
-      "description": "Un equipo en París, un equipo en Shanghái: su proyecto acompañado desde la idea hasta su puerta.",
       "note": "Treinta minutos para encuadrar su proyecto.",
       "items": {
         "project": {

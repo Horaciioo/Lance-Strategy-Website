@@ -49,10 +49,8 @@ export const JourneySection = ({ steps = JOURNEY_STEPS }: JourneySectionProps) =
           className={JOURNEY_STYLES.stage}
           style={JOURNEY_PANEL_VARIABLES as CSSProperties}>
           <div data-scheme="dark" className={cn(JOURNEY_STYLES.panel, 'build-iris')}>
-            <p className={JOURNEY_STYLES.kicker}>{t('kicker')}</p>
             <div className={cn(JOURNEY_STYLES.head, 'build-wipe')} style={stepOf(1)}>
               <h2 className={JOURNEY_STYLES.title}>{t.rich('title', { accent })}</h2>
-              <p className={JOURNEY_STYLES.description}>{t('description')}</p>
             </div>
 
             <div className={JOURNEY_STYLES.trail}>
