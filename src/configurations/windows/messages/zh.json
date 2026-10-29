@@ -82,7 +82,7 @@
     },
     "sections": {
       "offers": "服务",
-      "features": "我们的优势",
+      "journey": "全程服务",
       "catalog": "产品目录"
     }
   },
@@ -132,6 +132,44 @@
         "customs": {
           "title": "清关",
           "alt": "放在办公桌上的报关文件"
+        }
+      }
+    },
+    "journey": {
+      "kicker": "六个步骤，一支团队",
+      "title": "我们陪伴您的项目，<accent>走好每一步。</accent>",
+      "description": "巴黎一支团队，上海一支团队：您的项目从构想到门口全程跟进。",
+      "note": "三十分钟，理清您的项目。",
+      "items": {
+        "project": {
+          "title": "您的项目",
+          "description": "我们分析您的项目，制定最佳策略。",
+          "alt": "两人在批注项目方案"
+        },
+        "sourcing": {
+          "title": "寻源",
+          "description": "我们根据您对质量和交期的要求，在中国寻找最合适的供应商。",
+          "alt": "采购人员在港口集装箱前查看平板"
+        },
+        "selection": {
+          "title": "甄选",
+          "description": "我们核查质量、合规性和生产条件，确保产品可靠。",
+          "alt": "检验员在仓库中勾选检查清单"
+        },
+        "organisation": {
+          "title": "组织",
+          "description": "我们协调运输、手续和全部物流，提供简单高效的方案。",
+          "alt": "货运飞机在日落时起飞"
+        },
+        "delivery": {
+          "title": "交付",
+          "description": "我们严格跟踪，直至货物在约定期限内送达。",
+          "alt": "纸箱在传送带上移动"
+        },
+        "partnership": {
+          "title": "始终相伴",
+          "description": "我们在每个环节随时为您服务，建立长期合作关系。",
+          "alt": "两位合作伙伴握手"
         }
       }
     },

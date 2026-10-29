@@ -5,9 +5,9 @@ import { getTranslations } from 'next-intl/server'
 import { BilanBox } from '@/components/sections/BilanBox'
 import { AppointmentSection } from '@/components/sections/AppointmentSection'
 import { CatalogSection } from '@/components/sections/CatalogSection'
-import { FeatureSection } from '@/components/sections/FeatureSection'
 import { GroupSection } from '@/components/sections/GroupSection'
 import { IntroSection } from '@/components/sections/IntroSection'
+import { JourneySection } from '@/components/sections/JourneySection'
 import { INTRO_STYLES, LAYOUT } from '@/declarations/ui/variants'
 import { Page } from '@/structures/Page'
 
@@ -29,7 +29,7 @@ class HomePage extends Page {
           </div>
           <AppointmentSection />
           <CatalogSection />
-          <FeatureSection />
+          <JourneySection />
           <GroupSection />
         </div>
       </IntroSection>

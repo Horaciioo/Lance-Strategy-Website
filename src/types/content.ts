@@ -75,6 +75,16 @@ export interface CountryItem extends TopicItem {
 }
 
 /**
+ * Journey step
+ * @typedef JourneyStep
+ * @property {string} src - Step photograph
+ */
+
+export interface JourneyStep extends FeatureItem {
+  src: string
+}
+
+/**
  * Statistic item
  * @typedef StatItem
  * @property {TranslationKey} translationKey - Label key

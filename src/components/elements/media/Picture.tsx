@@ -11,6 +11,7 @@ export const ASPECT_RATIOS = {
   landscape: 'aspect-[4/3]',
   wide: 'aspect-video',
   banner: 'aspect-[21/9]',
+  strip: 'aspect-[8/3]',
 } as const
 
 export type AspectRatio = keyof typeof ASPECT_RATIOS

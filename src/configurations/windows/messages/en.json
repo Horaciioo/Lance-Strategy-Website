@@ -82,7 +82,7 @@
     },
     "sections": {
       "offers": "Services",
-      "features": "Why us",
+      "journey": "Our support",
       "catalog": "Catalogue"
     }
   },
@@ -134,22 +134,41 @@
         }
       }
     },
-    "features": {
-      "title": "Why choose <accent>{name}</accent>?",
-      "description": "Whether you have imported for years or are launching your first business, you move forward with a team that knows the ground on both sides.",
+    "journey": {
+      "kicker": "Six steps, one team",
+      "title": "We support your projects, <accent>every step of the way.</accent>",
+      "description": "One team in Paris, one team in Shanghai: your project followed from the idea to your door.",
       "note": "Thirty minutes to frame your project.",
       "items": {
-        "team": {
-          "title": "A team you can always reach",
-          "description": "An office in Paris, an office in Shanghai. With the time difference, your file moves forward while you sleep."
+        "project": {
+          "title": "Your project",
+          "description": "We analyse your project to define the best strategy.",
+          "alt": "Two people annotating a project plan"
         },
-        "develop": {
-          "title": "From idea to finished product",
-          "description": "Design, prototypes, production: we develop your product with you, not just its transport."
+        "sourcing": {
+          "title": "Sourcing",
+          "description": "We find the best suppliers in China to match your quality and lead-time requirements.",
+          "alt": "A buyer checking a tablet in front of port containers"
         },
-        "control": {
-          "title": "Every step approved by you",
-          "description": "Samples, production, pre-shipment inspection: you get photos and reports, and nothing leaves without your go-ahead."
+        "selection": {
+          "title": "Selection",
+          "description": "We check quality, compliance and production conditions to guarantee reliable products.",
+          "alt": "An inspector ticking a checklist in a warehouse"
+        },
+        "organisation": {
+          "title": "Organisation",
+          "description": "We coordinate transport, paperwork and the whole logistics chain for a simple, efficient solution.",
+          "alt": "A cargo plane taking off at sunset"
+        },
+        "delivery": {
+          "title": "Delivery",
+          "description": "We follow every shipment closely until your goods arrive, on the agreed schedule.",
+          "alt": "Boxes moving along a conveyor belt"
+        },
+        "partnership": {
+          "title": "By your side",
+          "description": "We stay available at every step to support you and build lasting partnerships.",
+          "alt": "Two partners shaking hands"
         }
       }
     },

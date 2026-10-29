@@ -6,6 +6,7 @@ import type {
   FaqItem,
   FeatureItem,
   GroupAffiliate,
+  JourneyStep,
   MediaItem,
   QuoteChannel,
   StatItem,
@@ -21,15 +22,20 @@ import type {
 export const PLACEHOLDER_IMAGE = '/images/placeholder.svg'
 
 /**
- * Reasons to choose
- * @type {FeatureItem[]}
+ * Project journey, one photograph per step
+ * @type {JourneyStep[]}
  */
 
-export const FEATURES: FeatureItem[] = [
-  { id: 'team', translationKey: 'team', icon: 'users' },
-  { id: 'develop', translationKey: 'develop', icon: 'pencilRuler' },
-  { id: 'control', translationKey: 'control', icon: 'shieldCheck' },
-]
+export const JOURNEY_STEPS: JourneyStep[] = (
+  [
+    ['project', 'idea'],
+    ['sourcing', 'search'],
+    ['selection', 'checklist'],
+    ['organisation', 'settings'],
+    ['delivery', 'package'],
+    ['partnership', 'users'],
+  ] as const
+).map(([id, icon]) => ({ id, translationKey: id, icon, src: `/images/journey/${id}.webp` }))
 
 /**
  * Offers, even count

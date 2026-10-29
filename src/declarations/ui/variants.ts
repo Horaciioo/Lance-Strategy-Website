@@ -893,24 +893,43 @@ export const OFFER_STYLES = {
 } as const
 
 /**
- * Reasons panel styles
+ * Journey panel styles
  * @type {Object}
  */
 
-export const REASONS_STYLES = {
+export const JOURNEY_STYLES = {
   stage: 'relative flex flex-col gap-6',
-  // Dark slab, clipped on desktop
+  // Dark slab over the dimmed planet, kicker in the top tab
   panel:
-    'relative rounded-[2rem] bg-surface px-6 py-12 sm:px-10 lg:rounded-none lg:px-14 lg:pb-[calc(var(--notch-bottom)+4rem)] lg:pt-9 lg:[clip-path:var(--shape-clip)]',
-  head: 'mx-auto flex max-w-2xl flex-col items-center gap-5 text-center',
+    'relative bg-surface px-5 pb-10 [clip-path:var(--shape-clip-compact)] sm:px-8 lg:px-14 lg:pb-[calc(var(--notch-bottom)+4rem)] lg:[clip-path:var(--shape-clip)]',
+  kicker:
+    'flex h-[var(--notch-top-compact)] items-center text-xs font-semibold uppercase tracking-widest text-accent lg:h-[var(--notch-top)] lg:justify-center',
+  head: 'mt-8 flex max-w-2xl flex-col items-start gap-4 lg:mx-auto lg:mt-6 lg:items-center lg:text-center',
   title: 'text-3xl font-medium tracking-tight text-foreground sm:text-4xl lg:text-[2.5rem]',
   accent: 'text-accent',
-  description: 'text-sm leading-relaxed text-foreground-muted',
-  list: 'mt-14 grid gap-10 md:grid-cols-3 md:gap-12 lg:mt-20',
-  item: 'flex flex-col items-start gap-4',
-  icon: 'h-10 w-10 text-accent',
-  term: 'mt-2 text-lg font-semibold text-foreground',
-  definition: 'text-sm leading-relaxed text-foreground-muted',
+  description: 'text-sm leading-relaxed text-foreground-muted sm:text-base',
+  // One column on a phone, zigzag rows of three on desktop
+  trail: 'relative mt-12 lg:mt-16',
+  route: 'grid gap-8 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 lg:gap-x-12 lg:gap-y-14 lg:pb-12',
+  // Dashes between the numbers, phone column only
+  thread: 'group-flow absolute bottom-24 left-10 top-8 w-px text-accent/60 sm:hidden',
+  // Middle column flies lower
+  step: 'relative pt-5 lg:[&:nth-child(3n+2)]:translate-y-12',
+  // Dashes towards the next card in the row
+  link: 'group-flow absolute left-full top-28 hidden h-px w-12 text-accent/60 lg:block lg:[li:nth-child(3n)>&]:hidden',
+  // Uneven corners, like the other boxes
+  card: 'relative flex h-full flex-col overflow-hidden rounded-[1.75rem_0.5rem_1.75rem_1.75rem] border border-border bg-background',
+  media: 'relative',
+  picture: 'bg-surface-strong',
+  number:
+    'absolute left-5 top-0 z-10 grid h-10 w-10 place-items-center rounded-pill bg-accent font-display text-base font-semibold tabular-nums text-accent-foreground ring-4 ring-surface',
+  // Sits astride the photograph edge
+  badge:
+    'absolute -bottom-6 right-5 grid h-12 w-12 place-items-center rounded-pill bg-surface text-accent ring-1 ring-accent/50',
+  body: 'flex flex-1 flex-col gap-3 p-5 pt-6',
+  // Map lettering, like the engraved globe
+  term: 'type-expanded pr-14 text-sm font-semibold uppercase tracking-[0.12em] text-foreground',
+  definition: 'border-l-2 border-accent/70 pl-3 text-sm leading-relaxed text-foreground-muted',
   // Sits in the bottom left notch on desktop
   action:
     'flex flex-wrap items-center gap-x-5 gap-y-3 lg:absolute lg:bottom-0 lg:left-0 lg:h-[var(--notch-bottom)] lg:w-[var(--notch-left)] lg:flex-nowrap lg:pl-10',

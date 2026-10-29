@@ -1,5 +1,5 @@
 {
-  "header": ["home", "presentation", "catalog", "features", "booking"],
+  "header": ["home", "presentation", "catalog", "journey", "booking"],
   "footer": {
     "site": ["home", "presentation", "booking", "contact"],
     "legal": ["legalNotice", "privacyPolicy"]

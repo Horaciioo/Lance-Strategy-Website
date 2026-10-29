@@ -82,7 +82,7 @@
     },
     "sections": {
       "offers": "Leistungen",
-      "features": "Warum wir",
+      "journey": "Begleitung",
       "catalog": "Katalog"
     }
   },
@@ -134,22 +134,41 @@
         }
       }
     },
-    "features": {
-      "title": "Warum <accent>{name}</accent> wählen?",
-      "description": "Ob Sie seit Jahren importieren oder Ihr erstes Unternehmen gründen, Sie gehen voran mit einem Team, das den Boden auf beiden Seiten kennt.",
-      "note": "Dreißig Minuten, um Ihr Projekt zu umreißen.",
+    "journey": {
+      "kicker": "Sechs Schritte, ein Team",
+      "title": "Wir begleiten Ihre Projekte, <accent>bei jedem Schritt.</accent>",
+      "description": "Ein Team in Paris, ein Team in Shanghai: Ihr Projekt begleitet von der Idee bis zu Ihrer Haustür.",
+      "note": "Dreißig Minuten, um Ihr Projekt abzustecken.",
       "items": {
-        "team": {
-          "title": "Ein Team, das Sie immer erreichen",
-          "description": "Ein Büro in Paris, ein Büro in Shanghai. Dank der Zeitverschiebung kommt Ihre Akte voran, während Sie schlafen."
+        "project": {
+          "title": "Ihr Projekt",
+          "description": "Wir analysieren Ihr Projekt, um die beste Strategie festzulegen.",
+          "alt": "Zwei Personen bearbeiten einen Projektplan"
         },
-        "develop": {
-          "title": "Von der Idee zum fertigen Produkt",
-          "description": "Design, Prototypen, Produktion: Wir entwickeln Ihr Produkt gemeinsam mit Ihnen, nicht nur dessen Transport."
+        "sourcing": {
+          "title": "Sourcing",
+          "description": "Wir finden die besten Lieferanten in China, passend zu Ihren Anforderungen an Qualität und Lieferzeit.",
+          "alt": "Ein Einkäufer prüft ein Tablet vor Containern im Hafen"
         },
-        "control": {
-          "title": "Jeder Schritt von Ihnen freigegeben",
-          "description": "Muster, Produktion, Prüfung vor dem Versand: Sie erhalten Fotos und Berichte, und nichts verlässt das Lager ohne Ihr Okay."
+        "selection": {
+          "title": "Auswahl",
+          "description": "Wir prüfen Qualität, Konformität und Produktionsbedingungen, damit Ihre Produkte zuverlässig sind.",
+          "alt": "Ein Prüfer hakt in einem Lager eine Checkliste ab"
+        },
+        "organisation": {
+          "title": "Organisation",
+          "description": "Wir koordinieren Transport, Formalitäten und die gesamte Logistik für eine einfache, effiziente Lösung.",
+          "alt": "Ein Frachtflugzeug hebt bei Sonnenuntergang ab"
+        },
+        "delivery": {
+          "title": "Lieferung",
+          "description": "Wir verfolgen jede Sendung genau, bis Ihre Ware fristgerecht ankommt.",
+          "alt": "Kartons auf einem Förderband"
+        },
+        "partnership": {
+          "title": "An Ihrer Seite",
+          "description": "Wir sind bei jedem Schritt für Sie da und bauen dauerhafte Partnerschaften auf.",
+          "alt": "Zwei Partner beim Händedruck"
         }
       }
     },

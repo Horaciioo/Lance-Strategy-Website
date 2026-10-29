@@ -82,7 +82,7 @@
     },
     "sections": {
       "offers": "Servicios",
-      "features": "Nuestras ventajas",
+      "journey": "Acompañamiento",
       "catalog": "Catálogo"
     }
   },
@@ -134,22 +134,41 @@
         }
       }
     },
-    "features": {
-      "title": "¿Por qué elegir <accent>{name}</accent>?",
-      "description": "Ya importe desde hace años o lance su primer negocio, avanza con un equipo que conoce el terreno en ambos lados.",
-      "note": "Treinta minutos para definir su proyecto.",
+    "journey": {
+      "kicker": "Seis etapas, un solo equipo",
+      "title": "Le acompañamos en sus proyectos, <accent>en cada etapa.</accent>",
+      "description": "Un equipo en París, un equipo en Shanghái: su proyecto acompañado desde la idea hasta su puerta.",
+      "note": "Treinta minutos para encuadrar su proyecto.",
       "items": {
-        "team": {
-          "title": "Un equipo siempre localizable",
-          "description": "Una oficina en París, una oficina en Shanghái. Con la diferencia horaria, su expediente avanza mientras usted duerme."
+        "project": {
+          "title": "Su proyecto",
+          "description": "Analizamos su proyecto para definir la mejor estrategia.",
+          "alt": "Dos personas anotan un plan de proyecto"
         },
-        "develop": {
-          "title": "De la idea al producto final",
-          "description": "Diseño, prototipos, producción: desarrollamos su producto con usted, no solo su transporte."
+        "sourcing": {
+          "title": "Sourcing",
+          "description": "Identificamos los mejores proveedores en China según sus exigencias de calidad y plazo.",
+          "alt": "Un comprador consulta una tableta frente a contenedores en el puerto"
         },
-        "control": {
-          "title": "Cada etapa validada por usted",
-          "description": "Muestras, producción, control antes de la salida: recibe fotos e informes, y nada sale sin su aprobación."
+        "selection": {
+          "title": "Selección",
+          "description": "Verificamos la calidad, la conformidad y las condiciones de producción para garantizar productos fiables.",
+          "alt": "Un inspector marca una lista de control en un almacén"
+        },
+        "organisation": {
+          "title": "Organización",
+          "description": "Coordinamos el transporte, los trámites y toda la logística para una solución sencilla y eficaz.",
+          "alt": "Un avión de carga despega al atardecer"
+        },
+        "delivery": {
+          "title": "Entrega",
+          "description": "Realizamos un seguimiento riguroso hasta la recepción de su mercancía, en los plazos acordados.",
+          "alt": "Cajas avanzan sobre una cinta transportadora"
+        },
+        "partnership": {
+          "title": "A su lado",
+          "description": "Seguimos disponibles en cada etapa para acompañarle y construir relaciones duraderas.",
+          "alt": "Dos socios se dan la mano"
         }
       }
     },

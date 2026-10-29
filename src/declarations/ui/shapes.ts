@@ -6,8 +6,8 @@ const at = (share: number, rem = 0): ShapeAnchor => ({ share, rem })
 // Container rail at lg and up
 const RAIL_WIDTH = 86
 
-// Reasons panel measures in rem
-const REASONS = {
+// Journey panel measures in rem
+const JOURNEY = {
   tabDepth: 5,
   tabHalf: 20,
   tabSlope: 4,
@@ -15,7 +15,7 @@ const REASONS = {
   ctaWidth: 30,
   ctaSlope: 5,
   reach: 2,
-  height: 38,
+  height: 72,
 }
 
 // Catalogue panel measures in rem
@@ -94,22 +94,22 @@ const PHONE = {
 }
 
 // Raised title tab, notched bottom left
-const REASONS_SHAPE: ShapeDeclaration = {
+const JOURNEY_SHAPE: ShapeDeclaration = {
   outline: [
-    [at(0), at(0, REASONS.tabDepth)],
-    [at(0.5, -(REASONS.tabHalf + REASONS.tabSlope)), at(0, REASONS.tabDepth)],
-    [at(0.5, -REASONS.tabHalf), at(0)],
-    [at(0.5, REASONS.tabHalf), at(0)],
-    [at(0.5, REASONS.tabHalf + REASONS.tabSlope), at(0, REASONS.tabDepth)],
-    [at(1), at(0, REASONS.tabDepth)],
+    [at(0), at(0, JOURNEY.tabDepth)],
+    [at(0.5, -(JOURNEY.tabHalf + JOURNEY.tabSlope)), at(0, JOURNEY.tabDepth)],
+    [at(0.5, -JOURNEY.tabHalf), at(0)],
+    [at(0.5, JOURNEY.tabHalf), at(0)],
+    [at(0.5, JOURNEY.tabHalf + JOURNEY.tabSlope), at(0, JOURNEY.tabDepth)],
+    [at(1), at(0, JOURNEY.tabDepth)],
     [at(1), at(1)],
-    [at(0, REASONS.ctaWidth + REASONS.ctaSlope), at(1)],
-    [at(0, REASONS.ctaWidth), at(1, -REASONS.ctaDepth)],
-    [at(0), at(1, -REASONS.ctaDepth)],
+    [at(0, JOURNEY.ctaWidth + JOURNEY.ctaSlope), at(1)],
+    [at(0, JOURNEY.ctaWidth), at(1, -JOURNEY.ctaDepth)],
+    [at(0), at(1, -JOURNEY.ctaDepth)],
   ],
-  reach: REASONS.reach,
-  box: { width: RAIL_WIDTH, height: REASONS.height },
-  notches: { top: REASONS.tabDepth, bottom: REASONS.ctaDepth, left: REASONS.ctaWidth },
+  reach: JOURNEY.reach,
+  box: { width: RAIL_WIDTH, height: JOURNEY.height },
+  notches: { top: JOURNEY.tabDepth, bottom: JOURNEY.ctaDepth, left: JOURNEY.ctaWidth },
 }
 
 // City tab top left, flag notch bottom right
@@ -276,8 +276,11 @@ export const CATALOG_PANEL_VARIABLES: Record<string, string> = shapeVariables(
 export const PROFILE_CARD_VARIABLES: Record<string, string> = shapeVariables(PROFILE_SHAPE)
 
 /**
- * Reasons panel variables
+ * Journey panel variables
  * @type {Record<string, string>}
  */
 
-export const REASONS_PANEL_VARIABLES: Record<string, string> = shapeVariables(REASONS_SHAPE)
+export const JOURNEY_PANEL_VARIABLES: Record<string, string> = shapeVariables(
+  JOURNEY_SHAPE,
+  PHONE_SHAPE
+)

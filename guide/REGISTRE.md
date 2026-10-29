@@ -313,7 +313,7 @@ pseudo-élément `after`), `MOTION` (voir §35).
 `CARD_STYLES`, `STAT_STYLES`, `TOAST_STYLES`, `LAYOUT`, `ACTION_ICON_SIZES`,
 `ICON_BUTTON_ICON_SIZES`, `AVATAR_PIXELS`, `LANGUAGE_SWITCHER_STYLES`, `CONSENT_STYLES` (§33),
 `BOOKING_STYLES` (§37), `COMPARISON_STYLES` (§19), `TEXTURE_BACKDROP_STYLES` (§36), `GLOBE_STYLES` (§40),
-`HERO_STYLES`, `TEAM_STYLES`, `FAQ_STYLES` (§19).
+`HERO_STYLES`, `TEAM_STYLES`, `FAQ_STYLES`, `JOURNEY_STYLES` (§19).
 **Style `display`** — `TEXT_STYLES.display`, lettrage cartographique du titre d'accroche : capitales
 larges via la classe `.type-expanded` (axe `wdth` d'Archivo, `globals.css`).
 **Aide** — `buttonClass({ variant, size, fullWidth })`, partagée par `Button` et `ActionLink`.
@@ -379,7 +379,7 @@ n'en réimplémentent rien.
 
 |                |                                                                                                                                                                                                                                                        |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Composants** | `HeroSection`, `OfferSection`, `FeatureSection`, `TeamSection`, `StatsSection`, `GallerySection`, `ComparisonSection`, `PricingSection`, `BookingSection`, `TestimonialSection`, `FaqSection`, `CallToActionSection`, `ContactSection`, `LegalSection` |
+| **Composants** | `HeroSection`, `OfferSection`, `JourneySection`, `TeamSection`, `StatsSection`, `GallerySection`, `ComparisonSection`, `PricingSection`, `BookingSection`, `TestimonialSection`, `FaqSection`, `CallToActionSection`, `ContactSection`, `LegalSection` |
 | **Catalogue**  | `src/declarations/content.ts`, sauf `pricing` (voir plus bas)                                                                                                                                                                                          |
 | **Enveloppe**  | `src/components/structures/layout/Section.tsx`                                                                                                                                                                                                         |
 
@@ -397,9 +397,13 @@ description se cale à droite de la seconde ; `intro` accepte `<strong>`.
 `OfferSection` : titre centré, puis bandeau défilant pleine largeur (`MOTION.marqueeBleed`) de cartes
 image à cadre sombre et étiquette (`OFFERS`, type `MediaItem`, clés `items.<id>.title|alt`), une carte
 sur deux décalée vers le bas ; garder un nombre pair d'offres pour que la boucle reste continue.
-`FeatureSection` (« pourquoi nous choisir ») : panneau sombre découpé (§41), onglet en haut pour le titre
-(`<accent>{name}</accent>`), trois raisons à icône (`FEATURES`, type `FeatureItem`), action et `note`
-dans l'encoche en bas à gauche.
+`JourneySection` (« nous vous accompagnons, à chaque étape », ancre `journey`) : panneau sombre découpé
+(§41), `kicker` dans l'onglet, puis six étapes (`JOURNEY_STEPS`, type `JourneyStep` : `FeatureItem` plus
+`src`, une photo par étape dans `public/images/journey/`, ratio `strip` 8:3 de `Picture`). Chaque carte
+porte son numéro (pastille d'accent), l'icône à cheval sur la photo, le titre en lettrage cartographique
+(`.type-expanded`) et la description soulignée d'un filet d'accent (clés `items.<id>.title|description|alt`).
+Une colonne reliée par un tracé pointillé (`group-flow`) sur téléphone, deux colonnes sur tablette, trois en
+zigzag reliées par des pointillés sur desktop. Action et `note` dans l'encoche en bas à gauche.
 `TeamSection` (« notre champ d'action est à l'international ») : le globe (§40) sort du livre, minuscule
 puis pleine taille (`animate-emerge`), puis les fondateurs (`TEAM`, type `TeamMember`, portrait réel,
 `countryId`, `tags`) apparaissent en `ProfileCard` découpées autour de la sphère : rebond, deux tours
@@ -410,7 +414,7 @@ place titre et action à gauche, l'accordéon à droite.
 
 **Catalogue de prix** — `PRICING` vit dans `src/configurations/pricing.json` (donnée de projet), pas
 dans `declarations/content.ts` : `ConfigurationService.pricing` l'expose, typé `PricingItem[]`.
-`PricingSection` y retombe par défaut. Toute autre liste de la page d'accueil (`FEATURES`, `STATS`,
+`PricingSection` y retombe par défaut. Toute autre liste de la page d'accueil (`JOURNEY_STEPS`, `STATS`,
 `GALLERY`, `COMPARISONS`, `TESTIMONIALS`, `FAQ`) reste dans `declarations/content.ts`, ce sont des
 listes structurelles de démonstration, pas une tarification.
 
@@ -1003,8 +1007,8 @@ pour chaque place `isLabelled`.
 |                 |                                                                                                                                 |
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | **Composants**  | `Book` (`elements/media`), `Typewriter` (`elements/typography`), `HeroBook` (`sections`), `ProfileCard` (`structures/data`)     |
-| **Styles**      | `.book-*` dans `globals.css`, `BOOK_STYLES`, `BOOK_PAGE_STYLES`, `TYPEWRITER_STYLES`, `PROFILE_CARD_STYLES`, `REASONS_STYLES`   |
-| **Déclaration** | `src/declarations/ui/shapes.ts` (`REASONS_PANEL_VARIABLES`, `PROFILE_CARD_VARIABLES`), `BOOK_APPELLATIONS` dans `content.ts`    |
+| **Styles**      | `.book-*` dans `globals.css`, `BOOK_STYLES`, `BOOK_PAGE_STYLES`, `TYPEWRITER_STYLES`, `PROFILE_CARD_STYLES`, `JOURNEY_STYLES`   |
+| **Déclaration** | `src/declarations/ui/shapes.ts` (`JOURNEY_PANEL_VARIABLES`, `PROFILE_CARD_VARIABLES`), `BOOK_APPELLATIONS` dans `content.ts`    |
 | **Fonctions**   | `src/utils/shape.ts` (`roundedPolygon`, `shapeVariables`), `src/utils/typewriter.ts` (`typewriterStep`)                         |
 | **Thème**       | couleurs `paper`, `paper-edge`, `paper-ink`, `paper-ink-muted`, `cover`, `cover-edge` ; `timings.json` : `book*`, `typewriter*` |
 | **Clés i18n**   | `sections.hero.book.chapter                                                                                                     | headRight | joiner | story | route | summary | appellations.<id>` |
@@ -1022,7 +1026,7 @@ fixe sous `prefers-reduced-motion`.
 **Découpe générique** — un `ShapeDeclaration` porte le contour, l'arrondi par défaut (un sommet peut
 fixer le sien en troisième valeur), une boîte nominale en rem (sert seulement à orienter les arêtes
 obliques longues) et les mesures d'encoche. `shapeVariables` en tire `--shape-clip` et `--notch-<nom>`,
-que les styles lisent (`[clip-path:var(--shape-clip)]`). `FeatureSection` (onglet en haut, encoche en bas
+que les styles lisent (`[clip-path:var(--shape-clip)]`). `JourneySection` (onglet en haut, encoche en bas
 à gauche) et `ProfileCard` (onglet de ville en haut à gauche, encoche du drapeau en bas à droite)
 l'utilisent. Sur une face qui tourne en 3D, l'ombre (`drop-shadow`) va sur un enfant : un `filter` sur la
 face elle-même casse `backface-visibility`.
@@ -1030,8 +1034,8 @@ face elle-même casse `backface-visibility`.
 verre (`bg-surface-strong/75` + flou), la navigation bascule en tiroir sous `lg`.
 
 **Découpe téléphone** — `shapeVariables(shape, compact)` accepte une seconde déclaration et en tire
-`--shape-clip-compact` et `--notch-<nom>-compact`. Les panneaux (bilan, créneaux, catalogue et
-groupe) partagent `PHONE_SHAPE` : onglet en haut à gauche sur une part de la largeur (`tabShare`, assez
+`--shape-clip-compact` et `--notch-<nom>-compact`. Les panneaux (bilan, créneaux, catalogue, groupe,
+parcours) partagent `PHONE_SHAPE` : onglet en haut à gauche sur une part de la largeur (`tabShare`, assez
 large pour son libellé sur tout écran), coin coupé en bas à droite. Le style lit la découpe compacte par
 défaut et bascule sur la découpe desktop au point de rupture où son contenu prend place dans les encoches
 (`[clip-path:var(--shape-clip-compact)] lg:[clip-path:var(--shape-clip)]`). Un onglet centré en rem ne

@@ -27,7 +27,7 @@ export const SECTION_ANCHORS = {
   story: 'story',
   offers: 'offers',
   team: 'team',
-  features: 'features',
+  journey: 'journey',
   stats: 'stats',
   gallery: 'gallery',
   pricing: 'pricing',
@@ -55,5 +55,5 @@ export const HERO_LOGO_ATTRIBUTE = 'data-hero-logo'
 export const SECTION_LINKS = {
   catalog: { anchor: 'catalog', icon: 'tag' },
   offers: { anchor: 'offers', icon: 'globe' },
-  features: { anchor: 'features', icon: 'shieldCheck' },
+  journey: { anchor: 'journey', icon: 'handshake' },
 } as const satisfies Record<string, SectionLinkDeclaration>
