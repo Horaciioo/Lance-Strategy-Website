@@ -484,7 +484,6 @@ export const MOBILE_MENU_STYLES = {
   // Night sky under the bar, grows from the toggle
   panel:
     'intro-sky fixed inset-0 -z-10 flex flex-col overflow-y-auto px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[calc(var(--layout-header)+2.5rem)] text-foreground lg:hidden',
-  kicker: 'text-xs font-semibold uppercase tracking-widest text-accent',
   list: 'mt-5 flex flex-col',
   item: 'border-b border-border/60',
   link: `group/link flex items-center gap-4 rounded-lg py-4 ${FOCUS_RING}`,
@@ -494,8 +493,6 @@ export const MOBILE_MENU_STYLES = {
   label: 'flex-1 font-display text-2xl font-medium tracking-tight',
   arrow: `text-foreground-muted transition-transform duration-base group-hover/link:translate-x-1 group-aria-[current=page]/link:text-accent`,
   footer: 'mt-auto flex flex-col gap-5 pt-10',
-  tagline: 'text-sm leading-relaxed text-foreground-muted',
-  accent: 'text-accent',
 } as const
 
 /**
@@ -689,7 +686,7 @@ export const STICKY_ACTION_BAR_STYLES = {
 
 export const CONSENT_STYLES = {
   // Bottom-left, clear of ScrollToTop which sits bottom-right
-  trigger: `fixed left-4 flex h-12 w-12 items-center justify-center rounded-pill sm:left-8 sm:h-14 sm:w-14 ${TRANSITION_ALL} ${FOCUS_RING} hover:scale-105`,
+  trigger: `fixed left-4 flex h-12 w-12 items-center justify-center rounded-pill sm:left-8 sm:h-14 sm:w-14 ${TRANSITION_ALL} ${FOCUS_RING} hover:scale-105 [html[data-menu-open]_&]:hidden`,
   triggerBottom: 'bottom-[max(1rem,env(safe-area-inset-bottom))] sm:bottom-8',
   // Clear of the sticky action bar, when it is on
   triggerRaised: 'bottom-24 sm:bottom-8',

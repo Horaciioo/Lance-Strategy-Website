@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import type { ReactNode, RefObject } from 'react'
+import type { RefObject } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useTranslations } from 'next-intl'
 
@@ -23,9 +23,6 @@ const REVEAL_S = 0.55
 // Links follow the reveal, one after the other
 const LINK_DELAY_S = 0.12
 const LINK_STAGGER_S = 0.05
-
-// Accent chunk
-const accent = (chunks: ReactNode) => <span className={MOBILE_MENU_STYLES.accent}>{chunks}</span>
 
 export interface MenuToggleProps {
   isOpen: boolean
@@ -117,13 +114,9 @@ export const MobileMenu = ({ id, entries, isOpen, onClose, toggleRef }: MobileMe
           animate={isStill ? { opacity: 1 } : { clipPath: OPEN_CLIP }}
           exit={isStill ? { opacity: 0 } : { clipPath: CLOSED_CLIP }}
           transition={{ duration: REVEAL_S, ease: MOTION_EASINGS.inOut }}>
-          <motion.p className={MOBILE_MENU_STYLES.kicker} {...riseOf(0)}>
-            {navigation('primary')}
-          </motion.p>
-
           <ul className={MOBILE_MENU_STYLES.list}>
             {entries.map((entry, index) => (
-              <motion.li key={entry.id} className={MOBILE_MENU_STYLES.item} {...riseOf(index + 1)}>
+              <motion.li key={entry.id} className={MOBILE_MENU_STYLES.item} {...riseOf(index)}>
                 <Link
                   ref={index === 0 ? firstLinkRef : undefined}
                   href={entry.href}
@@ -145,11 +138,10 @@ export const MobileMenu = ({ id, entries, isOpen, onClose, toggleRef }: MobileMe
             ))}
           </ul>
 
-          <motion.div className={MOBILE_MENU_STYLES.footer} {...riseOf(entries.length + 1)}>
+          <motion.div className={MOBILE_MENU_STYLES.footer} {...riseOf(entries.length)}>
             <ActionLink route={route} size="lg" fullWidth icon="arrowRight" iconPosition="right">
               {actions(NavigationService.ctaActionOf(route))}
             </ActionLink>
-            <p className={MOBILE_MENU_STYLES.tagline}>{navigation.rich('tagline', { accent })}</p>
           </motion.div>
         </motion.nav>
       )}

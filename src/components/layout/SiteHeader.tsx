@@ -51,6 +51,13 @@ export const SiteHeader = () => {
     return () => window.removeEventListener('resize', measure)
   }, [pathname])
 
+  // Lets the cookie bubble step aside while the menu is open
+  useEffect(() => {
+    document.documentElement.toggleAttribute('data-menu-open', isMenuOpen)
+
+    return () => document.documentElement.removeAttribute('data-menu-open')
+  }, [isMenuOpen])
+
   // A new page closes the menu
   useEffect(closeMenu, [pathname, closeMenu])
 
