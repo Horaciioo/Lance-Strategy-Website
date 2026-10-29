@@ -1076,7 +1076,8 @@ la planète (`--sheet`). `IntroSection` reçoit ce corps de page en `children`.
 **Logo** — `Logo` (barre et footer) rend le wordmark dans une pastille sombre (le texte est blanc). Dans
 la barre, `HeaderBrand` le fait voler depuis le titre de la scène (`HERO_LOGO_ATTRIBUTE`, invisible) vers
 sa place pendant `INTRO_BEATS.leaveEnd` (`brandFlightOf`) ; sans animation, il reste en place.
-**Barre de défilement** — `ScrollPlane` ne démarre qu'à la fin de l'animation (`ScrollService.introEnd()`).
+**Barre de défilement** — `ScrollPlane` ne démarre qu'à la fin de l'animation (`ScrollService.introEnd()`),
+et seulement à partir de `md` : un téléphone garde son propre indicateur.
 **Fond** — espace profond : `StarfieldService` dessine des étoiles en profondeur et une bande galactique,
 la caméra avance avec le défilement et suit le pointeur avec un ressort. Boucle arrêtée hors écran.
 Sans WebGL : avion SVG (`SketchService`) et planète CPU (`PlanetFallbackService`). Sous

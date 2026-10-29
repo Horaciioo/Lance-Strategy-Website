@@ -1097,7 +1097,8 @@ export const GROUP_STYLES = {
 
 export const SCROLL_PLANE_STYLES = {
   // Always shown, visible track
-  rail: 'pointer-events-none fixed inset-y-24 right-2 z-[90] w-5 transition-[opacity,visibility] duration-slow md:right-4',
+  // Desktop only, a phone keeps its own scroll indicator
+  rail: 'pointer-events-none fixed inset-y-24 right-4 z-[90] hidden w-5 transition-[opacity,visibility] duration-slow md:block',
   // Waits for the landing animation
   hidden: 'invisible opacity-0',
   track:
