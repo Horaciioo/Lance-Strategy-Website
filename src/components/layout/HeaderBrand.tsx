@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { Logo } from '@/components/elements/media/Logo'
-import { INTRO_BEATS } from '@/declarations/globe'
 import { HERO_LOGO_ATTRIBUTE } from '@/declarations/routes'
 import { LOGO_STYLES, NAVIGATION_STYLES } from '@/declarations/ui/variants'
 import { Link, usePathname } from '@/i18n/routing'
+import { IntroSceneService } from '@/services/IntroSceneService'
 import { NavigationService } from '@/services/NavigationService'
 import { ScrollService } from '@/services/ScrollService'
 import type { BrandFlight } from '@/types/brand'
@@ -23,7 +23,7 @@ const MEASURE_FRAMES = 120
 
 export const HeaderBrand = () => {
   const pathname = usePathname()
-  const { offset } = ScrollService.use()
+  const progress = IntroSceneService.use()
   const imageRef = useRef<HTMLImageElement>(null)
   // Measured per route, null without a landing title
   const [measured, setMeasured] = useState<{ path: string; flight: BrandFlight | null } | null>(
@@ -59,7 +59,6 @@ export const HeaderBrand = () => {
           dx: from.left - (bounds.left + image.offsetLeft),
           dy: from.top - (bounds.top + image.offsetTop),
           scale: from.width / image.offsetWidth,
-          travel: end * INTRO_BEATS.leaveEnd,
         },
       })
     }
@@ -74,7 +73,7 @@ export const HeaderBrand = () => {
 
   const flight = measured?.path === pathname ? measured.flight : null
   const isPending = pathname === homePath && measured?.path !== pathname
-  const placed = flight ? brandFlightOf({ flight, offset }) : null
+  const placed = flight ? brandFlightOf({ flight, progress }) : null
 
   return (
     <Link href={homePath} className={NAVIGATION_STYLES.brand}>

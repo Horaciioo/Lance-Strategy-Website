@@ -281,7 +281,7 @@ export const GLOBE_HORIZON = {
 } as const
 
 /**
- * Landing scene beats, shares of the scroll
+ * Landing scene beats, shares of the scene timeline
  * @type {Object}
  */
 
@@ -304,6 +304,18 @@ export const INTRO_BEATS = {
   sheetStart: 0.9,
   // Scroll smoothing, share per frame
   follow: 0.16,
+} as const
+
+/**
+ * Landing autoplay, the scene plays by itself up to the filled box, scroll takes over after
+ * @type {Object}
+ */
+
+export const INTRO_PLAY = {
+  // Landing title held before the take-off
+  holdMs: 1800,
+  // Landing to filled box
+  durationMs: 7000,
 } as const
 
 /**

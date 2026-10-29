@@ -48,6 +48,7 @@ export const IntroScene = ({
   const isStill = ViewportService.usePrefers('reducedMotion')
   // Flat plane when WebGL is out of reach
   const [isSketched, setIsSketched] = useState(false)
+  const sceneRef = useRef<HTMLDivElement>(null)
   const runwayRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
   const boxRef = useRef<HTMLDivElement>(null)
@@ -59,14 +60,20 @@ export const IntroScene = ({
   const globeRef = useRef<GlobeHandle | null>(null)
   const starfieldRef = useRef<StarfieldHandle | null>(null)
 
-  // Scroll choreography
+  // Landing choreography, played then scrolled
   useEffect(() => {
-    const [runway, stage, box] = [runwayRef.current, stageRef.current, boxRef.current]
+    const [scene, runway, stage, box] = [
+      sceneRef.current,
+      runwayRef.current,
+      stageRef.current,
+      boxRef.current,
+    ]
     const [plane, trail] = [sketchRefs.plane.current, sketchRefs.trail.current]
     if (isStill && stage) return IntroSceneService.still(stage, globeRef)
-    if (!runway || !stage || !box) return undefined
+    if (!scene || !runway || !stage || !box) return undefined
 
     return IntroSceneService.mount({
+      scene,
       track: runway,
       stage,
       box,
@@ -80,7 +87,7 @@ export const IntroScene = ({
 
   return (
     <>
-      <div className={INTRO_STYLES.track}>
+      <div ref={sceneRef} className={INTRO_STYLES.track}>
         <div ref={stageRef} className={INTRO_STYLES.stage}>
           <div className={INTRO_STYLES.sky} />
           <Starfield handleRef={starfieldRef} />

@@ -100,7 +100,7 @@
     }
   }
 
-  /* Scroll length of the animation, drives --intro */
+  /* Scroll left once the scene has played, slides the page over the planet */
   .intro-runway {
     height: 100svh;
     margin-top: -100svh;
@@ -157,6 +157,11 @@
     /* Same height as the pinned box */
     .bilan-dock {
       padding-top: 27svh;
+    }
+
+    /* The copy waits for the scene to finish playing */
+    .intro-track[data-playing] .bilan-dock {
+      visibility: hidden;
     }
 
     /* Holds the box spot while the sheet rises, scroll linked */
@@ -223,7 +228,7 @@
     }
 
     .intro-runway {
-      height: 640svh;
+      height: 200svh;
     }
 
     .intro-sheet {
