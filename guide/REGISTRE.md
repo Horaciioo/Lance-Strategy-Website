@@ -290,16 +290,15 @@ depuis des composants client. C'est pourquoi `ThemeService`, lu par le layout se
 
 ## 15. Design system
 
-|                       |                                       |
-| --------------------- | ------------------------------------- |
-| **Jetons**            | `src/declarations/ui/tokens.ts`       |
-| **Variantes**         | `src/declarations/ui/variants.ts`     |
-| **Icônes**            | `src/declarations/ui/icons.ts`        |
-| **Logos de marques**  | `src/declarations/ui/brandGlyphs.tsx` |
-| **Polices**           | `src/declarations/ui/fonts.ts`        |
-| **Fusion de classes** | `src/utils/classnames.ts` (`cn`)      |
+|                       |                                   |
+| --------------------- | --------------------------------- |
+| **Jetons**            | `src/declarations/ui/tokens.ts`   |
+| **Variantes**         | `src/declarations/ui/variants.ts` |
+| **Icônes**            | `src/declarations/ui/icons.ts`    |
+| **Polices**           | `src/declarations/ui/fonts.ts`    |
+| **Fusion de classes** | `src/utils/classnames.ts` (`cn`)  |
 
-`lucide-react` 1.x ne livre plus de logos de marques : les six réseaux sociaux de `ICONS` (`instagram`, `linkedin`, `facebook`, `youtube`, `github`, `x`) sont des glyphes à trait dessinés dans `brandGlyphs.tsx`.
+Les icônes viennent de Phosphor (`@phosphor-icons/react`, entrée `dist/ssr`, utilisable dans les composants serveur), logos des six réseaux sociaux compris (`instagram`, `linkedin`, `facebook`, `youtube`, `github`, `x`). Les noms suffixés (`HouseIcon`) remplacent les noms courts, dépréciés.
 
 **Registres partagés** — `TONES`, `SIZES`, `TONE_TEXT`, `TONE_SOFT`, `TONE_SOLID`, `TONE_BORDER`,
 `SURFACES` (dont `glass`, un fond glassmorphism qui s'appuie sur `.surface-glass` dans `globals.css`
@@ -532,7 +531,7 @@ yarn check:environment
 | `console`                      | `LoggerService`            |
 | `process.env`                  | `EnvironmentService`       |
 | `src/configurations/`          | `ConfigurationService`     |
-| `lucide-react`                 | `declarations/ui/icons.ts` |
+| `@phosphor-icons/react`        | `declarations/ui/icons.ts` |
 | `next/link`, `next/navigation` | `src/i18n/routing.ts`      |
 
 Quelques exceptions, assumées et vérifiées :
